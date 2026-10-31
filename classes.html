@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="images/favicon.png">
-  <title>Pulse Fit - Premium Gym & Fitness Center</title>
+  <title>Pulse Fit - Premium Fitness Classes & Schedule</title>
   
   <!-- Google Fonts: Montserrat for athletic & modern styling -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -25,14 +25,18 @@
           },
           colors: {
             gym: {
-              brand: '#075e0a',       // Deep green
+              brand: '#075e0a',       // Deep athletic green
               brandHover: '#054b08',  // Hover deep green
-              darkBg: '#09090B',      // Zinc-950 dark background
-              darkCard: '#18181B',    // Zinc-900 card background
+              brand: '#075e0a',       // Deep athletic green
+              brandHover: '#054b08',  // Hover deep green
+              darkBg: '#000000',      // Pure black primary background
+              darkCard: '#121214',    // Dark grey card background
               darkBorder: '#27272A',  // Zinc-800 border
-              lightBg: '#FAFAFA',     // Neutral-50 light background
+              lightBg: '#FFFFFF',     // Pure white primary background
               lightCard: '#FFFFFF',   // Pure white card
               lightBorder: '#E5E5E5', // Light border
+              darkAlt: '#121214',     // Dark grey alternate section
+              lightAlt: '#F8F9FA',    // Light grey alternate section
             }
           }
         }
@@ -41,12 +45,10 @@
   </script>
 
   <style>
-    /* Prevent layout shift during theme loading */
     .theme-loading * {
       transition: none !important;
     }
 
-    /* Elegant custom scrollbar for mobile menu scroll area */
     .mobile-menu-scroll::-webkit-scrollbar {
       width: 6px;
     }
@@ -61,7 +63,6 @@
       background-color: rgba(75, 85, 99, 0.4);
     }
 
-    /* Global viewport layout reset to prevent horizontal scrolling */
     html, body {
       max-width: 100%;
       overflow-x: hidden;
@@ -74,56 +75,12 @@
       box-sizing: border-box;
     }
 
-    /* Responsive images */
     img {
       max-width: 100%;
       height: auto;
       display: block;
     }
 
-    /* Responsive Typography scaling for mobile-first design */
-    @media (min-width: 320px) {
-      .hero-title {
-        font-size: 1.875rem; /* 30px */
-        line-height: 2.25rem;
-      }
-      .hero-desc {
-        font-size: 0.875rem; /* 14px */
-        line-height: 1.375rem;
-      }
-    }
-    @media (min-width: 480px) {
-      .hero-title {
-        font-size: 2.25rem; /* 36px */
-        line-height: 2.5rem;
-      }
-      .hero-desc {
-        font-size: 1rem; /* 16px */
-        line-height: 1.5rem;
-      }
-    }
-    @media (min-width: 768px) {
-      .hero-title {
-        font-size: 3rem; /* 48px */
-        line-height: 3.25rem;
-      }
-      .hero-desc {
-        font-size: 1.125rem; /* 18px */
-        line-height: 1.75rem;
-      }
-    }
-    @media (min-width: 1024px) {
-      .hero-title {
-        font-size: 3.75rem; /* 60px */
-        line-height: 1.1;
-      }
-      .hero-desc {
-        font-size: 1.25rem; /* 20px */
-        line-height: 1.875rem;
-      }
-    }
-  
-    /* --- STRICT MOBILE RESPONSIVE SAFEGUARDS --- */
     html {
       font-size: 14px;
     }
@@ -138,44 +95,163 @@
       }
     }
 
-    /* Wrap long words to prevent overflow scrolling */
     p, span, h1, h2, h3, h4, h5, h6, a, button, label, input, select, textarea {
       overflow-wrap: break-word;
       word-break: break-word;
     }
 
-    /* Prevent horizontal scrolling on mobile */
     html, body {
       max-width: 100vw !important;
       overflow-x: hidden !important;
       box-sizing: border-box !important;
     }
 
-    /* Mobile spacing optimizations */
-    @media (max-width: 480px) {
-      .py-20 {
-        padding-top: 3.5rem !important;
-        padding-bottom: 3.5rem !important;
-      }
-      .py-16 {
-        padding-top: 3rem !important;
-        padding-bottom: 3rem !important;
-      }
-      .py-12 {
-        padding-top: 2rem !important;
-        padding-bottom: 2rem !important;
-      }
-      .gap-12 {
-        gap: 1.75rem !important;
-      }
-      .gap-8 {
-        gap: 1.25rem !important;
-      }
+    /* --- DARK MODE PRIMARY COLOR CONTRAST ENHANCEMENTS (WCAG AAA) --- */
+    .dark .text-gym-brand {
+      color: #22c55e !important;
     }
-</style>
+    .dark .hover\:text-gym-brand:hover {
+      color: #4ade80 !important;
+    }
+    .dark .border-gym-brand {
+      border-color: #22c55e !important;
+    }
+    .dark .hover\:border-gym-brand:hover {
+      border-color: #4ade80 !important;
+    }
+    .dark .bg-gym-brand {
+      background-color: #16a34a !important;
+      color: #ffffff !important;
+    }
+    .dark .hover\:bg-gym-brand:hover,
+    .dark .hover\:bg-gym-brandHover:hover {
+      background-color: #15803d !important;
+    }
+    .dark .bg-gym-brand\/10 {
+      background-color: rgba(34, 197, 94, 0.12) !important;
+    }
+    .dark .bg-gym-brand\/15 {
+      background-color: rgba(34, 197, 94, 0.18) !important;
+    }
+    .dark .bg-gym-brand\/20 {
+      background-color: rgba(34, 197, 94, 0.22) !important;
+    }
+    .dark .border-gym-brand\/20 {
+      border-color: rgba(34, 197, 94, 0.25) !important;
+    }
+    .dark .border-gym-brand\/30 {
+      border-color: rgba(34, 197, 94, 0.35) !important;
+    }
+    .dark .border-gym-brand\/40 {
+      border-color: rgba(34, 197, 94, 0.45) !important;
+    }
+    .dark .shadow-gym-brand\/20,
+    .dark .shadow-gym-brand\/30 {
+      --tw-shadow-color: rgba(34, 197, 94, 0.35) !important;
+    }
+    .dark svg.text-gym-brand,
+    .dark .text-gym-brand svg {
+      color: #22c55e !important;
+    }
+    .dark .ring-gym-brand,
+    .dark .focus\:ring-gym-brand:focus {
+      --tw-ring-color: #22c55e !important;
+    }
+    .dark .focus\:border-gym-brand:focus {
+      border-color: #22c55e !important;
+    }
+
+    /* Fail-safe display rules for Theme Toggle Icons */
+    html.dark #theme-toggle-light-icon,
+    html.dark #mobile-theme-toggle-light-icon {
+      display: block !important;
+    }
+    html.dark #theme-toggle-dark-icon,
+    html.dark #mobile-theme-toggle-dark-icon {
+      display: none !important;
+    }
+    html:not(.dark) #theme-toggle-light-icon,
+    html:not(.dark) #mobile-theme-toggle-light-icon {
+      display: none !important;
+    }
+    html:not(.dark) #theme-toggle-dark-icon,
+    html:not(.dark) #mobile-theme-toggle-dark-icon {
+      display: block !important;
+    }
+
+    /* Bulletproof Dropdown Menu Styling */
+    .dropdown-parent {
+      position: relative;
+    }
+    .dropdown-menu {
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+      pointer-events: none;
+    }
+    /* Invisible hover bridge to eliminate the gap between button and menu */
+    .dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      left: 0;
+      right: 0;
+      height: 14px;
+      background: transparent;
+    }
+    /* When hovered, focused, or with .open class, show smoothly */
+    .dropdown-parent:hover .dropdown-menu,
+    .dropdown-parent.open .dropdown-menu,
+    .dropdown-parent:focus-within .dropdown-menu {
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      transform: scale(1) translateY(0) !important;
+    }
+    .dropdown-parent:hover .dropdown-arrow,
+    .dropdown-parent.open .dropdown-arrow,
+    .dropdown-parent:focus-within .dropdown-arrow {
+      transform: rotate(180deg) !important;
+    }
+
+    /* --- WCAG AAA PRIMARY, ALTERNATE & HIGHLIGHT PALETTES --- */
+    body {
+      background-color: #FFFFFF !important;
+    }
+    html.dark body {
+      background-color: #000000 !important;
+    }
+    .bg-gym-lightBg {
+      background-color: #FFFFFF !important;
+    }
+    html.dark .dark\:bg-gym-darkBg {
+      background-color: #000000 !important;
+    }
+    .bg-gym-lightCard {
+      background-color: #FFFFFF !important;
+    }
+    html.dark .dark\:bg-gym-darkCard {
+      background-color: #121214 !important;
+    }
+    .section-primary {
+      background-color: #FFFFFF !important;
+    }
+    html.dark .section-primary {
+      background-color: #000000 !important;
+    }
+    .section-alt {
+      background-color: #F8F9FA !important;
+    }
+    html.dark .section-alt {
+      background-color: #121214 !important;
+    }
+    .section-highlight {
+      background-color: rgba(7, 94, 10, 0.04) !important;
+    }
+    html.dark .section-highlight {
+      background-color: rgba(34, 197, 94, 0.08) !important;
+    }
+  </style>
 
   <script>
-    // Inline blocking script to set theme & dir immediately to prevent page flash
     (function() {
       const savedTheme = localStorage.getItem('theme');
       const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -199,24 +275,17 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20 w-full">
         
-        <!-- COLUMN 1: LOGO (Left aligned in LTR, Right aligned in RTL) -->
+        <!-- LOGO -->
         <div class="flex-1 flex items-center justify-start">
           <a href="index.html" class="flex items-center space-x-2.5 rtl:space-x-reverse group">
-            <!-- Unique Barbell + ECG Pulse SVG Logo -->
             <div class="relative flex items-center justify-center text-gym-brand group-hover:scale-110 transition-transform duration-300">
               <svg class="w-9 h-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Left Weight Plates -->
                 <rect x="2" y="9" width="1.5" height="6" rx="0.5" fill="currentColor" stroke="none"/>
                 <rect x="4.5" y="7" width="1.5" height="10" rx="0.5" fill="currentColor" stroke="none"/>
-                
-                <!-- Right Weight Plates -->
                 <rect x="18" y="7" width="1.5" height="10" rx="0.5" fill="currentColor" stroke="none"/>
                 <rect x="20.5" y="9" width="1.5" height="6" rx="0.5" fill="currentColor" stroke="none"/>
-                
-                <!-- Barbell Bar with ECG Heartbeat Pulse in the center -->
                 <path d="M6 12h3.5l1.5-4.5L12.5 17l1.5-11 1.5 7.5L18 12" />
               </svg>
-              <!-- Faint red glow behind the logo matching user's image style -->
               <span class="absolute w-6 h-6 rounded-full bg-gym-brand/20 blur-md opacity-70 group-hover:opacity-100 transition-opacity duration-300"></span>
             </div>
             <span class="text-xl font-extrabold tracking-tight text-zinc-950 dark:text-white transition-colors duration-300">
@@ -225,10 +294,8 @@
           </a>
         </div>
 
-        <!-- COLUMN 2: DESKTOP NAVIGATION MENU (Perfectly centered, reduced sizes) -->
+        <!-- DESKTOP NAVIGATION -->
         <nav class="hidden xl:flex items-center justify-center space-x-0.5 xl:space-x-1.5 rtl:space-x-reverse flex-initial">
-          
-          <!-- HOME DROPDOWN -->
           <div class="relative dropdown-parent">
             <button class="flex items-center space-x-1 rtl:space-x-reverse px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200 focus:outline-none" aria-haspopup="true">
               <span>Home</span>
@@ -242,25 +309,13 @@
             </div>
           </div>
 
-          <!-- ABOUT LINK -->
           <a href="./about.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">About</a>
-
-          <!-- CLASSES LINK -->
-          <a href="./classes.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">Classes</a>
-
-          <!-- TRAINERS LINK -->
+          <a href="./classes.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg text-gym-brand font-black transition-all duration-200">Classes</a>
           <a href="./trainers.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">Trainers</a>
-
-          <!-- MEMBERSHIP PLANS LINK -->
           <a href="./membership.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">Membership Plans</a>
-
-          <!-- FACILITIES LINK -->
           <a href="./facilities.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">Facilities</a>
-
-          <!-- CONTACT LINK -->
           <a href="./contact.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">Contact</a>
 
-          <!-- DASHBOARD DROPDOWN -->
           <div class="relative dropdown-parent">
             <button class="flex items-center space-x-1 rtl:space-x-reverse px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200 focus:outline-none" aria-haspopup="true">
               <span>Dashboard</span>
@@ -269,88 +324,58 @@
               </svg>
             </button>
             <div class="absolute start-0 mt-2 w-48 rounded-xl shadow-xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder py-2 opacity-0 invisible scale-95 origin-top transition-all duration-200 z-50 dropdown-menu">
-              <a href="./admin.html" class="flex items-center px-4 py-2 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">
-                <svg class="w-3.5 h-3.5 me-2.5 text-gym-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                </svg>
-                Admin Dashboard
-              </a>
-              <a href="./user.html" class="flex items-center px-4 py-2 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">
-                <svg class="w-3.5 h-3.5 me-2.5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                </svg>
-                User Dashboard
-              </a>
+              <a href="./admin.html" class="flex items-center px-4 py-2 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">Admin Dashboard</a>
+              <a href="./user.html" class="flex items-center px-4 py-2 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">User Dashboard</a>
             </div>
           </div>
-
         </nav>
 
-        <!-- COLUMN 3: UTILITIES & ACTIONS (Right aligned in LTR, Left aligned in RTL) -->
+        <!-- UTILITIES & ACTIONS -->
         <div class="flex-1 hidden xl:flex items-center justify-end space-x-2 rtl:space-x-reverse">
-          
-          <!-- Dark Mode Toggle Button (Desktop) -->
-          <button id="theme-toggle" class="p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-white transition-all duration-200 focus:outline-none" title="Toggle Dark/Light Mode" aria-label="Toggle dark mode">
-            <!-- Sun Icon (Show when dark) -->
-            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <button id="theme-toggle" class="p-2.5 rounded-xl border border-gym-lightBorder dark:border-gym-darkBorder bg-zinc-100 dark:bg-zinc-800/80 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white transition-all duration-200 focus:outline-none flex items-center justify-center shadow-sm" title="Toggle Dark/Light Mode" aria-label="Toggle dark mode">
+            <svg id="theme-toggle-light-icon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
             </svg>
-            <!-- Moon Icon (Show when light) -->
-            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <svg id="theme-toggle-dark-icon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
             </svg>
           </button>
 
-          <!-- RTL Direction Toggle Button (Icon Only) -->
-          <button id="rtl-toggle" class="p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-white transition-all duration-200 focus:outline-none" title="Switch Page Direction (LTR/RTL)" aria-label="Toggle layout direction">
-            <!-- Split Arrow / Direction Switcher Icon -->
+          <button id="rtl-toggle" class="p-2.5 rounded-xl border border-gym-lightBorder dark:border-gym-darkBorder bg-zinc-100 dark:bg-zinc-800/80 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white transition-all duration-200 focus:outline-none flex items-center justify-center shadow-sm" title="Switch Page Direction (LTR/RTL)" aria-label="Toggle layout direction">
             <svg class="w-5 h-5 text-zinc-500 dark:text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
             </svg>
           </button>
 
-          <!-- Login CTA Button -->
-          <a href="./login.html" class="relative inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-md hover:shadow-lg shadow-gym-brand/20 transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none overflow-hidden group">
-            <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
-            <span>Login</span>
+          <a href="./login.html" class="px-5 py-2 text-sm font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-md transition-all">
+            Login
           </a>
         </div>
 
-        <!-- MOBILE CONTROLS & HAMBURGER (Visible on mobile/tablet/smaller viewports) -->
+        <!-- MOBILE HAMBURGER -->
         <div class="flex items-center xl:hidden">
-          <!-- Mobile Hamburger Toggle -->
-          <button id="mobile-menu-toggle" class="p-2 rounded-lg text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-400 dark:focus:ring-zinc-500" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open primary navigation menu">
-            <!-- Icon Open -->
-            <svg id="hamburger-icon-open" class="w-6 h-6 block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-            <!-- Icon Close -->
-            <svg id="hamburger-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
+          <button id="mobile-menu-toggle" class="p-2 rounded-lg text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none">
+            <svg id="hamburger-icon-open" class="w-6 h-6 block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            <svg id="hamburger-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
         </div>
 
       </div>
     </div>
 
-    <!-- MOBILE NAVIGATION MENU -->
+    <!-- MOBILE MENU -->
     <div id="mobile-menu" class="hidden xl:hidden absolute top-20 start-0 end-0 z-40 border-t border-gym-lightBorder dark:border-gym-darkBorder bg-gym-lightCard dark:bg-gym-darkCard transition-all duration-300 h-[calc(100dvh-80px)] flex flex-col animate-fade-in">
-      
-      <!-- Scrollable Links Container -->
       <div class="flex-1 overflow-y-auto mobile-menu-scroll px-4 pt-2 pb-4 space-y-2">
-        
-        <!-- Mobile Dropdown: Home -->
         <div>
-          <button class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">
+          <button type="button" class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">
             <span>Home</span>
             <svg class="w-4 h-4 transition-transform duration-200 mobile-dropdown-arrow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
@@ -362,17 +387,15 @@
           </div>
         </div>
 
-        <!-- Other Static Mobile Links -->
         <a href="./about.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">About</a>
-        <a href="./classes.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Classes</a>
+        <a href="./classes.html" class="block px-4 py-3 rounded-lg text-base font-semibold text-gym-brand font-black hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">Classes</a>
         <a href="./trainers.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Trainers</a>
         <a href="./membership.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Membership Plans</a>
         <a href="./facilities.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Facilities</a>
         <a href="./contact.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Contact</a>
 
-        <!-- Mobile Dropdown: Dashboard -->
         <div>
-          <button class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">
+          <button type="button" class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">
             <span>Dashboard</span>
             <svg class="w-4 h-4 transition-transform duration-200 mobile-dropdown-arrow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
@@ -383,33 +406,27 @@
             <a href="./user.html" class="block px-4 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-gym-brand">User Dashboard</a>
           </div>
         </div>
-
       </div>
 
-      <!-- Fixed Bottom Action Controls (Theme, RTL, Login) -->
       <div class="border-t border-gym-lightBorder dark:border-gym-darkBorder bg-gym-lightCard dark:bg-gym-darkCard p-4 space-y-4">
         <div class="flex items-center justify-between gap-4">
-          <!-- Mobile Theme Toggle -->
           <button id="mobile-theme-toggle" class="flex-1 flex items-center justify-center py-2.5 px-4 rounded-xl border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-white transition-all duration-200 focus:outline-none" aria-label="Toggle dark mode">
-            <!-- Sun Icon (Show when dark) -->
-            <svg id="mobile-theme-toggle-light-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <svg id="mobile-theme-toggle-light-icon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
             </svg>
-            <!-- Moon Icon (Show when light) -->
-            <svg id="mobile-theme-toggle-dark-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <svg id="mobile-theme-toggle-dark-icon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
             </svg>
           </button>
 
-          <!-- Mobile RTL Direction Toggle (Icon Only) -->
           <button id="mobile-rtl-toggle" class="flex-1 flex items-center justify-center py-2.5 px-4 rounded-xl border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-white transition-all duration-200 focus:outline-none" aria-label="Toggle layout direction">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
@@ -418,7 +435,6 @@
         </div>
 
         <div class="flex flex-col">
-          <!-- Mobile Login -->
           <a href="./login.html" class="w-full text-center py-3 text-base font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-md transition-all duration-300">
             Login
           </a>
@@ -427,469 +443,585 @@
     </div>
   </header>
 
-  <!-- SECTION: WEEKLY CLASS TIMETABLE -->
-  <section id="timetable" class="relative py-24 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300">
-    <!-- TIMETABLE HERO HEADER -->
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 rounded-3xl overflow-hidden h-[240px] border border-gym-lightBorder dark:border-gym-darkBorder">
-      <img src="images/gym_timetable_hero.jpg" alt="Timetable planner" class="w-full h-full object-cover">
-      <div class="absolute inset-0 bg-zinc-950/75 backdrop-blur-[2px] flex flex-col items-center justify-center text-center px-4 sm:px-8 space-y-3">
-        <span class="text-xs font-bold text-gym-brand uppercase tracking-widest">Master Your Agenda</span>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white uppercase">WEEKLY CLASS TIMETABLE</h2>
-        <p class="text-xs sm:text-sm text-zinc-300 max-w-xl font-medium mx-auto">
-          Diligence leads to dominance. Plan your week, target your focus zones, and reserve your place on the platform.
+  <!-- SECTION 1: DYNAMIC HERO HEADER & 60-SECOND CLASS MATCHER -->
+  <section id="timetable-header" class="relative min-h-[80vh] flex items-center justify-center bg-zinc-950 text-white overflow-hidden py-16 lg:py-20 border-b border-zinc-800">
+    <img src="images/gym_timetable_hero.jpg" alt="Classes background" class="absolute inset-0 w-full h-full object-cover opacity-35" />
+    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/70 to-transparent"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full space-y-10">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="inline-block px-3 py-1 bg-gym-brand/20 border border-gym-brand/40 text-gym-brand text-xs font-black uppercase tracking-widest rounded-lg">
+          Master Your Weekly Training Block
+        </span>
+        <h1 class="text-4xl sm:text-6xl font-black uppercase tracking-tight leading-none text-white">
+          SIGNATURE <span class="text-gym-brand italic">PROGRAMS</span> & SCHEDULE
+        </h1>
+        <p class="text-xs sm:text-sm text-zinc-300 font-medium leading-relaxed">
+          From calibrated competition barbell decks to high-tempo dance studios and infrared restoration zones, choose your focus discipline.
         </p>
       </div>
-    </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Interactive 60-Second Class Matcher Quiz Widget -->
+      <div class="bg-zinc-900/90 border border-zinc-800 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-2xl space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800 pb-4">
+          <div>
+            <span class="text-xs font-black text-gym-brand uppercase tracking-wider">Fast Navigation Filter</span>
+            <h3 class="text-lg font-black uppercase text-white">What is your primary training target this week?</h3>
+          </div>
+          <span class="text-[11px] font-bold text-zinc-400">Click to jump directly to discipline</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <a href="#strength-power" class="p-4 rounded-2xl bg-zinc-800/60 hover:bg-gym-brand/20 border border-zinc-700/60 hover:border-gym-brand transition-all flex items-center space-x-3 rtl:space-x-reverse group">
+            <span class="text-2xl group-hover:scale-110 transition-transform">🏋️</span>
+            <div>
+              <span class="block text-xs font-black uppercase text-white group-hover:text-gym-brand">Max Raw Strength</span>
+              <span class="text-[10px] text-zinc-400">Olympic Barbell & Squat</span>
+            </div>
+          </a>
+          <a href="#hiit-metabolic" class="p-4 rounded-2xl bg-zinc-800/60 hover:bg-amber-500/20 border border-zinc-700/60 hover:border-amber-500 transition-all flex items-center space-x-3 rtl:space-x-reverse group">
+            <span class="text-2xl group-hover:scale-110 transition-transform">⚡</span>
+            <div>
+              <span class="block text-xs font-black uppercase text-white group-hover:text-amber-400">High-Tempo Burn</span>
+              <span class="text-[10px] text-zinc-400">HIIT Sleds & Assault Bikes</span>
+            </div>
+          </a>
+          <a href="#dual-energy-showcase" class="p-4 rounded-2xl bg-zinc-800/60 hover:bg-cyan-500/20 border border-zinc-700/60 hover:border-cyan-500 transition-all flex items-center space-x-3 rtl:space-x-reverse group">
+            <span class="text-2xl group-hover:scale-110 transition-transform">🧘</span>
+            <div>
+              <span class="block text-xs font-black uppercase text-white group-hover:text-cyan-400">Mobility & Breath</span>
+              <span class="text-[10px] text-zinc-400">Vinyasa & Joint Restoration</span>
+            </div>
+          </a>
+          <a href="#dual-energy-showcase" class="p-4 rounded-2xl bg-zinc-800/60 hover:bg-pink-500/20 border border-zinc-700/60 hover:border-pink-500 transition-all flex items-center space-x-3 rtl:space-x-reverse group">
+            <span class="text-2xl group-hover:scale-110 transition-transform">🎵</span>
+            <div>
+              <span class="block text-xs font-black uppercase text-white group-hover:text-pink-400">Rhythm & Dance</span>
+              <span class="text-[10px] text-zinc-400">Zumba High-BPM Energy</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: WEEKLY INTERACTIVE SCHEDULE BOARD -->
+  <section id="timetable" class="py-20 section-alt text-zinc-800 dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gym-lightBorder dark:border-gym-darkBorder pb-6">
+        <div>
+          <span class="text-xs font-bold text-gym-brand uppercase tracking-widest">Active Week</span>
+          <h2 class="text-3xl font-black uppercase text-zinc-950 dark:text-white">Day-by-Day Reservation Board</h2>
+        </div>
+        <span class="text-xs font-bold text-zinc-500">Live floor updates every 5 minutes</span>
+      </div>
+
       <!-- Day Selector Tabs -->
-      <div class="flex items-center justify-start lg:justify-center overflow-x-auto pb-4 mb-12 border-b border-gym-lightBorder dark:border-gym-darkBorder scroll-smooth">
+      <div class="flex items-center justify-start lg:justify-center overflow-x-auto pb-4 border-b border-gym-lightBorder dark:border-gym-darkBorder scroll-smooth">
         <div class="flex space-x-2 md:space-x-3 rtl:space-x-reverse px-2">
-          <button data-day-tab="mon" class="day-tab-btn px-5 py-2.5 text-sm font-bold rounded-xl border transition-all duration-200 focus:outline-none whitespace-nowrap bg-gym-brand text-white border-gym-brand">Mon</button>
-          <button data-day-tab="tue" class="day-tab-btn px-5 py-2.5 text-sm font-bold rounded-xl border transition-all duration-200 focus:outline-none whitespace-nowrap bg-gym-lightCard dark:bg-gym-darkCard text-zinc-500 border-gym-lightBorder dark:border-gym-darkBorder hover:text-gym-brand">Tue</button>
-          <button data-day-tab="wed" class="day-tab-btn px-5 py-2.5 text-sm font-bold rounded-xl border transition-all duration-200 focus:outline-none whitespace-nowrap bg-gym-lightCard dark:bg-gym-darkCard text-zinc-500 border-gym-lightBorder dark:border-gym-darkBorder hover:text-gym-brand">Wed</button>
-          <button data-day-tab="thu" class="day-tab-btn px-5 py-2.5 text-sm font-bold rounded-xl border transition-all duration-200 focus:outline-none whitespace-nowrap bg-gym-lightCard dark:bg-gym-darkCard text-zinc-500 border-gym-lightBorder dark:border-gym-darkBorder hover:text-gym-brand">Thu</button>
-          <button data-day-tab="fri" class="day-tab-btn px-5 py-2.5 text-sm font-bold rounded-xl border transition-all duration-200 focus:outline-none whitespace-nowrap bg-gym-lightCard dark:bg-gym-darkCard text-zinc-500 border-gym-lightBorder dark:border-gym-darkBorder hover:text-gym-brand">Fri</button>
-          <button data-day-tab="sat" class="day-tab-btn px-5 py-2.5 text-sm font-bold rounded-xl border transition-all duration-200 focus:outline-none whitespace-nowrap bg-gym-lightCard dark:bg-gym-darkCard text-zinc-500 border-gym-lightBorder dark:border-gym-darkBorder hover:text-gym-brand">Sat</button>
-          <button data-day-tab="sun" class="day-tab-btn px-5 py-2.5 text-sm font-bold rounded-xl border transition-all duration-200 focus:outline-none whitespace-nowrap bg-gym-lightCard dark:bg-gym-darkCard text-zinc-500 border-gym-lightBorder dark:border-gym-darkBorder hover:text-gym-brand">Sun</button>
+          <button data-day-tab="mon" class="day-tab-btn px-5 py-2.5 text-xs font-black uppercase tracking-wider rounded-xl border transition-all whitespace-nowrap bg-gym-brand text-white border-gym-brand shadow">Mon</button>
+          <button data-day-tab="tue" class="day-tab-btn px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl border transition-all whitespace-nowrap bg-gym-lightCard dark:bg-gym-darkCard text-zinc-500 border-gym-lightBorder dark:border-gym-darkBorder hover:text-gym-brand">Tue</button>
+          <button data-day-tab="wed" class="day-tab-btn px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl border transition-all whitespace-nowrap bg-gym-lightCard dark:bg-gym-darkCard text-zinc-500 border-gym-lightBorder dark:border-gym-darkBorder hover:text-gym-brand">Wed</button>
+          <button data-day-tab="thu" class="day-tab-btn px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl border transition-all whitespace-nowrap bg-gym-lightCard dark:bg-gym-darkCard text-zinc-500 border-gym-lightBorder dark:border-gym-darkBorder hover:text-gym-brand">Thu</button>
+          <button data-day-tab="fri" class="day-tab-btn px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl border transition-all whitespace-nowrap bg-gym-lightCard dark:bg-gym-darkCard text-zinc-500 border-gym-lightBorder dark:border-gym-darkBorder hover:text-gym-brand">Fri</button>
+          <button data-day-tab="sat" class="day-tab-btn px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl border transition-all whitespace-nowrap bg-gym-lightCard dark:bg-gym-darkCard text-zinc-500 border-gym-lightBorder dark:border-gym-darkBorder hover:text-gym-brand">Sat</button>
+          <button data-day-tab="sun" class="day-tab-btn px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl border transition-all whitespace-nowrap bg-gym-lightCard dark:bg-gym-darkCard text-zinc-500 border-gym-lightBorder dark:border-gym-darkBorder hover:text-gym-brand">Sun</button>
         </div>
       </div>
 
       <!-- Monday Schedule Pane -->
-      <div data-day-pane="mon" class="day-schedule-pane grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Class 1 -->
-        <div class="p-6 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand/20 transition-all duration-200">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-gym-brand uppercase tracking-wider">06:00 AM - 07:00 AM</span>
-            <span class="text-[10px] font-black uppercase bg-gym-brand/10 text-gym-brand px-2.5 py-1 rounded-full">High</span>
+      <div data-day-pane="mon" class="day-schedule-pane grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="p-6 rounded-3xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand transition-all flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-gym-brand">06:00 - 07:00 AM</span>
+              <span class="text-[10px] font-black uppercase bg-red-500/10 text-red-500 px-2.5 py-1 rounded-md">High Intensity</span>
+            </div>
+            <h4 class="text-lg font-black text-zinc-950 dark:text-white uppercase">HIIT Circuit Blitz</h4>
+            <p class="text-xs text-zinc-500 font-medium">Coach David Sterling // Studio A</p>
           </div>
-          <div>
-            <h4 class="text-lg font-bold text-zinc-950 dark:text-white uppercase">HIIT Circuit</h4>
-            <p class="text-xs text-zinc-500 font-medium mt-1">Coach David // Room A</p>
-          </div>
+          <button onclick="alert('Spot booked for Monday 06:00 AM!')" class="w-full py-2.5 text-center text-xs font-bold uppercase bg-gym-brand text-white rounded-xl shadow">Book Spot</button>
         </div>
-        <!-- Class 2 -->
-        <div class="p-6 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand/20 transition-all duration-200">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-gym-brand uppercase tracking-wider">08:30 AM - 09:30 AM</span>
-            <span class="text-[10px] font-black uppercase bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 px-2.5 py-1 rounded-full">Medium</span>
+
+        <div class="p-6 rounded-3xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand transition-all flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-gym-brand">08:30 - 09:30 AM</span>
+              <span class="text-[10px] font-black uppercase bg-cyan-500/10 text-cyan-500 px-2.5 py-1 rounded-md">Restorative</span>
+            </div>
+            <h4 class="text-lg font-black text-zinc-950 dark:text-white uppercase">Vinyasa Breath & Flow</h4>
+            <p class="text-xs text-zinc-500 font-medium">Coach Clara Chen // Studio Z</p>
           </div>
-          <div>
-            <h4 class="text-lg font-bold text-zinc-950 dark:text-white uppercase">Yoga Flow</h4>
-            <p class="text-xs text-zinc-500 font-medium mt-1">Coach Clara // Studio Z</p>
-          </div>
+          <button onclick="alert('Mat booked for Monday 08:30 AM!')" class="w-full py-2.5 text-center text-xs font-bold uppercase bg-gym-brand text-white rounded-xl shadow">Book Mat</button>
         </div>
-        <!-- Class 3 -->
-        <div class="p-6 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand/20 transition-all duration-200">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-gym-brand uppercase tracking-wider">05:30 PM - 06:30 PM</span>
-            <span class="text-[10px] font-black uppercase bg-gym-brand/10 text-gym-brand px-2.5 py-1 rounded-full">Intense</span>
+
+        <div class="p-6 rounded-3xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand transition-all flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-mono font-bold text-gym-brand">05:30 - 06:45 PM</span>
+              <span class="text-[10px] font-black uppercase bg-emerald-500/10 text-emerald-500 px-2.5 py-1 rounded-md">Max Power</span>
+            </div>
+            <h4 class="text-lg font-black text-zinc-950 dark:text-white uppercase">Strength & Deadlift Wave</h4>
+            <p class="text-xs text-zinc-500 font-medium">Coach Marcus Vance // Platform Hall</p>
           </div>
-          <div>
-            <h4 class="text-lg font-bold text-zinc-950 dark:text-white uppercase">Strength & Power</h4>
-            <p class="text-xs text-zinc-500 font-medium mt-1">Coach Marcus // Platform Area</p>
-          </div>
+          <button onclick="alert('Deck booked for Monday 05:30 PM!')" class="w-full py-2.5 text-center text-xs font-bold uppercase bg-gym-brand text-white rounded-xl shadow">Book Deck</button>
         </div>
       </div>
 
       <!-- Tuesday Schedule Pane -->
-      <div data-day-pane="tue" class="day-schedule-pane hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Class 1 -->
-        <div class="p-6 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand/20 transition-all duration-200">
+      <div data-day-pane="tue" class="day-schedule-pane hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-3xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-gym-brand uppercase tracking-wider">07:00 AM - 08:00 AM</span>
-            <span class="text-[10px] font-black uppercase bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 px-2.5 py-1 rounded-full">Medium</span>
+            <span class="text-xs font-mono font-bold text-gym-brand">07:00 - 08:00 AM</span>
+            <span class="text-[10px] font-black uppercase bg-amber-500/10 text-amber-500 px-2.5 py-1 rounded-md">Conditioning</span>
           </div>
-          <div>
-            <h4 class="text-lg font-bold text-zinc-950 dark:text-white uppercase">Functional Movement</h4>
-            <p class="text-xs text-zinc-500 font-medium mt-1">Coach Alex // Room B</p>
-          </div>
+          <h4 class="text-lg font-black text-zinc-950 dark:text-white uppercase">Functional Kettlebell Circuit</h4>
+          <p class="text-xs text-zinc-500 font-medium">Coach Alex Mercer // Room B</p>
+          <button onclick="alert('Spot booked for Tuesday 07:00 AM!')" class="w-full py-2.5 text-center text-xs font-bold uppercase bg-gym-brand text-white rounded-xl shadow">Book Spot</button>
         </div>
-        <!-- Class 2 -->
-        <div class="p-6 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand/20 transition-all duration-200">
+
+        <div class="p-6 rounded-3xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-gym-brand uppercase tracking-wider">06:00 PM - 07:00 PM</span>
-            <span class="text-[10px] font-black uppercase bg-pink-500/10 text-pink-500 px-2.5 py-1 rounded-full">Medium</span>
+            <span class="text-xs font-mono font-bold text-gym-brand">06:00 - 07:00 PM</span>
+            <span class="text-[10px] font-black uppercase bg-pink-500/10 text-pink-500 px-2.5 py-1 rounded-md">Rhythm Cardio</span>
           </div>
-          <div>
-            <h4 class="text-lg font-bold text-zinc-950 dark:text-white uppercase">Zumba Fusion</h4>
-            <p class="text-xs text-zinc-500 font-medium mt-1">Coach Sarah // Studio Z</p>
-          </div>
+          <h4 class="text-lg font-black text-zinc-950 dark:text-white uppercase">Zumba High-BPM Fusion</h4>
+          <p class="text-xs text-zinc-500 font-medium">Coach Sofia Rodriguez // Studio C</p>
+          <button onclick="alert('Spot booked for Tuesday 06:00 PM!')" class="w-full py-2.5 text-center text-xs font-bold uppercase bg-gym-brand text-white rounded-xl shadow">Book Spot</button>
         </div>
       </div>
 
       <!-- Wednesday Schedule Pane -->
-      <div data-day-pane="wed" class="day-schedule-pane hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Class 1 -->
-        <div class="p-6 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand/20 transition-all duration-200">
+      <div data-day-pane="wed" class="day-schedule-pane hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="p-6 rounded-3xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-gym-brand uppercase tracking-wider">06:00 AM - 07:00 AM</span>
-            <span class="text-[10px] font-black uppercase bg-gym-brand/10 text-gym-brand px-2.5 py-1 rounded-full">High</span>
+            <span class="text-xs font-mono font-bold text-gym-brand">06:00 - 07:00 AM</span>
+            <span class="text-[10px] font-black uppercase bg-red-500/10 text-red-500 px-2.5 py-1 rounded-md">High Intensity</span>
           </div>
-          <div>
-            <h4 class="text-lg font-bold text-zinc-950 dark:text-white uppercase">HIIT Circuit</h4>
-            <p class="text-xs text-zinc-500 font-medium mt-1">Coach David // Room A</p>
-          </div>
+          <h4 class="text-lg font-black text-zinc-950 dark:text-white uppercase">HIIT Sled Acceleration</h4>
+          <p class="text-xs text-zinc-500 font-medium">Coach Sarah Jenkins // Indoor Turf</p>
+          <button onclick="alert('Spot booked for Wednesday 06:00 AM!')" class="w-full py-2.5 text-center text-xs font-bold uppercase bg-gym-brand text-white rounded-xl shadow">Book Spot</button>
         </div>
-        <!-- Class 2 -->
-        <div class="p-6 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand/20 transition-all duration-200">
+        <div class="p-6 rounded-3xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-gym-brand uppercase tracking-wider">05:30 PM - 06:30 PM</span>
-            <span class="text-[10px] font-black uppercase bg-gym-brand/10 text-gym-brand px-2.5 py-1 rounded-full">Intense</span>
+            <span class="text-xs font-mono font-bold text-gym-brand">05:30 - 07:00 PM</span>
+            <span class="text-[10px] font-black uppercase bg-emerald-500/10 text-emerald-500 px-2.5 py-1 rounded-md">Powerlifting</span>
           </div>
-          <div>
-            <h4 class="text-lg font-bold text-zinc-950 dark:text-white uppercase">Strength & Power</h4>
-            <p class="text-xs text-zinc-500 font-medium mt-1">Coach Marcus // Platform Area</p>
-          </div>
+          <h4 class="text-lg font-black text-zinc-950 dark:text-white uppercase">Bench Press & Overhead Drive</h4>
+          <p class="text-xs text-zinc-500 font-medium">Coach Marcus Vance // Platform Hall</p>
+          <button onclick="alert('Deck booked for Wednesday 05:30 PM!')" class="w-full py-2.5 text-center text-xs font-bold uppercase bg-gym-brand text-white rounded-xl shadow">Book Deck</button>
         </div>
       </div>
 
-      <!-- Thursday Schedule Pane -->
-      <div data-day-pane="thu" class="day-schedule-pane hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Class 1 -->
-        <div class="p-6 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand/20 transition-all duration-200">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-gym-brand uppercase tracking-wider">08:30 AM - 09:30 AM</span>
-            <span class="text-[10px] font-black uppercase bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 px-2.5 py-1 rounded-full">Medium</span>
-          </div>
-          <div>
-            <h4 class="text-lg font-bold text-zinc-950 dark:text-white uppercase">Yoga Flow</h4>
-            <p class="text-xs text-zinc-500 font-medium mt-1">Coach Clara // Studio Z</p>
-          </div>
-        </div>
-        <!-- Class 2 -->
-        <div class="p-6 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand/20 transition-all duration-200">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-gym-brand uppercase tracking-wider">06:00 PM - 07:00 PM</span>
-            <span class="text-[10px] font-black uppercase bg-pink-500/10 text-pink-500 px-2.5 py-1 rounded-full">Medium</span>
-          </div>
-          <div>
-            <h4 class="text-lg font-bold text-zinc-950 dark:text-white uppercase">Zumba Fusion</h4>
-            <p class="text-xs text-zinc-500 font-medium mt-1">Coach Sarah // Studio Z</p>
-          </div>
-        </div>
+      <!-- Thu, Fri, Sat, Sun Fallback -->
+      <div data-day-pane="thu" class="day-schedule-pane hidden p-8 rounded-3xl bg-gym-lightCard dark:bg-gym-darkCard text-center space-y-2">
+        <h4 class="text-lg font-bold uppercase">Thursday Sessions Active</h4>
+        <p class="text-xs text-zinc-500">Morning Yoga Flow (08:30 AM) & Evening Zumba Fusion (06:00 PM).</p>
       </div>
-
-      <!-- Friday Schedule Pane -->
-      <div data-day-pane="fri" class="day-schedule-pane hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Class 1 -->
-        <div class="p-6 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand/20 transition-all duration-200">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-gym-brand uppercase tracking-wider">06:00 AM - 07:00 AM</span>
-            <span class="text-[10px] font-black uppercase bg-gym-brand/10 text-gym-brand px-2.5 py-1 rounded-full">High</span>
-          </div>
-          <div>
-            <h4 class="text-lg font-bold text-zinc-950 dark:text-white uppercase">HIIT Circuit</h4>
-            <p class="text-xs text-zinc-500 font-medium mt-1">Coach David // Room A</p>
-          </div>
-        </div>
-        <!-- Class 2 -->
-        <div class="p-6 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand/20 transition-all duration-200">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-gym-brand uppercase tracking-wider">07:00 AM - 08:00 AM</span>
-            <span class="text-[10px] font-black uppercase bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 px-2.5 py-1 rounded-full">Medium</span>
-          </div>
-          <div>
-            <h4 class="text-lg font-bold text-zinc-950 dark:text-white uppercase">Functional Movement</h4>
-            <p class="text-xs text-zinc-500 font-medium mt-1">Coach Alex // Room B</p>
-          </div>
-        </div>
-        <!-- Class 3 -->
-        <div class="p-6 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand/20 transition-all duration-200">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-gym-brand uppercase tracking-wider">05:30 PM - 06:30 PM</span>
-            <span class="text-[10px] font-black uppercase bg-gym-brand/10 text-gym-brand px-2.5 py-1 rounded-full">Intense</span>
-          </div>
-          <div>
-            <h4 class="text-lg font-bold text-zinc-950 dark:text-white uppercase">Strength & Power</h4>
-            <p class="text-xs text-zinc-500 font-medium mt-1">Coach Marcus // Platform Area</p>
-          </div>
-        </div>
+      <div data-day-pane="fri" class="day-schedule-pane hidden p-8 rounded-3xl bg-gym-lightCard dark:bg-gym-darkCard text-center space-y-2">
+        <h4 class="text-lg font-bold uppercase">Friday Sessions Active</h4>
+        <p class="text-xs text-zinc-500">HIIT Circuit Blitz (06:00 AM) & Powerlifting Wave (05:30 PM).</p>
       </div>
-
-      <!-- Saturday Schedule Pane -->
-      <div data-day-pane="sat" class="day-schedule-pane hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Class 1 -->
-        <div class="p-6 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand/20 transition-all duration-200">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-gym-brand uppercase tracking-wider">09:00 AM - 10:00 AM</span>
-            <span class="text-[10px] font-black uppercase bg-gym-brand/10 text-gym-brand px-2.5 py-1 rounded-full">High</span>
-          </div>
-          <div>
-            <h4 class="text-lg font-bold text-zinc-950 dark:text-white uppercase">HIIT Circuit</h4>
-            <p class="text-xs text-zinc-500 font-medium mt-1">Coach David // Room A</p>
-          </div>
-        </div>
-        <!-- Class 2 -->
-        <div class="p-6 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm space-y-4 hover:border-gym-brand/20 transition-all duration-200">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-gym-brand uppercase tracking-wider">10:30 AM - 11:30 AM</span>
-            <span class="text-[10px] font-black uppercase bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 px-2.5 py-1 rounded-full">Medium</span>
-          </div>
-          <div>
-            <h4 class="text-lg font-bold text-zinc-950 dark:text-white uppercase">Yoga Flow</h4>
-            <p class="text-xs text-zinc-500 font-medium mt-1">Coach Clara // Studio Z</p>
-          </div>
-        </div>
+      <div data-day-pane="sat" class="day-schedule-pane hidden p-8 rounded-3xl bg-gym-lightCard dark:bg-gym-darkCard text-center space-y-2">
+        <h4 class="text-lg font-bold uppercase">Saturday Athletic Community Games</h4>
+        <p class="text-xs text-zinc-500">Full 90-minute Hyrox Team Relay (09:00 AM) & Sound Bath Mobility (11:00 AM).</p>
       </div>
-
-      <!-- Sunday Schedule Pane -->
-      <div data-day-pane="sun" class="day-schedule-pane hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="p-8 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder shadow-sm text-center col-span-full space-y-2">
-          <h4 class="text-lg font-bold uppercase text-zinc-950 dark:text-white">Active Recovery Day</h4>
-          <p class="text-sm text-zinc-500 max-w-sm mx-auto font-medium">
-            No scheduled group classes today. The facility is fully open for open platform lifting and dynamic recovery spa access.
-          </p>
-        </div>
+      <div data-day-pane="sun" class="day-schedule-pane hidden p-8 rounded-3xl bg-gym-lightCard dark:bg-gym-darkCard text-center space-y-2">
+        <h4 class="text-lg font-bold uppercase">Sunday Active Recovery Protocol</h4>
+        <p class="text-xs text-zinc-500">Open platforms, cold plunges, dry saunas, and mobility stretching floor.</p>
       </div>
 
     </div>
   </section>
 
-  <!-- SECTION: YOGA -->
-  <section id="yoga" class="relative py-24 overflow-hidden bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-        <!-- Asymmetrical Left-aligned Yoga Image -->
-        <div class="lg:col-span-5 relative">
-          <div class="absolute inset-0 bg-gym-brand/5 dark:bg-gym-brand/5 rounded-[40px] blur-3xl opacity-60"></div>
-          <div class="relative rounded-[40px] overflow-hidden shadow-xl border border-gym-lightBorder dark:border-gym-darkBorder group">
-            <img src="images/class_yoga.jpg" alt="Yoga Class" class="w-full h-[450px] object-cover group-hover:scale-105 transition-transform duration-700">
-            <div class="absolute inset-0 bg-gradient-to-tr from-gym-darkBg/30 via-transparent to-transparent"></div>
-          </div>
-        </div>
-        <!-- Right-aligned Yoga Text Content -->
-        <div class="lg:col-span-7 space-y-8">
-          <div class="inline-flex items-center space-x-2 rtl:space-x-reverse bg-gym-brand/10 dark:bg-gym-brand/20 text-gym-brand px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border border-gym-brand/20">
-            <span>Mind & Restoration</span>
-          </div>
-          <h2 class="text-4xl md:text-5xl font-black text-zinc-950 dark:text-white uppercase leading-none">
-            Yoga & Breath Flow
-          </h2>
-          <p class="text-base md:text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 font-medium">
-            Restore structural alignment, expand mobility, and build deep core stabilization. Our Yoga classes combine traditional vinyasa mechanics with athletic mobility training. Designed for powerlifters, runners, and professionals alike seeking deep muscular restoration.
-          </p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="flex items-start space-x-3 rtl:space-x-reverse">
-              <span class="w-5 h-5 rounded-full bg-gym-brand/10 text-gym-brand flex items-center justify-center font-bold text-xs">✓</span>
-              <div>
-                <h4 class="text-sm font-bold uppercase text-zinc-900 dark:text-white">Enhanced Recovery</h4>
-                <p class="text-xs text-zinc-500">Accelerates myofascial repair and improves muscle oxygenation.</p>
-              </div>
-            </div>
-            <div class="flex items-start space-x-3 rtl:space-x-reverse">
-              <span class="w-5 h-5 rounded-full bg-gym-brand/10 text-gym-brand flex items-center justify-center font-bold text-xs">✓</span>
-              <div>
-                <h4 class="text-sm font-bold uppercase text-zinc-900 dark:text-white">Active Core Strength</h4>
-                <p class="text-xs text-zinc-500">Develops intrinsic stabilization muscles for heavy lifting safety.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION: ZUMBA -->
-  <section id="zumba" class="relative py-24 overflow-hidden bg-zinc-950 text-zinc-200">
-    <div class="absolute inset-0 bg-gradient-to-br from-gym-darkBg via-gym-darkBg/95 to-gym-brand/20"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <!-- Zumba Text Content -->
-        <div class="lg:col-span-7 space-y-8">
-          <div class="inline-flex items-center space-x-2 rtl:space-x-reverse bg-pink-500/10 text-pink-500 border border-pink-500/20 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest">
-            <span>Rhythm & Cardio</span>
-          </div>
-          <h2 class="text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-none">
-            Zumba Dance Fusion
-          </h2>
-          <p class="text-base md:text-lg leading-relaxed text-zinc-300 font-medium">
-            Electrify your aerobic training. Zumba Fusion mixes explosive dance movements with high-intensity interval training. Melt calories to the sync of high-energy global rhythms in a supportive, zero-pressure dark studio environment.
-          </p>
-          <div class="flex flex-wrap gap-4 text-xs font-bold uppercase text-zinc-400">
-            <span class="px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-800">🔥 700+ Cal Burn</span>
-            <span class="px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-800">🎵 Dynamic Latin Beats</span>
-            <span class="px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-800">🕺 All Skill Levels</span>
-          </div>
-        </div>
-        <!-- Right-aligned Zumba Image inside dynamic border -->
-        <div class="lg:col-span-5 relative">
-          <div class="absolute inset-0 bg-pink-500/15 rounded-3xl blur-2xl"></div>
-          <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-zinc-800 transform rotate-1 hover:rotate-0 transition-transform duration-500">
-            <img src="images/class_zumba.jpg" alt="Zumba Fitness Class" class="w-full h-[380px] object-cover">
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION: STRENGTH TRAINING -->
-  <section id="strength" class="relative py-24 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300 border-y border-gym-lightBorder dark:border-gym-darkBorder">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <!-- Asymmetrical Left-aligned Squat image -->
-        <div class="lg:col-span-5 relative">
-          <div class="absolute inset-0 bg-gym-brand/5 dark:bg-gym-brand/10 rounded-2xl blur-3xl"></div>
-          <div class="relative rounded-2xl overflow-hidden border-4 border-zinc-900 dark:border-zinc-700 shadow-2xl">
-            <img src="images/class_strength.jpg" alt="Strength Squat lift" class="w-full h-[420px] object-cover">
-          </div>
-        </div>
-        <!-- Brutalist content area -->
-        <div class="lg:col-span-7 space-y-8 font-mono">
-          <div class="inline-flex items-center space-x-2 rtl:space-x-reverse bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-4 py-1 rounded-sm text-xs font-black uppercase tracking-wider">
+  <!-- REDESIGNED DISCIPLINE 1: OLYMPIC STRENGTH & POWERLIFTING (FULL-WIDTH BRUTALIST DASHBOARD) -->
+  <section id="strength-power" class="py-24 bg-zinc-950 text-white border-t border-zinc-900 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <!-- Brutalist Header Bar -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-zinc-800 pb-8">
+        <div class="space-y-2">
+          <div class="inline-flex items-center space-x-2 rtl:space-x-reverse bg-gym-brand text-white px-3.5 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest shadow-sm">
             <span>[ COMP-01 // HYPERTROPHY ]</span>
           </div>
-          <h2 class="text-4xl md:text-5xl font-black text-zinc-950 dark:text-white uppercase leading-none tracking-tighter">
-            STRENGTH & POWER LIFTING
+          <h2 class="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tighter">
+            STRENGTH & POWERLIFTING
           </h2>
-          <p class="text-sm md:text-base leading-relaxed text-zinc-600 dark:text-zinc-400 font-sans">
-            Build raw physical power through compound mechanical loading. Our strength classes focus on barbell squats, deadlifts, bench presses, and heavy overhead mechanics, utilizing progressive overload systems to maximize physical capability.
+          <p class="text-xs sm:text-sm text-zinc-400 max-w-2xl font-medium">
+            Compound barbell mechanics engineered for maximal motor unit recruitment. Train on calibrated competition Eleiko decks with velocity transducers.
           </p>
-          <div class="border-l-4 border-gym-brand pl-4 rtl:border-r-4 rtl:border-l-0 rtl:pr-4 space-y-2 font-sans">
-            <h4 class="text-sm font-bold uppercase text-zinc-950 dark:text-white">Mechanical Load Focus</h4>
-            <p class="text-xs text-zinc-500 dark:text-zinc-500">
-              Classes prioritize structural stability, nervous system activation, and correct joint mechanics over rapid movement reps.
-            </p>
-          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="text-emerald-400 font-mono text-xs font-bold border border-emerald-500/30 px-3.5 py-1.5 rounded-lg bg-emerald-500/10 hidden sm:inline-block">
+            Velocity Cutoff: 0.75 m/s
+          </span>
+          <a href="membership.html" class="inline-flex items-center justify-center px-6 py-3 bg-gym-brand hover:bg-gym-brandHover text-white text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-gym-brand/20 whitespace-nowrap">
+            Join Now &rarr;
+          </a>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- SECTION: HIIT & CARDIO -->
-  <section id="hiit-cardio" class="relative py-24 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <!-- Text/Stamina detail Column -->
-        <div class="lg:col-span-6 space-y-8">
-          <div class="inline-flex items-center space-x-2 rtl:space-x-reverse bg-gym-brand/10 dark:bg-gym-brand/20 text-gym-brand px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border border-gym-brand/20">
-            <span>VO2 Max Performance</span>
-          </div>
-          <h2 class="text-4xl md:text-5xl font-black text-zinc-950 dark:text-white uppercase leading-none">
-            HIIT & Cardiorespiratory
-          </h2>
-          <p class="text-base md:text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 font-medium">
-            Redline your cardiovascular engine. Through explosive interval rounds and structured sprint drills, these cardio programs are designed to enhance muscular stamina, boost aerobic threshold, and optimize fat burn.
-          </p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="p-4 sm:p-5 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder">
-              <span class="block text-xl sm:text-2xl font-black text-gym-brand">HIIT INTERVALS</span>
-              <span class="text-xs font-semibold text-zinc-500 dark:text-zinc-400">Anaerobic high-speed loops.</span>
-            </div>
-            <div class="p-4 sm:p-5 rounded-2xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder">
-              <span class="block text-xl sm:text-2xl font-black text-zinc-950 dark:text-white">CARDIO ZONE</span>
-              <span class="text-xs font-semibold text-zinc-500 dark:text-zinc-400">Steady-state endurance sprints.</span>
-            </div>
-          </div>
-        </div>
-        <!-- Treadmill runner close up -->
-        <div class="lg:col-span-6 relative">
-          <div class="absolute inset-0 bg-gym-brand/5 rounded-3xl blur-2xl"></div>
-          <div class="relative rounded-3xl overflow-hidden border border-gym-lightBorder dark:border-gym-darkBorder shadow-2xl group">
-            <img src="images/class_hiit_cardio.jpg" alt="Treadmill Runner Cardio" class="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-700">
-            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION: FUNCTIONAL TRAINING -->
-  <section id="functional" class="py-24 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <!-- Left Image Layout -->
-        <div class="lg:col-span-5 relative">
-          <div class="absolute inset-0 bg-gym-brand/10 dark:bg-gym-brand/5 rounded-3xl blur-3xl"></div>
-          <div class="relative rounded-3xl overflow-hidden border border-gym-lightBorder dark:border-gym-darkBorder shadow-2xl">
-            <img src="images/class_functional.jpg" alt="Functional Training with Battle Ropes" class="w-full h-[400px] object-cover">
-          </div>
-        </div>
-        <!-- Right Content Details -->
-        <div class="lg:col-span-7 space-y-8">
-          <div class="inline-flex items-center space-x-2 rtl:space-x-reverse bg-gym-brand/10 dark:bg-gym-brand/20 text-gym-brand px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border border-gym-brand/20">
-            <span>Dynamic Movement</span>
-          </div>
-          <h2 class="text-4xl md:text-5xl font-black text-zinc-950 dark:text-white uppercase leading-none">
-            Functional Movement
-          </h2>
-          <p class="text-base md:text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 font-medium">
-            Train your body for the complex physical challenges of everyday life and sport. Our functional training protocols focus on multi-planar movements, raw endurance, kettlebell conditioning, and high-intensity battle rope circuits.
-          </p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <!-- 3 Compound Pillars + Visual Telemetry Card -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- Big 3 Lifts Breakdown (7 Cols) -->
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <!-- Squat -->
+          <div class="p-6 bg-zinc-900 border border-zinc-800 rounded-3xl space-y-3 flex flex-col justify-between hover:border-gym-brand transition-all">
             <div class="space-y-2">
-              <h4 class="text-base font-bold text-zinc-900 dark:text-white uppercase flex items-center">
-                <span class="w-2.5 h-2.5 rounded-full bg-gym-brand me-2 ms-2"></span>
-                Athletic Coordination
-              </h4>
-              <p class="text-xs text-zinc-500 dark:text-zinc-400 font-medium">
-                Improves balance, response speed, and posture, integrating muscle chains to function as a singular, efficient unit.
+              <span class="text-xs font-black text-gym-brand uppercase block">Pillar 01</span>
+              <h3 class="text-lg font-black uppercase text-white">Back Squat</h3>
+              <p class="text-[11px] text-zinc-400 leading-relaxed font-medium">
+                High-bar and low-bar squat mechanics targeting quad hypertrophy and posterior chain stabilization.
               </p>
             </div>
+            <div class="pt-3 border-t border-zinc-800 text-[10px] font-mono text-zinc-400">
+              Target: 2.0x Bodyweight
+            </div>
+          </div>
+
+          <!-- Bench -->
+          <div class="p-6 bg-zinc-900 border border-zinc-800 rounded-3xl space-y-3 flex flex-col justify-between hover:border-gym-brand transition-all">
             <div class="space-y-2">
-              <h4 class="text-base font-bold text-zinc-900 dark:text-white uppercase flex items-center">
-                <span class="w-2.5 h-2.5 rounded-full bg-gym-brand me-2 ms-2"></span>
-                Durability Training
-              </h4>
-              <p class="text-xs text-zinc-500 dark:text-zinc-400 font-medium">
-                Builds resistance to injury by strengthening tendons, ligaments, and deep stabilizer muscle tissues.
+              <span class="text-xs font-black text-gym-brand uppercase block">Pillar 02</span>
+              <h3 class="text-lg font-black uppercase text-white">Bench Press</h3>
+              <p class="text-[11px] text-zinc-400 leading-relaxed font-medium">
+                Scapular pinning, leg drive kinematics, and pause reps at chest to build massive pectoral power.
               </p>
+            </div>
+            <div class="pt-3 border-t border-zinc-800 text-[10px] font-mono text-zinc-400">
+              Target: 1.5x Bodyweight
+            </div>
+          </div>
+
+          <!-- Deadlift -->
+          <div class="p-6 bg-zinc-900 border border-zinc-800 rounded-3xl space-y-3 flex flex-col justify-between hover:border-gym-brand transition-all">
+            <div class="space-y-2">
+              <span class="text-xs font-black text-gym-brand uppercase block">Pillar 03</span>
+              <h3 class="text-lg font-black uppercase text-white">Deadlift</h3>
+              <p class="text-[11px] text-zinc-400 leading-relaxed font-medium">
+                Conventional and Sumo platform pulling on calibrated Olympic bars with zero whip on lockout.
+              </p>
+            </div>
+            <div class="pt-3 border-t border-zinc-800 text-[10px] font-mono text-zinc-400">
+              Target: 2.5x Bodyweight
             </div>
           </div>
         </div>
+
+        <!-- Right Visual Console (5 Cols) -->
+        <div class="lg:col-span-5 relative rounded-3xl overflow-hidden border-2 border-gym-brand shadow-2xl group min-h-[300px]">
+          <img src="images/class_strength.jpg" alt="Strength Class Squat" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+          
+          <div class="absolute bottom-6 inset-x-6 space-y-2 text-white">
+            <span class="text-[10px] font-mono font-bold text-gym-brand uppercase tracking-widest">Head Strength Coach</span>
+            <h4 class="text-xl font-black uppercase">Marcus Vance, CSCS</h4>
+            <p class="text-xs text-zinc-300">"Master the mechanics before adding the kilograms. Progress is pure physics."</p>
+          </div>
+        </div>
+
       </div>
+
     </div>
   </section>
 
-  <!-- SECTION: PERSONAL TRAINING -->
-  <section id="personal" class="py-24 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-        <!-- Text details -->
-        <div class="lg:col-span-7 space-y-8">
-          <div class="inline-flex items-center space-x-2 rtl:space-x-reverse bg-gym-brand/10 dark:bg-gym-brand/20 text-gym-brand px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border border-gym-brand/20">
-            <span>Bespoke Mentorship</span>
+  <!-- REDESIGNED DISCIPLINES 2 & 3: YOGA FLOW VS ZUMBA (ASYMMETRIC DUAL-ENERGY SHOWCASE) -->
+  <section id="dual-energy-showcase" class="py-24 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="text-xs font-black text-gym-brand uppercase tracking-widest">Studio Contrast</span>
+        <h2 class="text-3xl sm:text-5xl font-black uppercase text-zinc-950 dark:text-white tracking-tight leading-none">
+          RESTORATIVE CALM VS <span class="text-pink-500 italic">ELECTRIC TEMPO</span>
+        </h2>
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 font-medium">
+          Two opposite energy frequencies. Whether you need down-regulated parasympathetic breathing or high-voltage dance intervals, our studios deliver.
+        </p>
+      </div>
+
+      <!-- Side-by-Side Dual-Energy Arena -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+        
+        <!-- Energy Card 1: Yoga & Breath Flow (Emerald Calm) -->
+        <div class="bg-gym-lightCard dark:bg-gym-darkCard border-2 border-gym-brand/50 rounded-3xl overflow-hidden shadow-lg flex flex-col justify-between group">
+          <div class="relative h-64 overflow-hidden">
+            <img src="images/class_yoga.jpg" alt="Yoga Class" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+            <span class="absolute top-4 start-4 px-3 py-1 bg-gym-brand text-white text-[10px] font-black uppercase rounded-lg tracking-wider">
+              Yin & Mobility
+            </span>
+            <span class="absolute bottom-4 start-4 text-white font-bold text-xs">
+              🌿 Parasympathetic Down-Regulation
+            </span>
           </div>
-          <h2 class="text-4xl md:text-5xl font-black text-zinc-950 dark:text-white uppercase leading-none">
-            1-on-1 Personal Training
-          </h2>
-          <p class="text-base md:text-lg leading-relaxed text-zinc-600 dark:text-zinc-400 font-medium">
-            Receive custom athletic coaching designed specifically for your physical constraints, metabolic rate, and performance goals. Partner with our elite coaches to map form progression, custom macronutrients, and custom recovery schedules.
-          </p>
-          <div class="flex flex-wrap gap-4">
-            <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-md transition-all duration-300">
-              Apply For Consultation
+
+          <div class="p-8 space-y-6 flex-1 flex flex-col justify-between">
+            <div class="space-y-3">
+              <h3 class="text-2xl font-black uppercase text-zinc-950 dark:text-white">Yoga & Joint Mobility Flow</h3>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 font-medium leading-relaxed">
+                Restore structural alignment, open tight hip capsules, and build deep rotational stability. Specifically tailored for heavy lifters and desk athletes suffering from restricted ranges of motion.
+              </p>
+              <div class="grid grid-cols-2 gap-3 pt-2 text-[11px] font-bold">
+                <div class="p-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200">
+                  <span class="text-gym-brand block">HR Zone:</span> 80 - 110 bpm
+                </div>
+                <div class="p-2.5 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200">
+                  <span class="text-gym-brand block">Primary Return:</span> Myofascial Repair
+                </div>
+              </div>
+            </div>
+            <a href="membership.html" class="block w-full py-3.5 text-center text-xs font-black uppercase tracking-wider text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl transition-all shadow-md hover:shadow-lg shadow-gym-brand/20">
+              Join Now &rarr;
             </a>
           </div>
         </div>
-        <!-- Image & stats bubble -->
-        <div class="lg:col-span-5 relative">
-          <div class="absolute inset-0 bg-gym-brand/10 dark:bg-gym-brand/5 rounded-3xl blur-3xl"></div>
-          <div class="relative rounded-3xl overflow-hidden border border-gym-lightBorder dark:border-gym-darkBorder shadow-2xl">
-            <img src="images/class_personal.jpg" alt="1-on-1 coaching session" class="w-full h-[400px] object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950/80 to-transparent"></div>
-            <!-- Dynamic coaching statistic badge -->
-            <div class="absolute bottom-6 start-6 bg-gym-darkBg/90 backdrop-blur-md border border-gym-darkBorder p-4 rounded-2xl shadow-xl text-white">
-              <span class="block text-2xl font-black text-gym-brand">100%</span>
-              <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Biometric Customization</span>
+
+        <!-- Energy Card 2: Zumba Dance Fusion (Electric Pink) -->
+        <div class="bg-zinc-950 text-white border-2 border-pink-500/40 rounded-3xl overflow-hidden shadow-lg flex flex-col justify-between group">
+          <div class="relative h-64 overflow-hidden">
+            <img src="images/class_zumba.jpg" alt="Zumba Class" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+            <span class="absolute top-4 start-4 px-3 py-1 bg-pink-600 text-white text-[10px] font-black uppercase rounded-lg tracking-wider">
+              Yang & Rhythm
+            </span>
+            <span class="absolute bottom-4 start-4 text-white font-bold text-xs">
+              ⚡ 130 - 155 BPM High-Octane Tempo
+            </span>
+          </div>
+
+          <div class="p-8 space-y-6 flex-1 flex flex-col justify-between">
+            <div class="space-y-3">
+              <h3 class="text-2xl font-black uppercase text-white">Zumba Dance High-BPM Fusion</h3>
+              <p class="text-xs text-zinc-400 font-medium leading-relaxed">
+                Electrify your aerobic conditioning. We blend dynamic Latin dance steps, syncopated rhythm intervals, and club audio in a darkened studio so you can torch calories with zero ego or judgment.
+              </p>
+              <div class="grid grid-cols-2 gap-3 pt-2 text-[11px] font-bold">
+                <div class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-200">
+                  <span class="text-pink-400 block">Burn Rate:</span> 700 - 850 kcal/hr
+                </div>
+                <div class="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-200">
+                  <span class="text-pink-400 block">Music BPM:</span> 140 BPM Beats
+                </div>
+              </div>
             </div>
+            <a href="membership.html" class="block w-full py-3.5 text-center text-xs font-black uppercase tracking-wider text-white bg-pink-600 hover:bg-pink-700 rounded-xl transition-all shadow-md hover:shadow-lg shadow-pink-600/20">
+              Join Now &rarr;
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- REDESIGNED DISCIPLINE 4: HIIT & CARDIO (WIDE 4-STAGE CIRCUIT PROGRESSION BAR) -->
+  <section id="hiit-metabolic" class="py-24 bg-zinc-950 text-white border-t border-zinc-900 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-zinc-800 pb-8">
+        <div class="space-y-2">
+          <span class="text-xs font-black text-amber-400 uppercase tracking-widest inline-flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+            Metabolic Engine Room
+          </span>
+          <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight">
+            HIIT & CARDIORESPIRATORY CIRCUIT
+          </h2>
+          <p class="text-xs sm:text-sm text-zinc-400 max-w-xl font-medium">
+            Redline your cardiovascular threshold through structured 4-station interval blocks designed for maximum mitochondrial density.
+          </p>
+        </div>
+        <span class="text-xs font-mono font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-3.5 py-1.5 rounded-xl">
+          VO2 Max Target: Zone 4 & 5
+        </span>
+      </div>
+
+      <!-- 4-Stage Horizontal Circuit Progress Bar -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Stage 1 -->
+        <div class="p-6 bg-zinc-900 border border-zinc-800 rounded-3xl space-y-3 relative overflow-hidden">
+          <span class="text-3xl font-black text-zinc-700 block">01</span>
+          <h4 class="text-base font-black uppercase text-white">50m Weighted Sled Push</h4>
+          <p class="text-xs text-zinc-400 leading-relaxed font-medium">
+            High-friction turf acceleration driving pure quad drive and anaerobic lactate accumulation.
+          </p>
+          <span class="text-[10px] font-mono text-amber-400 block pt-2">90 sec work // 30 sec rest</span>
+        </div>
+
+        <!-- Stage 2 -->
+        <div class="p-6 bg-zinc-900 border border-zinc-800 rounded-3xl space-y-3 relative overflow-hidden">
+          <span class="text-3xl font-black text-zinc-700 block">02</span>
+          <h4 class="text-base font-black uppercase text-white">Assault AirBike Sprints</h4>
+          <p class="text-xs text-zinc-400 leading-relaxed font-medium">
+            Maximal watt output redlining cardiovascular heart rate to 95% peak within 40 seconds.
+          </p>
+          <span class="text-[10px] font-mono text-amber-400 block pt-2">1,100 Watt Peak Target</span>
+        </div>
+
+        <!-- Stage 3 -->
+        <div class="p-6 bg-zinc-900 border border-zinc-800 rounded-3xl space-y-3 relative overflow-hidden">
+          <span class="text-3xl font-black text-zinc-700 block">03</span>
+          <h4 class="text-base font-black uppercase text-white">Heavy Kettlebell Cleans</h4>
+          <p class="text-xs text-zinc-400 leading-relaxed font-medium">
+            Explosive hip extension and core grip endurance under elevated cardiovascular fatigue.
+          </p>
+          <span class="text-[10px] font-mono text-amber-400 block pt-2">32kg Competition Bells</span>
+        </div>
+
+        <!-- Stage 4 -->
+        <div class="p-6 bg-zinc-900 border border-zinc-800 rounded-3xl space-y-3 relative overflow-hidden">
+          <span class="text-3xl font-black text-zinc-700 block">04</span>
+          <h4 class="text-base font-black uppercase text-white">38°F Hydro Plunge Flush</h4>
+          <p class="text-xs text-zinc-400 leading-relaxed font-medium">
+            Systemic cold water immersion post-circuit to constrict vessels and flush metabolic waste.
+          </p>
+          <span class="text-[10px] font-mono text-cyan-400 block pt-2">3 Min Contrast Protocol</span>
+        </div>
+      </div>
+
+      <!-- Panoramic Visual Ribbon -->
+      <div class="relative h-64 sm:h-80 rounded-3xl overflow-hidden border border-zinc-800">
+        <img src="images/class_hiit_cardio.jpg" alt="HIIT Cardio" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-transparent flex items-end p-8">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full">
+            <div>
+              <span class="text-xs font-mono font-bold text-amber-400 uppercase">Coach Sarah Jenkins</span>
+              <h3 class="text-xl font-black uppercase text-white">Hyrox & MetCon Lead Specialist</h3>
+            </div>
+            <a href="membership.html" class="inline-flex items-center justify-center px-8 py-3.5 bg-amber-500 hover:bg-amber-400 text-zinc-950 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-amber-500/20 text-center">
+              Join Now &rarr;
+            </a>
           </div>
         </div>
       </div>
+
+    </div>
+  </section>
+
+  <!-- REDESIGNED DISCIPLINE 5: FUNCTIONAL MOVEMENT & COMBAT (ATHLETIC BENTO GRID) -->
+  <section id="functional-combat" class="py-24 section-alt text-zinc-800 dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-3">
+        <span class="text-xs font-black text-gym-brand uppercase tracking-widest">Multi-Planar Durability</span>
+        <h2 class="text-3xl sm:text-5xl font-black uppercase text-zinc-950 dark:text-white tracking-tight leading-none">
+          FUNCTIONAL ATHLETICS & COMBAT
+        </h2>
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 font-medium">
+          Train your tendons, ligaments, and rotators for raw sports durability using heavy battle ropes, plyometrics, and boxing rounds.
+        </p>
+      </div>
+
+      <!-- Athletic Bento Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Bento 1: Battle Ropes -->
+        <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl overflow-hidden shadow-sm flex flex-col justify-between hover:border-gym-brand transition-all">
+          <div class="h-48 overflow-hidden relative">
+            <img src="images/class_functional.jpg" alt="Functional Battle Ropes" class="w-full h-full object-cover">
+            <span class="absolute top-3 start-3 px-2.5 py-1 bg-gym-brand text-white text-[9px] font-black uppercase rounded-lg shadow-sm">Rotational Core</span>
+          </div>
+          <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
+            <div class="space-y-1.5">
+              <h3 class="text-lg font-black uppercase text-zinc-950 dark:text-white">Heavy Battle Ropes</h3>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 font-medium leading-relaxed">
+                Alternating waves, double slams, and spiral circles to bulletproof deltoid and oblique stability.
+              </p>
+            </div>
+            <span class="text-[11px] font-bold text-gym-brand">Durability Index: 9.8 / 10</span>
+          </div>
+        </div>
+
+        <!-- Bento 2: Boxing Rounds -->
+        <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl overflow-hidden shadow-sm flex flex-col justify-between hover:border-gym-brand transition-all">
+          <div class="h-48 overflow-hidden relative">
+            <img src="images/activity_boxing.jpg" alt="Heavy Bag Boxing" class="w-full h-full object-cover">
+            <span class="absolute top-3 start-3 px-2.5 py-1 bg-red-600 text-white text-[9px] font-black uppercase rounded-lg shadow-sm">Combat Anaerobic</span>
+          </div>
+          <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
+            <div class="space-y-1.5">
+              <h3 class="text-lg font-black uppercase text-zinc-950 dark:text-white">Heavy Bag Power Rounds</h3>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 font-medium leading-relaxed">
+                3-minute championship round striking intervals to train anaerobic explosiveness and hand velocity.
+              </p>
+            </div>
+            <span class="text-[11px] font-bold text-red-500">Burn Rate: 1,000+ kcal/hr</span>
+          </div>
+        </div>
+
+        <!-- Bento 3: Plyo & Agility -->
+        <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl overflow-hidden shadow-sm flex flex-col justify-between hover:border-gym-brand transition-all">
+          <div class="h-48 overflow-hidden relative">
+            <img src="images/activity_turf.jpg" alt="Agility Ladder and Turf" class="w-full h-full object-cover">
+            <span class="absolute top-3 start-3 px-2.5 py-1 bg-cyan-600 text-white text-[9px] font-black uppercase rounded-lg shadow-sm">Fast-Twitch</span>
+          </div>
+          <div class="p-6 space-y-3 flex-1 flex flex-col justify-between">
+            <div class="space-y-1.5">
+              <h3 class="text-lg font-black uppercase text-zinc-950 dark:text-white">Plyometric Jump & Agility</h3>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 font-medium leading-relaxed">
+                Depth drops, lateral hurdle bounds, and ladder drills to activate fast-twitch kinetic units.
+              </p>
+            </div>
+            <span class="text-[11px] font-bold text-cyan-500">Ground Reaction: 0.14s</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Single Primary CTA -->
+      <div class="text-center pt-2">
+        <a href="membership.html" class="inline-flex items-center justify-center px-8 py-3.5 bg-gym-brand hover:bg-gym-brandHover text-white text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-gym-brand/20">
+          Join Now &rarr;
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- REDESIGNED DISCIPLINE 6: 1-ON-1 PERSONAL COACHING (VIP APPOINTMENT LAUNCHER) -->
+  <section id="personal-coaching" class="py-20 section-highlight text-zinc-900 dark:text-white border-t border-gym-lightBorder dark:border-zinc-800 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="bg-white dark:bg-[#121214] border-2 border-gym-brand rounded-3xl p-8 sm:p-12 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div class="space-y-4 max-w-2xl">
+          <span class="text-xs font-black text-gym-brand uppercase tracking-widest px-3 py-1 bg-gym-brand/20 border border-gym-brand/40 rounded-lg inline-block">
+            Elite 1-on-1 Mentorship
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-black uppercase tracking-tight text-zinc-950 dark:text-white">
+            NEED A DEDICATED ATHLETIC SCIENTIST?
+          </h2>
+          <p class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
+            Partner with a certified Exercise Physiologist or CSCS coach. We will analyze your biomechanical joint angles, build a 12-week progressive overload block, and supervise every lift.
+          </p>
+          <div class="flex flex-wrap gap-4 text-xs font-bold text-zinc-700 dark:text-zinc-300">
+            <span>✓ InBody 770 Biometric Scan</span>
+            <span>✓ 4K Camera Squat Angle Vectoring</span>
+            <span>✓ Custom Macro Prescription</span>
+          </div>
+        </div>
+
+        <div class="w-full lg:w-auto flex flex-col items-center sm:items-start lg:items-end gap-2">
+          <a href="contact.html" class="w-full sm:w-auto inline-flex items-center justify-center px-10 py-4 bg-gym-brand hover:bg-gym-brandHover text-white text-xs font-black uppercase tracking-widest rounded-xl transition-all shadow-lg shadow-gym-brand/30 text-center">
+            Apply Now &rarr;
+          </a>
+          <span class="text-[11px] text-zinc-500 dark:text-zinc-400 font-medium">Free 30-min athletic assessment</span>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="bg-gym-lightCard dark:bg-gym-darkCard border-t border-gym-lightBorder dark:border-gym-darkBorder text-zinc-600 dark:text-zinc-400 transition-colors duration-300">
+  <footer class="bg-zinc-100/70 dark:bg-[#0A0A0A] border-t border-gym-lightBorder dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      
-      <!-- Top Grid: 4 Columns -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-        
-        <!-- Column 1: Brand & Socials -->
         <div class="space-y-6">
           <a href="./index.html" class="flex items-center space-x-2.5 rtl:space-x-reverse group">
-            <!-- Logo Icon (Mirroring Header) -->
             <div class="relative flex items-center justify-center text-gym-brand group-hover:scale-110 transition-transform duration-300">
               <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="9" width="1.5" height="6" rx="0.5" fill="currentColor" stroke="none"/>
@@ -900,31 +1032,15 @@
               </svg>
               <span class="absolute w-5 h-5 rounded-full bg-gym-brand/20 blur-md opacity-70"></span>
             </div>
-            <span class="text-lg font-extrabold tracking-tight text-zinc-950 dark:text-white uppercase transition-colors duration-300">
+            <span class="text-lg font-extrabold tracking-tight text-zinc-950 dark:text-white uppercase">
               PULSE<span class="text-gym-brand italic font-black">FIT</span>
             </span>
           </a>
           <p class="text-sm font-medium leading-relaxed text-zinc-500 dark:text-zinc-400">
             Premium strength training, cardio, and group fitness classes. Push your limits, track your progress, and join our elite fitness community today.
           </p>
-          <!-- Social Icons (Inline SVGs) -->
-          <div class="flex items-center space-x-4 rtl:space-x-reverse">
-            <!-- Instagram -->
-            <a href="#" class="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-gym-brand dark:text-zinc-400 dark:hover:text-gym-brand hover:scale-110 transition-all duration-200" aria-label="Instagram">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            </a>
-            <!-- Facebook -->
-            <a href="#" class="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-gym-brand dark:text-zinc-400 dark:hover:text-gym-brand hover:scale-110 transition-all duration-200" aria-label="Facebook">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
-            </a>
-            <!-- YouTube -->
-            <a href="#" class="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-gym-brand dark:text-zinc-400 dark:hover:text-gym-brand hover:scale-110 transition-all duration-200" aria-label="YouTube">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            </a>
-          </div>
         </div>
         
-        <!-- Column 2: Quick Links -->
         <div>
           <h3 class="text-sm font-bold tracking-wider text-zinc-900 dark:text-white uppercase mb-6">Explore</h3>
           <ul class="space-y-3.5">
@@ -937,13 +1053,12 @@
           </ul>
         </div>
         
-        <!-- Column 3: Hours & Dashboards -->
         <div>
           <h3 class="text-sm font-bold tracking-wider text-zinc-900 dark:text-white uppercase mb-6">Information</h3>
           <div class="space-y-6">
             <ul class="space-y-3.5">
-              <li><a href="./admin-dashboard.html" class="text-sm font-medium hover:text-gym-brand transition-colors">Admin Dashboard</a></li>
-              <li><a href="./user-dashboard.html" class="text-sm font-medium hover:text-gym-brand transition-colors">User Dashboard</a></li>
+              <li><a href="./admin.html" class="text-sm font-medium hover:text-gym-brand transition-colors">Admin Dashboard</a></li>
+              <li><a href="./user.html" class="text-sm font-medium hover:text-gym-brand transition-colors">User Dashboard</a></li>
               <li><a href="./faq.html" class="text-sm font-medium hover:text-gym-brand transition-colors">FAQs</a></li>
             </ul>
             <div class="space-y-2">
@@ -954,30 +1069,18 @@
           </div>
         </div>
         
-        <!-- Column 4: Location & Newsletter -->
         <div class="space-y-6">
-          <div>
-            <h3 class="text-sm font-bold tracking-wider text-zinc-900 dark:text-white uppercase mb-6">Contact & Location</h3>
-            <p class="text-sm font-medium leading-relaxed text-zinc-500 dark:text-zinc-400">
-              123 Fitness Ave, Suite 100, Pulse City<br>
-              Phone: +1 (555) 123-4567<br>
-              Email: contact@pulsefit.com
-            </p>
-          </div>
-          <div class="space-y-3">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white mb-2">Newsletter</h4>
-            <form class="flex flex-col gap-2 w-full" onsubmit="event.preventDefault(); alert('Subscribed!');">
-              <input type="email" placeholder="Your email" required class="w-full px-4 py-2.5 text-xs font-medium bg-zinc-100 dark:bg-zinc-800 border border-gym-brand/10 dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand transition-colors" />
-              <button type="submit" class="w-full py-2.5 text-xs font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-md transition-colors text-center">Subscribe</button>
-            </form>
-          </div>
+          <h3 class="text-sm font-bold tracking-wider text-zinc-900 dark:text-white uppercase mb-6">Contact & Location</h3>
+          <p class="text-sm font-medium leading-relaxed text-zinc-500 dark:text-zinc-400">
+            123 Fitness Ave, Suite 100, Pulse City<br>
+            Phone: +1 (555) 123-4567<br>
+            Email: contact@pulsefit.com
+          </p>
         </div>
-
       </div>
 
-      <!-- Bottom Bar -->
       <div class="mt-16 pt-8 border-t border-gym-lightBorder dark:border-gym-darkBorder flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p class="text-xs font-medium text-zinc-500 dark:text-zinc-400 text-center sm:text-start">
+        <p class="text-xs font-medium text-zinc-500 dark:text-zinc-400">
           &copy; 2026 Pulse Fit. All rights reserved. Built with strength.
         </p>
         <div class="flex items-center space-x-6 rtl:space-x-reverse text-xs font-semibold">
@@ -985,202 +1088,136 @@
           <a href="./terms.html" class="hover:text-gym-brand transition-colors">Terms of Service</a>
         </div>
       </div>
-
     </div>
   </footer>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- SCRIPT LOGIC -->
   <script>
-    // Run script immediately since it is placed at the bottom of the body
-    
-    // Select main DOM elements
+    // Theme logic
     const themeToggleBtn = document.getElementById('theme-toggle');
     const mobileThemeToggleBtn = document.getElementById('mobile-theme-toggle');
-      
-      const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-      const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-      const mobileThemeLightIcon = document.getElementById('mobile-theme-toggle-light-icon');
-      const mobileThemeDarkIcon = document.getElementById('mobile-theme-toggle-dark-icon');
-      
-      const rtlToggleBtn = document.getElementById('rtl-toggle');
-      const mobileRtlToggleBtn = document.getElementById('mobile-rtl-toggle');
-      
-      const mobileMenuToggleBtn = document.getElementById('mobile-menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const hamburgerIconOpen = document.getElementById('hamburger-icon-open');
-      const hamburgerIconClose = document.getElementById('hamburger-icon-close');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
 
-      // Helper function to update theme UI state
-      const updateThemeUI = (isDark) => {
-        if (isDark) {
-          themeToggleLightIcon.classList.remove('hidden');
-          themeToggleDarkIcon.classList.add('hidden');
-          mobileThemeLightIcon.classList.remove('hidden');
-          mobileThemeDarkIcon.classList.add('hidden');
+    const updateThemeUI = (isDark) => {
+      if (isDark) {
+        if (themeToggleLightIcon) themeToggleLightIcon.classList.remove('hidden');
+        if (themeToggleDarkIcon) themeToggleDarkIcon.classList.add('hidden');
+      } else {
+        if (themeToggleLightIcon) themeToggleLightIcon.classList.add('hidden');
+        if (themeToggleDarkIcon) themeToggleDarkIcon.classList.remove('hidden');
+      }
+    };
+    updateThemeUI(document.documentElement.classList.contains('dark'));
+
+    const toggleDark = () => {
+      document.body.classList.add('theme-loading');
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      updateThemeUI(isDark);
+      setTimeout(() => document.body.classList.remove('theme-loading'), 100);
+    };
+    if (themeToggleBtn) themeToggleBtn.addEventListener('click', toggleDark);
+    if (mobileThemeToggleBtn) mobileThemeToggleBtn.addEventListener('click', toggleDark);
+
+    // RTL logic
+    const rtlBtn = document.getElementById('rtl-toggle');
+    const mobileRtlBtn = document.getElementById('mobile-rtl-toggle');
+    const toggleRTL = () => {
+      const current = document.documentElement.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl';
+      document.documentElement.setAttribute('dir', current);
+      document.documentElement.setAttribute('lang', current === 'rtl' ? 'ar' : 'en');
+      localStorage.setItem('dir', current);
+    };
+    if (rtlBtn) rtlBtn.addEventListener('click', toggleRTL);
+    if (mobileRtlBtn) mobileRtlBtn.addEventListener('click', toggleRTL);
+
+    // Mobile Hamburger
+    const menuBtn = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const openIcon = document.getElementById('hamburger-icon-open');
+    const closeIcon = document.getElementById('hamburger-icon-close');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.toggle('hidden');
+        if (openIcon) openIcon.classList.toggle('hidden', !isHidden);
+        if (closeIcon) closeIcon.classList.toggle('hidden', isHidden);
+      });
+    }
+
+    // Desktop Dropdowns
+    const dropdownParents = document.querySelectorAll('.dropdown-parent');
+    dropdownParents.forEach(parent => {
+      const btn = parent.querySelector('button');
+      if (!btn) return;
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = parent.classList.contains('open');
+        dropdownParents.forEach(other => {
+          if (other !== parent) other.classList.remove('open');
+        });
+        if (isOpen) {
+          parent.classList.remove('open');
         } else {
-          themeToggleLightIcon.classList.add('hidden');
-          themeToggleDarkIcon.classList.remove('hidden');
-          mobileThemeLightIcon.classList.add('hidden');
-          mobileThemeDarkIcon.classList.remove('hidden');
+          parent.classList.add('open');
         }
-      };
-
-      // Initial page state initialization
-      const isCurrentlyDark = document.documentElement.classList.contains('dark');
-      updateThemeUI(isCurrentlyDark);
-
-      // --- DARK MODE LOGIC ---
-      const toggleDarkMode = () => {
-        // Class-based theme transition
-        document.body.classList.add('theme-loading');
-        
-        const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        updateThemeUI(isDark);
-
-        setTimeout(() => {
-          document.body.classList.remove('theme-loading');
-        }, 100);
-      };
-
-      themeToggleBtn.addEventListener('click', toggleDarkMode);
-      mobileThemeToggleBtn.addEventListener('click', toggleDarkMode);
-
-      // --- RTL TOGGLE LOGIC ---
-      const toggleRTL = () => {
-        const currentDir = document.documentElement.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl';
-        document.documentElement.setAttribute('dir', currentDir);
-        document.documentElement.setAttribute('lang', currentDir === 'rtl' ? 'ar' : 'en');
-        localStorage.setItem('dir', currentDir);
-      };
-
-      rtlToggleBtn.addEventListener('click', toggleRTL);
-      mobileRtlToggleBtn.addEventListener('click', toggleRTL);
-
-      // --- DESKTOP DROPDOWN HANDLING ---
-      const dropdowns = document.querySelectorAll('.dropdown-parent');
-      
-      dropdowns.forEach(parent => {
-        const btn = parent.querySelector('button');
-        const menu = parent.querySelector('.dropdown-menu');
-        const arrow = parent.querySelector('.dropdown-arrow');
-
-        // Toggle on click
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          
-          // Close other open desktop menus
-          dropdowns.forEach(otherParent => {
-            if (otherParent !== parent) {
-              const otherMenu = otherParent.querySelector('.dropdown-menu');
-              const otherArrow = otherParent.querySelector('.dropdown-arrow');
-              otherMenu.classList.add('opacity-0', 'invisible', 'scale-95');
-              otherArrow.classList.remove('rotate-180');
-            }
-          });
-
-          // Toggle current menu
-          const isClosed = menu.classList.contains('invisible');
-          if (isClosed) {
-            menu.classList.remove('opacity-0', 'invisible', 'scale-95');
-            arrow.classList.add('rotate-180');
-          } else {
-            menu.classList.add('opacity-0', 'invisible', 'scale-95');
-            arrow.classList.remove('rotate-180');
-          }
-        });
-
-        // Optional hover interaction for desktop comfort
-        parent.addEventListener('mouseenter', () => {
-          menu.classList.remove('opacity-0', 'invisible', 'scale-95');
-          arrow.classList.add('rotate-180');
-        });
-
-        parent.addEventListener('mouseleave', () => {
-          menu.classList.add('opacity-0', 'invisible', 'scale-95');
-          arrow.classList.remove('rotate-180');
-        });
       });
+    });
 
-      // Close all dropdowns when clicking outside
-      document.addEventListener('click', () => {
-        dropdowns.forEach(parent => {
-          const menu = parent.querySelector('.dropdown-menu');
-          const arrow = parent.querySelector('.dropdown-arrow');
-          menu.classList.add('opacity-0', 'invisible', 'scale-95');
-          arrow.classList.remove('rotate-180');
-        });
-      });
+    document.addEventListener('click', () => {
+      dropdownParents.forEach(parent => parent.classList.remove('open'));
+    });
 
-      // --- MOBILE RESPONSIVE HAMBURGER MENU TOGGLE ---
-      mobileMenuToggleBtn.addEventListener('click', () => {
-        const isExpanded = mobileMenuToggleBtn.getAttribute('aria-expanded') === 'true';
-        mobileMenuToggleBtn.setAttribute('aria-expanded', !isExpanded);
-        
-        if (isExpanded) {
-          mobileMenu.classList.add('hidden');
-          hamburgerIconOpen.classList.remove('hidden');
-          hamburgerIconClose.classList.add('hidden');
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        dropdownParents.forEach(parent => parent.classList.remove('open'));
+      }
+    });
+
+    // Mobile Submenus
+    document.querySelectorAll('.mobile-dropdown-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const arrow = btn.querySelector('.mobile-dropdown-arrow');
+        const content = btn.nextElementSibling;
+        if (!content) return;
+        const isHidden = content.classList.contains('hidden');
+        if (isHidden) {
+          content.classList.remove('hidden');
+          if (arrow) arrow.classList.add('rotate-180');
         } else {
-          mobileMenu.classList.remove('hidden');
-          hamburgerIconOpen.classList.add('hidden');
-          hamburgerIconClose.classList.remove('hidden');
+          content.classList.add('hidden');
+          if (arrow) arrow.classList.remove('rotate-180');
         }
       });
+    });
 
-      // --- MOBILE SUB-MENU DROPDOWN INTERACTION ---
-      const mobileDropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
-      
-      mobileDropdownBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const arrow = btn.querySelector('.mobile-dropdown-arrow');
-          const content = btn.nextElementSibling;
-          
-          const isHidden = content.classList.contains('hidden');
-          
-          if (isHidden) {
-            content.classList.remove('hidden');
-            arrow.classList.add('rotate-180');
-          } else {
-            content.classList.add('hidden');
-            arrow.classList.remove('rotate-180');
-          }
+    // Schedule Day Tabs logic
+    const dayTabs = document.querySelectorAll('.day-tab-btn');
+    const dayPanes = document.querySelectorAll('.day-schedule-pane');
+    dayTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetDay = tab.getAttribute('data-day-tab');
+        dayTabs.forEach(t => {
+          t.classList.remove('bg-gym-brand', 'text-white', 'border-gym-brand', 'shadow');
+          t.classList.add('bg-gym-lightCard', 'dark:bg-gym-darkCard', 'text-zinc-500', 'border-gym-lightBorder', 'dark:border-gym-darkBorder');
         });
-      });
+        tab.classList.add('bg-gym-brand', 'text-white', 'border-gym-brand', 'shadow');
+        tab.classList.remove('bg-gym-lightCard', 'dark:bg-gym-darkCard', 'text-zinc-500', 'border-gym-lightBorder', 'dark:border-gym-darkBorder');
 
-      // --- DYNAMIC ACTIVE PAGE NAVBAR HIGHLIGHT ---
-      (function() {
-        const activePath = decodeURIComponent(window.location.pathname.split('/').pop()) || 'index.html';
-        const navLinks = document.querySelectorAll('header nav a, #mobile-menu a');
-        let homeActive = false;
-        
-        navLinks.forEach(link => {
-          const href = link.getAttribute('href');
-          if (!href) return;
-          
-          const cleanHref = href.replace(/^\.\//, '').split('?')[0];
-          
-          if (cleanHref === activePath) {
-            link.classList.add('text-gym-brand', 'font-black');
-            link.classList.remove('hover:text-gym-brand');
-            
-            if (cleanHref === 'index.html' || cleanHref === 'home 2.html') {
-              homeActive = true;
+        dayPanes.forEach(pane => {
+          if (pane.getAttribute('data-day-pane') === targetDay) {
+            pane.classList.remove('hidden');
+            if (!pane.classList.contains('grid') && !pane.classList.contains('text-center')) {
+              pane.classList.add('grid');
             }
+          } else {
+            pane.classList.add('hidden');
           }
         });
-        
-        if (homeActive) {
-          const desktopHomeBtn = document.querySelector('.dropdown-parent button');
-          if (desktopHomeBtn) {
-            desktopHomeBtn.classList.add('text-gym-brand', 'font-black');
-          }
-          const mobileHomeBtn = document.querySelector('.mobile-dropdown-btn');
-          if (mobileHomeBtn) {
-            mobileHomeBtn.classList.add('text-gym-brand', 'font-black');
-          }
-        }
-      })();
+      });
+    });
   </script>
 </body>
 </html>

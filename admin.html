@@ -27,10 +27,17 @@
             gym: {
               brand: '#075e0a',       // Deep green
               brandHover: '#054b08',  // Hover deep green
-              darkBg: '#0B0F19',      // Mockup dark background
-              darkCard: '#161C2A',    // Mockup card background
-              darkBorder: '#232B3C',  // Mockup border
-              lightBg: '#FAFAFA',     // Light background
+              darkBg: '#000000',      // Pure black primary background
+              darkCard: '#121214',    // Dark grey card background
+              darkBorder: '#27272A',  // Zinc-800 border
+              lightBg: '#FFFFFF',     // Pure white primary background
+              lightCard: '#FFFFFF',   // Pure white card
+              lightBorder: '#E5E5E5', // Light border
+              darkAlt: '#121214',     // Dark grey alternate section
+              lightAlt: '#F8F9FA',    // Light grey alternate section
+
+
+
               lightCard: '#FFFFFF',   // Pure white card
               lightBorder: '#E5E5E5', // Light border
             }
@@ -39,7 +46,236 @@
       }
     }
   </script>
+  <!-- SCRIPT_CLEANUP_1
+            }
+          }
+        }
+      }
+    }
+    // --- Dynamic Booking Management Actions ---
+    function openBookingModal() {
+      const modal = document.getElementById('booking-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
 
+    function closeBookingModal() {
+      const modal = document.getElementById('booking-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // Close booking modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeBookingModal();
+    });
+
+    function filterBookings() {
+      const searchVal = (document.getElementById('booking-search-input')?.value || '').toLowerCase().trim();
+      const classVal = (document.getElementById('booking-class-filter')?.value || '').toLowerCase().trim();
+      const statusVal = (document.getElementById('booking-status-filter')?.value || '').toUpperCase().trim();
+      const dateVal = document.getElementById('booking-date-filter')?.value || '';
+
+      const rows = document.querySelectorAll('#bookings-table-body tr.booking-data-row');
+      let visibleCount = 0;
+
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        const rowClass = (row.getAttribute('data-class') || '').toLowerCase();
+        const rowStatus = (row.getAttribute('data-status') || '').toUpperCase();
+        const rowDate = row.getAttribute('data-date') || '';
+
+        const matchesSearch = !searchVal || text.includes(searchVal);
+        const matchesClass = !classVal || rowClass.includes(classVal);
+        const matchesStatus = !statusVal || rowStatus === statusVal;
+        const matchesDate = !dateVal || rowDate.includes(dateVal);
+
+        if (matchesSearch && matchesClass && matchesStatus && matchesDate) {
+          row.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+
+      const countEl = document.getElementById('booking-results-count');
+      if (countEl) countEl.textContent = `Showing ${visibleCount} Bookings`;
+
+      const emptyEl = document.getElementById('booking-no-results');
+      if (emptyEl) {
+        if (visibleCount === 0) emptyEl.classList.remove('hidden');
+        else emptyEl.classList.add('hidden');
+      }
+    }
+
+    function resetBookingFilters() {
+      const searchInput = document.getElementById('booking-search-input');
+      const classFilter = document.getElementById('booking-class-filter');
+      const statusFilter = document.getElementById('booking-status-filter');
+      const dateFilter = document.getElementById('booking-date-filter');
+
+      if (searchInput) searchInput.value = '';
+      if (classFilter) classFilter.value = '';
+      if (statusFilter) statusFilter.value = '';
+      if (dateFilter) dateFilter.value = '';
+
+      filterBookings();
+    }
+
+    function updateBookingStatus(id) {
+      const row = document.getElementById('booking-row-' + id);
+      if (!row) return;
+      const statusBadge = row.querySelector('.booking-status-badge');
+      const currentStatus = (row.getAttribute('data-status') || '').toUpperCase();
+      
+      let nextStatus = 'CONFIRMED';
+      let nextHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">CONFIRMED</span>';
+
+      if (currentStatus === 'CONFIRMED') {
+        nextStatus = 'COMPLETED';
+        nextHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-zinc-500/15 text-zinc-400 border border-zinc-500/20">COMPLETED</span>';
+      } else if (currentStatus === 'COMPLETED') {
+        nextStatus = 'WAITLIST';
+        nextHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500/10 text-amber-500 border border-amber-500/20">WAITLIST</span>';
+      } else if (currentStatus === 'WAITLIST') {
+        nextStatus = 'CANCELLED';
+        nextHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-red-500/10 text-red-500 border border-red-500/20">CANCELLED</span>';
+      } else {
+        nextStatus = 'CONFIRMED';
+        nextHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">CONFIRMED</span>';
+      }
+
+      row.setAttribute('data-status', nextStatus);
+      if (statusBadge) statusBadge.innerHTML = nextHtml;
+      updateBookingStats();
+    }
+
+    function deleteBooking(id) {
+      const row = document.getElementById('booking-row-' + id);
+      if (row && confirm("Are you sure you want to cancel and remove this booking reservation?")) {
+        row.remove();
+        updateBookingStats();
+        filterBookings();
+      }
+    }
+
+    function updateBookingStats() {
+      const allRows = document.querySelectorAll('#bookings-table-body tr.booking-data-row');
+      let confirmed = 0;
+      let waitlist = 0;
+
+      allRows.forEach(r => {
+        const s = (r.getAttribute('data-status') || '').toUpperCase();
+        if (s === 'CONFIRMED') confirmed++;
+        if (s === 'WAITLIST') waitlist++;
+      });
+
+      const totalEl = document.getElementById('booking-stat-total');
+      const confEl = document.getElementById('booking-stat-confirmed');
+      const waitEl = document.getElementById('booking-stat-waitlist');
+
+      if (totalEl) totalEl.textContent = allRows.length;
+      if (confEl) confEl.textContent = confirmed;
+      if (waitEl) waitEl.textContent = waitlist;
+    }
+
+    function addBooking(e) {
+      e.preventDefault();
+      const member = document.getElementById('new-booking-member').value.trim();
+      const plan = document.getElementById('new-booking-plan').value;
+      const classCategory = document.getElementById('new-booking-class').value;
+      const coach = document.getElementById('new-booking-coach').value;
+      const schedule = document.getElementById('new-booking-schedule').value.trim();
+      const seat = document.getElementById('new-booking-seat').value.trim() || '1';
+      const status = document.getElementById('new-booking-status').value;
+
+      const newId = Date.now().toString().slice(-4);
+      const refId = `#BK-${newId}`;
+
+      let badgeHtml = '';
+      if (status === 'CONFIRMED') {
+        badgeHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">CONFIRMED</span>';
+      } else if (status === 'WAITLIST') {
+        badgeHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500/10 text-amber-500 border border-amber-500/20">WAITLIST</span>';
+      } else if (status === 'COMPLETED') {
+        badgeHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-zinc-500/15 text-zinc-400 border border-zinc-500/20">COMPLETED</span>';
+      } else {
+        badgeHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-red-500/10 text-red-500 border border-red-500/20">CANCELLED</span>';
+      }
+
+      const initial = member.charAt(0).toUpperCase();
+
+      const newRow = `
+        <tr id="booking-row-${newId}" class="booking-data-row hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors" data-class="${classCategory}" data-status="${status}" data-date="">
+          <td class="p-3.5 text-gym-brand font-mono font-bold">${refId}</td>
+          <td class="p-3.5">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse">
+              <div class="w-8 h-8 rounded-full bg-gym-brand/10 text-gym-brand flex items-center justify-center font-black text-xs">${initial}</div>
+              <div>
+                <span class="block text-zinc-900 dark:text-white font-bold">${member}</span>
+                <span class="block text-[9px] text-zinc-400 font-semibold">${plan}</span>
+              </div>
+            </div>
+          </td>
+          <td class="p-3.5">
+            <span class="block text-zinc-900 dark:text-white font-bold">${classCategory}</span>
+            <span class="block text-[9px] text-zinc-400 font-semibold">${coach}</span>
+          </td>
+          <td class="p-3.5 text-zinc-700 dark:text-zinc-300 font-medium">${schedule}</td>
+          <td class="p-3.5 text-zinc-600 dark:text-zinc-400">Seat #${seat}</td>
+          <td class="p-3.5 booking-status-badge">
+            ${badgeHtml}
+          </td>
+          <td class="p-3.5 text-center">
+            <div class="inline-flex items-center space-x-2 rtl:space-x-reverse">
+              <button onclick="updateBookingStatus('${newId}')" title="Cycle Status" class="p-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+              </button>
+              <button onclick="deleteBooking('${newId}')" title="Delete Booking" class="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+
+      const tbody = document.getElementById('bookings-table-body');
+      if (tbody) tbody.insertAdjacentHTML('afterbegin', newRow);
+
+      closeBookingModal();
+      document.getElementById('new-booking-form').reset();
+      updateBookingStats();
+      filterBookings();
+      alert("New reservation successfully registered!");
+    }
+
+    function exportBookings() {
+      const rows = document.querySelectorAll('#bookings-table-body tr.booking-data-row');
+      let csv = "Booking ID,Member Name,Plan,Class Category,Coach,Schedule,Seat,Status\n";
+      
+      rows.forEach(r => {
+        const id = r.querySelector('td:nth-child(1)')?.innerText.trim() || '';
+        const member = r.querySelector('td:nth-child(2) span:nth-child(1)')?.innerText.trim() || '';
+        const plan = r.querySelector('td:nth-child(2) span:nth-child(2)')?.innerText.trim() || '';
+        const cls = r.querySelector('td:nth-child(3) span:nth-child(1)')?.innerText.trim() || '';
+        const coach = r.querySelector('td:nth-child(3) span:nth-child(2)')?.innerText.trim() || '';
+        const schedule = r.querySelector('td:nth-child(4)')?.innerText.trim() || '';
+        const seat = r.querySelector('td:nth-child(5)')?.innerText.trim() || '';
+        const status = r.getAttribute('data-status') || '';
+
+        csv += `"${id}","${member}","${plan}","${cls}","${coach}","${schedule}","${seat}","${status}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'gym-bookings-roster.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  </script>
+
+  -->
   <style>
     /* Prevent layout shift during theme loading */
     .theme-loading * {
@@ -48,7 +284,7 @@
     
     html, body {
       max-width: 100%;
-      overflow-x: hidden;
+      overflow-x: clip;
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -82,7 +318,7 @@
     /* Prevent horizontal scrolling on mobile */
     html, body {
       max-width: 100vw !important;
-      overflow-x: hidden !important;
+      overflow-x: clip !important;
       box-sizing: border-box !important;
     }
 
@@ -116,6 +352,142 @@
       filter: invert(1);
       cursor: pointer;
     }
+    /* --- DARK MODE PRIMARY COLOR CONTRAST ENHANCEMENTS (WCAG AAA) --- */
+    .dark .text-gym-brand {
+      color: #22c55e !important;
+    }
+    .dark .hover\:text-gym-brand:hover {
+      color: #4ade80 !important;
+    }
+    .dark .border-gym-brand {
+      border-color: #22c55e !important;
+    }
+    .dark .hover\:border-gym-brand:hover {
+      border-color: #4ade80 !important;
+    }
+    .dark .bg-gym-brand {
+      background-color: #16a34a !important;
+      color: #ffffff !important;
+    }
+    .dark .hover\:bg-gym-brand:hover,
+    .dark .hover\:bg-gym-brandHover:hover {
+      background-color: #15803d !important;
+    }
+    .dark .bg-gym-brand\/10 {
+      background-color: rgba(34, 197, 94, 0.12) !important;
+    }
+    .dark .bg-gym-brand\/15 {
+      background-color: rgba(34, 197, 94, 0.18) !important;
+    }
+    .dark .bg-gym-brand\/20 {
+      background-color: rgba(34, 197, 94, 0.22) !important;
+    }
+    .dark .border-gym-brand\/20 {
+      border-color: rgba(34, 197, 94, 0.25) !important;
+    }
+    .dark .border-gym-brand\/30 {
+      border-color: rgba(34, 197, 94, 0.35) !important;
+    }
+    .dark .border-gym-brand\/40 {
+      border-color: rgba(34, 197, 94, 0.45) !important;
+    }
+    .dark .shadow-gym-brand\/20,
+    .dark .shadow-gym-brand\/30 {
+      --tw-shadow-color: rgba(34, 197, 94, 0.35) !important;
+    }
+    .dark svg.text-gym-brand,
+    .dark .text-gym-brand svg {
+      color: #22c55e !important;
+    }
+    .dark .ring-gym-brand,
+    .dark .focus\:ring-gym-brand:focus {
+      --tw-ring-color: #22c55e !important;
+    }
+    .dark .focus\:border-gym-brand:focus {
+      border-color: #22c55e !important;
+    }
+
+    /* Fail-safe display rules for Theme Toggle Icons */
+    html.dark #theme-toggle-light-icon,
+    html.dark #mobile-theme-toggle-light-icon {
+      display: block !important;
+    }
+    html.dark #theme-toggle-dark-icon,
+    html.dark #mobile-theme-toggle-dark-icon {
+      display: none !important;
+    }
+    html:not(.dark) #theme-toggle-light-icon,
+    html:not(.dark) #mobile-theme-toggle-light-icon {
+      display: none !important;
+    }
+    html:not(.dark) #theme-toggle-dark-icon,
+    html:not(.dark) #mobile-theme-toggle-dark-icon {
+      display: block !important;
+    }
+    /* Custom sleek scrollbars for Admin Portal */
+    .admin-sidebar-scroll::-webkit-scrollbar,
+    .admin-table-scroll::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .admin-sidebar-scroll::-webkit-scrollbar-track,
+    .admin-table-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .admin-sidebar-scroll::-webkit-scrollbar-thumb,
+    .admin-table-scroll::-webkit-scrollbar-thumb {
+      background-color: rgba(156, 163, 175, 0.4);
+      border-radius: 9999px;
+    }
+    .dark .admin-sidebar-scroll::-webkit-scrollbar-thumb,
+    .dark .admin-table-scroll::-webkit-scrollbar-thumb {
+      background-color: rgba(75, 85, 99, 0.5);
+    }
+    .admin-sidebar-scroll {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(156, 163, 175, 0.4) transparent;
+    }
+    .dark .admin-sidebar-scroll {
+      scrollbar-color: rgba(75, 85, 99, 0.5) transparent;
+    }
+
+    /* --- WCAG AAA PRIMARY, ALTERNATE & HIGHLIGHT PALETTES --- */
+    body {
+      background-color: #FFFFFF !important;
+    }
+    html.dark body {
+      background-color: #000000 !important;
+    }
+    .bg-gym-lightBg {
+      background-color: #FFFFFF !important;
+    }
+    html.dark .dark\:bg-gym-darkBg {
+      background-color: #000000 !important;
+    }
+    .bg-gym-lightCard {
+      background-color: #FFFFFF !important;
+    }
+    html.dark .dark\:bg-gym-darkCard {
+      background-color: #121214 !important;
+    }
+    .section-primary {
+      background-color: #FFFFFF !important;
+    }
+    html.dark .section-primary {
+      background-color: #000000 !important;
+    }
+    .section-alt {
+      background-color: #F8F9FA !important;
+    }
+    html.dark .section-alt {
+      background-color: #121214 !important;
+    }
+    .section-highlight {
+      background-color: rgba(7, 94, 10, 0.04) !important;
+    }
+    html.dark .section-highlight {
+      background-color: rgba(34, 197, 94, 0.08) !important;
+    }
   </style>
 
   <script>
@@ -134,12 +506,236 @@
       document.documentElement.setAttribute('lang', savedDir === 'rtl' ? 'ar' : 'en');
     })();
   </script>
+  <!-- SCRIPT_CLEANUP_2
+    // --- Dynamic Booking Management Actions ---
+    function openBookingModal() {
+      const modal = document.getElementById('booking-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeBookingModal() {
+      const modal = document.getElementById('booking-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // Close booking modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeBookingModal();
+    });
+
+    function filterBookings() {
+      const searchVal = (document.getElementById('booking-search-input')?.value || '').toLowerCase().trim();
+      const classVal = (document.getElementById('booking-class-filter')?.value || '').toLowerCase().trim();
+      const statusVal = (document.getElementById('booking-status-filter')?.value || '').toUpperCase().trim();
+      const dateVal = document.getElementById('booking-date-filter')?.value || '';
+
+      const rows = document.querySelectorAll('#bookings-table-body tr.booking-data-row');
+      let visibleCount = 0;
+
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        const rowClass = (row.getAttribute('data-class') || '').toLowerCase();
+        const rowStatus = (row.getAttribute('data-status') || '').toUpperCase();
+        const rowDate = row.getAttribute('data-date') || '';
+
+        const matchesSearch = !searchVal || text.includes(searchVal);
+        const matchesClass = !classVal || rowClass.includes(classVal);
+        const matchesStatus = !statusVal || rowStatus === statusVal;
+        const matchesDate = !dateVal || rowDate.includes(dateVal);
+
+        if (matchesSearch && matchesClass && matchesStatus && matchesDate) {
+          row.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+
+      const countEl = document.getElementById('booking-results-count');
+      if (countEl) countEl.textContent = `Showing ${visibleCount} Bookings`;
+
+      const emptyEl = document.getElementById('booking-no-results');
+      if (emptyEl) {
+        if (visibleCount === 0) emptyEl.classList.remove('hidden');
+        else emptyEl.classList.add('hidden');
+      }
+    }
+
+    function resetBookingFilters() {
+      const searchInput = document.getElementById('booking-search-input');
+      const classFilter = document.getElementById('booking-class-filter');
+      const statusFilter = document.getElementById('booking-status-filter');
+      const dateFilter = document.getElementById('booking-date-filter');
+
+      if (searchInput) searchInput.value = '';
+      if (classFilter) classFilter.value = '';
+      if (statusFilter) statusFilter.value = '';
+      if (dateFilter) dateFilter.value = '';
+
+      filterBookings();
+    }
+
+    function updateBookingStatus(id) {
+      const row = document.getElementById('booking-row-' + id);
+      if (!row) return;
+      const statusBadge = row.querySelector('.booking-status-badge');
+      const currentStatus = (row.getAttribute('data-status') || '').toUpperCase();
+      
+      let nextStatus = 'CONFIRMED';
+      let nextHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">CONFIRMED</span>';
+
+      if (currentStatus === 'CONFIRMED') {
+        nextStatus = 'COMPLETED';
+        nextHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-zinc-500/15 text-zinc-400 border border-zinc-500/20">COMPLETED</span>';
+      } else if (currentStatus === 'COMPLETED') {
+        nextStatus = 'WAITLIST';
+        nextHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500/10 text-amber-500 border border-amber-500/20">WAITLIST</span>';
+      } else if (currentStatus === 'WAITLIST') {
+        nextStatus = 'CANCELLED';
+        nextHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-red-500/10 text-red-500 border border-red-500/20">CANCELLED</span>';
+      } else {
+        nextStatus = 'CONFIRMED';
+        nextHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">CONFIRMED</span>';
+      }
+
+      row.setAttribute('data-status', nextStatus);
+      if (statusBadge) statusBadge.innerHTML = nextHtml;
+      updateBookingStats();
+    }
+
+    function deleteBooking(id) {
+      const row = document.getElementById('booking-row-' + id);
+      if (row && confirm("Are you sure you want to cancel and remove this booking reservation?")) {
+        row.remove();
+        updateBookingStats();
+        filterBookings();
+      }
+    }
+
+    function updateBookingStats() {
+      const allRows = document.querySelectorAll('#bookings-table-body tr.booking-data-row');
+      let confirmed = 0;
+      let waitlist = 0;
+
+      allRows.forEach(r => {
+        const s = (r.getAttribute('data-status') || '').toUpperCase();
+        if (s === 'CONFIRMED') confirmed++;
+        if (s === 'WAITLIST') waitlist++;
+      });
+
+      const totalEl = document.getElementById('booking-stat-total');
+      const confEl = document.getElementById('booking-stat-confirmed');
+      const waitEl = document.getElementById('booking-stat-waitlist');
+
+      if (totalEl) totalEl.textContent = allRows.length;
+      if (confEl) confEl.textContent = confirmed;
+      if (waitEl) waitEl.textContent = waitlist;
+    }
+
+    function addBooking(e) {
+      e.preventDefault();
+      const member = document.getElementById('new-booking-member').value.trim();
+      const plan = document.getElementById('new-booking-plan').value;
+      const classCategory = document.getElementById('new-booking-class').value;
+      const coach = document.getElementById('new-booking-coach').value;
+      const schedule = document.getElementById('new-booking-schedule').value.trim();
+      const seat = document.getElementById('new-booking-seat').value.trim() || '1';
+      const status = document.getElementById('new-booking-status').value;
+
+      const newId = Date.now().toString().slice(-4);
+      const refId = `#BK-${newId}`;
+
+      let badgeHtml = '';
+      if (status === 'CONFIRMED') {
+        badgeHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">CONFIRMED</span>';
+      } else if (status === 'WAITLIST') {
+        badgeHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500/10 text-amber-500 border border-amber-500/20">WAITLIST</span>';
+      } else if (status === 'COMPLETED') {
+        badgeHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-zinc-500/15 text-zinc-400 border border-zinc-500/20">COMPLETED</span>';
+      } else {
+        badgeHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-red-500/10 text-red-500 border border-red-500/20">CANCELLED</span>';
+      }
+
+      const initial = member.charAt(0).toUpperCase();
+
+      const newRow = `
+        <tr id="booking-row-${newId}" class="booking-data-row hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors" data-class="${classCategory}" data-status="${status}" data-date="">
+          <td class="p-3.5 text-gym-brand font-mono font-bold">${refId}</td>
+          <td class="p-3.5">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse">
+              <div class="w-8 h-8 rounded-full bg-gym-brand/10 text-gym-brand flex items-center justify-center font-black text-xs">${initial}</div>
+              <div>
+                <span class="block text-zinc-900 dark:text-white font-bold">${member}</span>
+                <span class="block text-[9px] text-zinc-400 font-semibold">${plan}</span>
+              </div>
+            </div>
+          </td>
+          <td class="p-3.5">
+            <span class="block text-zinc-900 dark:text-white font-bold">${classCategory}</span>
+            <span class="block text-[9px] text-zinc-400 font-semibold">${coach}</span>
+          </td>
+          <td class="p-3.5 text-zinc-700 dark:text-zinc-300 font-medium">${schedule}</td>
+          <td class="p-3.5 text-zinc-600 dark:text-zinc-400">Seat #${seat}</td>
+          <td class="p-3.5 booking-status-badge">
+            ${badgeHtml}
+          </td>
+          <td class="p-3.5 text-center">
+            <div class="inline-flex items-center space-x-2 rtl:space-x-reverse">
+              <button onclick="updateBookingStatus('${newId}')" title="Cycle Status" class="p-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+              </button>
+              <button onclick="deleteBooking('${newId}')" title="Delete Booking" class="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+
+      const tbody = document.getElementById('bookings-table-body');
+      if (tbody) tbody.insertAdjacentHTML('afterbegin', newRow);
+
+      closeBookingModal();
+      document.getElementById('new-booking-form').reset();
+      updateBookingStats();
+      filterBookings();
+      alert("New reservation successfully registered!");
+    }
+
+    function exportBookings() {
+      const rows = document.querySelectorAll('#bookings-table-body tr.booking-data-row');
+      let csv = "Booking ID,Member Name,Plan,Class Category,Coach,Schedule,Seat,Status\n";
+      
+      rows.forEach(r => {
+        const id = r.querySelector('td:nth-child(1)')?.innerText.trim() || '';
+        const member = r.querySelector('td:nth-child(2) span:nth-child(1)')?.innerText.trim() || '';
+        const plan = r.querySelector('td:nth-child(2) span:nth-child(2)')?.innerText.trim() || '';
+        const cls = r.querySelector('td:nth-child(3) span:nth-child(1)')?.innerText.trim() || '';
+        const coach = r.querySelector('td:nth-child(3) span:nth-child(2)')?.innerText.trim() || '';
+        const schedule = r.querySelector('td:nth-child(4)')?.innerText.trim() || '';
+        const seat = r.querySelector('td:nth-child(5)')?.innerText.trim() || '';
+        const status = r.getAttribute('data-status') || '';
+
+        csv += `"${id}","${member}","${plan}","${cls}","${coach}","${schedule}","${seat}","${status}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'gym-bookings-roster.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  </script>
+  -->
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body class="bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 min-h-screen transition-colors duration-300 font-sans">
 
   <!-- HEADER NAVIGATION (Matches Mockup) -->
-  <header class="border-b border-gym-lightBorder dark:border-gym-darkBorder bg-gym-lightCard dark:bg-[#0B0F19] w-full py-4 px-6 sm:px-8 flex flex-col md:flex-row md:items-center md:justify-between sticky top-0 z-40 gap-4">
+  <header class="border-b border-gym-lightBorder dark:border-gym-darkBorder bg-gym-lightCard dark:bg-[#121214] w-full py-4 px-6 sm:px-8 flex flex-col md:flex-row md:items-center md:justify-between sticky top-0 z-40 gap-4">
     <!-- Top Row: Logo & Hamburger -->
     <div class="flex items-center justify-between w-full md:w-auto">
       <a href="index.html" class="flex items-center space-x-2.5 rtl:space-x-reverse group">
@@ -197,7 +793,7 @@
       <div id="sidebar-backdrop" onclick="toggleSidebarMenu()" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"></div>
 
       <!-- LEFT SIDEBAR PANEL (SPA Controllers) -->
-      <aside class="fixed lg:static inset-y-0 end-0 z-50 w-72 lg:w-auto h-full lg:h-auto overflow-y-auto lg:overflow-visible transition-transform duration-300 transform translate-x-full lg:translate-x-0 lg:col-span-3 bg-gym-lightCard dark:bg-gym-darkCard border-l lg:border border-gym-lightBorder dark:border-gym-darkBorder lg:rounded-3xl p-6 shadow-2xl lg:shadow-xl space-y-6">
+      <aside class="fixed lg:sticky lg:top-24 inset-y-0 end-0 z-50 lg:z-30 w-72 lg:w-auto h-full lg:h-auto lg:max-h-[calc(100vh-7rem)] overflow-y-auto admin-sidebar-scroll transition-transform duration-300 transform translate-x-full lg:translate-x-0 lg:col-span-3 bg-gym-lightCard dark:bg-gym-darkCard border-l lg:border border-gym-lightBorder dark:border-gym-darkBorder lg:rounded-3xl p-6 shadow-2xl lg:shadow-xl space-y-6">
         <div class="flex items-center justify-between border-b border-gym-lightBorder dark:border-gym-darkBorder pb-4">
           <div class="flex items-center space-x-2 rtl:space-x-reverse text-gym-brand">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -834,10 +1430,457 @@
         </div>
 
         <!-- TAB 6: BOOKING MANAGEMENT -->
-        <div id="content-bookings" class="hidden space-y-6">
+        <div id="content-bookings" class="hidden space-y-6"><!--
           <div class="space-y-1">
-            <h2 class="text-3xl font-black uppercase text-zinc-950 dark:text-white">Booking Management</h2>
-            <p class="text-xs font-semibold text-zinc-400">Track all member bookings, seat capacities, and cancelled reservations.</p>
+-->          <!-- Booking Header & Top CTA Actions -->
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div class="space-y-1">
+              <div class="flex items-center space-x-2.5 rtl:space-x-reverse">
+                <span class="inline-block w-2.5 h-2.5 rounded-full bg-gym-brand"></span>
+                <h2 class="text-3xl font-black uppercase tracking-tight text-zinc-950 dark:text-white">Booking Management</h2>
+              </div>
+              <p class="text-xs font-semibold text-zinc-400">Track all member bookings, seat capacities, and reservation statuses in real time.</p>
+            </div>
+            
+            <div class="flex items-center gap-2.5 w-full sm:w-auto">
+              <!-- Export Bookings Button -->
+              <button onclick="exportBookings()" class="flex-1 sm:flex-initial inline-flex items-center justify-center px-4 py-2.5 rounded-xl border border-gym-lightBorder dark:border-gym-darkBorder bg-gym-lightCard dark:bg-gym-darkCard hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-200 text-xs font-bold uppercase transition-all shadow-sm">
+                <svg class="w-4 h-4 me-1.5 text-zinc-500 dark:text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                </svg>
+                <span>Export CSV</span>
+              </button>
+              
+              <!-- Add New Booking Button -->
+              <button onclick="openBookingModal()" class="flex-1 sm:flex-initial inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-gym-brand hover:bg-gym-brandHover text-white text-xs font-black uppercase tracking-wider transition-all shadow-md">
+                <svg class="w-4 h-4 me-1.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span>New Booking</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Booking KPI Counters -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-2xl p-4 shadow-sm">
+              <span class="block text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Total Bookings</span>
+              <span id="booking-stat-total" class="block text-2xl font-black text-zinc-950 dark:text-white mt-1">6</span>
+              <span class="block text-[9px] text-zinc-500 font-semibold mt-0.5">+18% this month</span>
+            </div>
+            <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-2xl p-4 shadow-sm">
+              <span class="block text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Confirmed</span>
+              <span id="booking-stat-confirmed" class="block text-2xl font-black text-emerald-500 mt-1">3</span>
+              <span class="block text-[9px] text-zinc-500 font-semibold mt-0.5">Ready for session</span>
+            </div>
+            <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-2xl p-4 shadow-sm">
+              <span class="block text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Waitlisted</span>
+              <span id="booking-stat-waitlist" class="block text-2xl font-black text-amber-500 mt-1">1</span>
+              <span class="block text-[9px] text-zinc-500 font-semibold mt-0.5">Standby queue</span>
+            </div>
+            <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-2xl p-4 shadow-sm">
+              <span class="block text-[10px] font-bold text-zinc-400 uppercase tracking-widest">Capacity Fill</span>
+              <span class="block text-2xl font-black text-gym-brand mt-1">86%</span>
+              <span class="block text-[9px] text-zinc-500 font-semibold mt-0.5">Peak utilization</span>
+            </div>
+          </div>
+
+          <!-- BOOKING MANAGEMENT OPTIONS CONTAINER -->
+          <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-5 sm:p-6 shadow-sm space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-gym-lightBorder dark:border-gym-darkBorder gap-2">
+              <div class="flex items-center space-x-2 rtl:space-x-reverse text-xs font-black uppercase text-zinc-950 dark:text-white tracking-wider">
+                <svg class="w-4 h-4 text-gym-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+                </svg>
+                <span>Booking Options & Filter Toolbar</span>
+              </div>
+              <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-gym-brand/10 text-gym-brand uppercase">Live Query</span>
+                <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Auto-Filtered</span>
+              </div>
+            </div>
+
+            <!-- Aligned Options Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-4 items-end">
+              <!-- Option 1: Search by Member, Ref ID, or Class -->
+              <div class="lg:col-span-4 space-y-1.5">
+                <label for="booking-search-input" class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Search Reservation</label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 start-0 ps-3.5 flex items-center pointer-events-none text-zinc-400">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
+                  </div>
+                  <input type="text" id="booking-search-input" oninput="filterBookings()" placeholder="Search member, ID, or class..." class="w-full h-11 ps-10 pe-4 bg-zinc-50 dark:bg-zinc-900/60 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-xs font-semibold text-zinc-900 dark:text-white placeholder-zinc-400 transition-colors" />
+                </div>
+              </div>
+
+              <!-- Option 2: Workout Class Filter -->
+              <div class="lg:col-span-3 space-y-1.5">
+                <label for="booking-class-filter" class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Class Category</label>
+                <select id="booking-class-filter" onchange="filterBookings()" class="w-full h-11 px-3 bg-zinc-50 dark:bg-zinc-900/60 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-xs font-bold uppercase text-zinc-700 dark:text-zinc-200 cursor-pointer transition-colors">
+                  <option value="">All Workout Classes</option>
+                  <option value="HIIT Conditioning">HIIT Conditioning</option>
+                  <option value="Powerlifting Overload">Powerlifting Overload</option>
+                  <option value="Vinyasa Posture Flow">Vinyasa Posture Flow</option>
+                  <option value="Boxing Conditioning">Boxing Conditioning</option>
+                  <option value="Olympic Powerlifting">Olympic Powerlifting</option>
+                </select>
+              </div>
+
+              <!-- Option 3: Status Filter -->
+              <div class="lg:col-span-2 space-y-1.5">
+                <label for="booking-status-filter" class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Status</label>
+                <select id="booking-status-filter" onchange="filterBookings()" class="w-full h-11 px-3 bg-zinc-50 dark:bg-zinc-900/60 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-xs font-bold uppercase text-zinc-700 dark:text-zinc-200 cursor-pointer transition-colors">
+                  <option value="">All Statuses</option>
+                  <option value="CONFIRMED">Confirmed</option>
+                  <option value="WAITLIST">Waitlist</option>
+                  <option value="COMPLETED">Completed</option>
+                  <option value="CANCELLED">Cancelled</option>
+                </select>
+              </div>
+
+              <!-- Option 4: Session Date Filter -->
+              <div class="lg:col-span-2 space-y-1.5">
+                <label for="booking-date-filter" class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Session Date</label>
+                <input type="date" id="booking-date-filter" onchange="filterBookings()" class="w-full h-11 px-3 bg-zinc-50 dark:bg-zinc-900/60 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-xs font-bold uppercase text-zinc-700 dark:text-zinc-200 cursor-pointer transition-colors" />
+              </div>
+
+              <!-- Option 5: Reset Filters Button -->
+              <div class="lg:col-span-1 space-y-1.5">
+                <label class="hidden lg:block text-[10px] font-bold uppercase tracking-wider text-transparent select-none">Action</label>
+                <button type="button" onclick="resetBookingFilters()" title="Reset all options" class="w-full h-11 inline-flex items-center justify-center rounded-xl border border-gym-lightBorder dark:border-gym-darkBorder bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 text-xs font-black uppercase tracking-wider transition-colors shadow-sm">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- VIEW BOOKINGS LIST TABLE -->
+          <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+              <div>
+                <h3 class="text-sm font-black uppercase text-zinc-950 dark:text-white">Active Reservations Roster</h3>
+                <p class="text-[10px] text-zinc-400 font-semibold">Real-time attendance capacity and reservation statuses</p>
+              </div>
+              <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                <span id="booking-results-count" class="px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-[10px] font-black uppercase tracking-wider text-zinc-700 dark:text-zinc-300 border border-gym-lightBorder dark:border-gym-darkBorder">
+                  Showing 6 Bookings
+                </span>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto admin-table-scroll">
+              <table class="w-full text-[11px] font-bold uppercase text-zinc-700 dark:text-zinc-300">
+                <thead class="bg-zinc-100 dark:bg-zinc-900 border-b border-gym-lightBorder dark:border-gym-darkBorder text-zinc-950 dark:text-white text-[10px]">
+                  <tr>
+                    <th class="p-3.5 text-start">Ref ID</th>
+                    <th class="p-3.5 text-start">Member Name</th>
+                    <th class="p-3.5 text-start">Class & Coach</th>
+                    <th class="p-3.5 text-start">Schedule Time</th>
+                    <th class="p-3.5 text-start">Seat / Cap</th>
+                    <th class="p-3.5 text-start">Status</th>
+                    <th class="p-3.5 text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gym-lightBorder dark:divide-gym-darkBorder" id="bookings-table-body">
+                  <tr id="booking-row-8041" class="booking-data-row hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors" data-class="HIIT Conditioning" data-status="CONFIRMED" data-date="">
+                    <td class="p-3.5 text-gym-brand font-mono font-bold">#BK-8041</td>
+                    <td class="p-3.5">
+                      <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                        <div class="w-8 h-8 rounded-full bg-gym-brand/10 text-gym-brand flex items-center justify-center font-black text-xs">A</div>
+                        <div>
+                          <span class="block text-zinc-900 dark:text-white font-bold">Alex Mercer</span>
+                          <span class="block text-[9px] text-zinc-400 font-semibold">Gold Shield Tier</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="p-3.5">
+                      <span class="block text-zinc-900 dark:text-white font-bold">HIIT Conditioning</span>
+                      <span class="block text-[9px] text-zinc-400 font-semibold">Coach Marcus</span>
+                    </td>
+                    <td class="p-3.5 text-zinc-700 dark:text-zinc-300 font-medium">Tomorrow // 07:00 AM</td>
+                    <td class="p-3.5 text-zinc-600 dark:text-zinc-400">Seat #04 / 20</td>
+                    <td class="p-3.5 booking-status-badge">
+                      <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">CONFIRMED</span>
+                    </td>
+                    <td class="p-3.5 text-center">
+                      <div class="inline-flex items-center space-x-2 rtl:space-x-reverse">
+                        <button onclick="updateBookingStatus('8041')" title="Cycle Status" class="p-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 transition-colors">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                        </button>
+                        <button onclick="deleteBooking('8041')" title="Cancel & Delete" class="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-colors">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="booking-row-8042" class="booking-data-row hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors" data-class="Powerlifting Overload" data-status="CONFIRMED" data-date="">
+                    <td class="p-3.5 text-gym-brand font-mono font-bold">#BK-8042</td>
+                    <td class="p-3.5">
+                      <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                        <div class="w-8 h-8 rounded-full bg-gym-brand/10 text-gym-brand flex items-center justify-center font-black text-xs">M</div>
+                        <div>
+                          <span class="block text-zinc-900 dark:text-white font-bold">Marcus Vance</span>
+                          <span class="block text-[9px] text-zinc-400 font-semibold">Standard Fit</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="p-3.5">
+                      <span class="block text-zinc-900 dark:text-white font-bold">Powerlifting Overload</span>
+                      <span class="block text-[9px] text-zinc-400 font-semibold">Coach Sarah</span>
+                    </td>
+                    <td class="p-3.5 text-zinc-700 dark:text-zinc-300 font-medium">Tomorrow // 05:30 PM</td>
+                    <td class="p-3.5 text-zinc-600 dark:text-zinc-400">Seat #08 / 15</td>
+                    <td class="p-3.5 booking-status-badge">
+                      <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">CONFIRMED</span>
+                    </td>
+                    <td class="p-3.5 text-center">
+                      <div class="inline-flex items-center space-x-2 rtl:space-x-reverse">
+                        <button onclick="updateBookingStatus('8042')" title="Cycle Status" class="p-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 transition-colors">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                        </button>
+                        <button onclick="deleteBooking('8042')" title="Cancel & Delete" class="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-colors">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="booking-row-8043" class="booking-data-row hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors" data-class="Vinyasa Posture Flow" data-status="WAITLIST" data-date="">
+                    <td class="p-3.5 text-gym-brand font-mono font-bold">#BK-8043</td>
+                    <td class="p-3.5">
+                      <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                        <div class="w-8 h-8 rounded-full bg-gym-brand/10 text-gym-brand flex items-center justify-center font-black text-xs">S</div>
+                        <div>
+                          <span class="block text-zinc-900 dark:text-white font-bold">Sarah Jenkins</span>
+                          <span class="block text-[9px] text-zinc-400 font-semibold">Basic Workout</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="p-3.5">
+                      <span class="block text-zinc-900 dark:text-white font-bold">Vinyasa Posture Flow</span>
+                      <span class="block text-[9px] text-zinc-400 font-semibold">Coach Elena</span>
+                    </td>
+                    <td class="p-3.5 text-zinc-700 dark:text-zinc-300 font-medium">Friday // 09:00 AM</td>
+                    <td class="p-3.5 text-zinc-600 dark:text-zinc-400">Seat #12 / 25</td>
+                    <td class="p-3.5 booking-status-badge">
+                      <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500/10 text-amber-500 border border-amber-500/20">WAITLIST</span>
+                    </td>
+                    <td class="p-3.5 text-center">
+                      <div class="inline-flex items-center space-x-2 rtl:space-x-reverse">
+                        <button onclick="updateBookingStatus('8043')" title="Cycle Status" class="p-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 transition-colors">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                        </button>
+                        <button onclick="deleteBooking('8043')" title="Cancel & Delete" class="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-colors">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="booking-row-8044" class="booking-data-row hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors" data-class="Boxing Conditioning" data-status="CONFIRMED" data-date="">
+                    <td class="p-3.5 text-gym-brand font-mono font-bold">#BK-8044</td>
+                    <td class="p-3.5">
+                      <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                        <div class="w-8 h-8 rounded-full bg-gym-brand/10 text-gym-brand flex items-center justify-center font-black text-xs">D</div>
+                        <div>
+                          <span class="block text-zinc-900 dark:text-white font-bold">David Chen</span>
+                          <span class="block text-[9px] text-zinc-400 font-semibold">Gold Shield Tier</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="p-3.5">
+                      <span class="block text-zinc-900 dark:text-white font-bold">Boxing Conditioning</span>
+                      <span class="block text-[9px] text-zinc-400 font-semibold">Coach Tyson</span>
+                    </td>
+                    <td class="p-3.5 text-zinc-700 dark:text-zinc-300 font-medium">Friday // 06:00 PM</td>
+                    <td class="p-3.5 text-zinc-600 dark:text-zinc-400">Seat #02 / 16</td>
+                    <td class="p-3.5 booking-status-badge">
+                      <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">CONFIRMED</span>
+                    </td>
+                    <td class="p-3.5 text-center">
+                      <div class="inline-flex items-center space-x-2 rtl:space-x-reverse">
+                        <button onclick="updateBookingStatus('8044')" title="Cycle Status" class="p-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 transition-colors">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                        </button>
+                        <button onclick="deleteBooking('8044')" title="Cancel & Delete" class="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-colors">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="booking-row-8045" class="booking-data-row hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors" data-class="Olympic Powerlifting" data-status="COMPLETED" data-date="">
+                    <td class="p-3.5 text-gym-brand font-mono font-bold">#BK-8045</td>
+                    <td class="p-3.5">
+                      <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                        <div class="w-8 h-8 rounded-full bg-gym-brand/10 text-gym-brand flex items-center justify-center font-black text-xs">E</div>
+                        <div>
+                          <span class="block text-zinc-900 dark:text-white font-bold">Emily Watson</span>
+                          <span class="block text-[9px] text-zinc-400 font-semibold">Standard Fit</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="p-3.5">
+                      <span class="block text-zinc-900 dark:text-white font-bold">Olympic Powerlifting</span>
+                      <span class="block text-[9px] text-zinc-400 font-semibold">Coach Sarah</span>
+                    </td>
+                    <td class="p-3.5 text-zinc-700 dark:text-zinc-300 font-medium">Saturday // 08:00 AM</td>
+                    <td class="p-3.5 text-zinc-600 dark:text-zinc-400">Seat #06 / 12</td>
+                    <td class="p-3.5 booking-status-badge">
+                      <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-zinc-500/15 text-zinc-400 border border-zinc-500/20">COMPLETED</span>
+                    </td>
+                    <td class="p-3.5 text-center">
+                      <div class="inline-flex items-center space-x-2 rtl:space-x-reverse">
+                        <button onclick="updateBookingStatus('8045')" title="Cycle Status" class="p-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 transition-colors">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                        </button>
+                        <button onclick="deleteBooking('8045')" title="Cancel & Delete" class="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-colors">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr id="booking-row-8046" class="booking-data-row hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors" data-class="HIIT Conditioning" data-status="CANCELLED" data-date="">
+                    <td class="p-3.5 text-gym-brand font-mono font-bold">#BK-8046</td>
+                    <td class="p-3.5">
+                      <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                        <div class="w-8 h-8 rounded-full bg-gym-brand/10 text-gym-brand flex items-center justify-center font-black text-xs">J</div>
+                        <div>
+                          <span class="block text-zinc-900 dark:text-white font-bold">Jason Miller</span>
+                          <span class="block text-[9px] text-zinc-400 font-semibold">Basic Workout</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="p-3.5">
+                      <span class="block text-zinc-900 dark:text-white font-bold">HIIT Conditioning</span>
+                      <span class="block text-[9px] text-zinc-400 font-semibold">Coach Marcus</span>
+                    </td>
+                    <td class="p-3.5 text-zinc-700 dark:text-zinc-300 font-medium">Saturday // 10:00 AM</td>
+                    <td class="p-3.5 text-zinc-600 dark:text-zinc-400">Seat #18 / 20</td>
+                    <td class="p-3.5 booking-status-badge">
+                      <span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-red-500/10 text-red-500 border border-red-500/20">CANCELLED</span>
+                    </td>
+                    <td class="p-3.5 text-center">
+                      <div class="inline-flex items-center space-x-2 rtl:space-x-reverse">
+                        <button onclick="updateBookingStatus('8046')" title="Cycle Status" class="p-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 transition-colors">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+                        </button>
+                        <button onclick="deleteBooking('8046')" title="Cancel & Delete" class="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-colors">
+                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Empty State Notification -->
+            <div id="booking-no-results" class="hidden text-center py-8 space-y-2">
+              <p class="text-sm font-bold text-zinc-400 uppercase tracking-wider">No matching reservations found</p>
+              <button onclick="resetBookingFilters()" class="text-xs font-black text-gym-brand hover:underline uppercase">Reset Search Filters</button>
+            </div>
+
+            <!-- Pagination and Roster Status -->
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-3 pt-4 border-t border-gym-lightBorder dark:border-gym-darkBorder text-[10px] font-bold uppercase text-zinc-400">
+              <span>Displaying 6 Active Reservations // Capacity Synced</span>
+              <div class="inline-flex items-center space-x-1.5 rtl:space-x-reverse">
+                <button class="px-3 py-1.5 rounded-lg border border-gym-lightBorder dark:border-gym-darkBorder bg-zinc-50 dark:bg-zinc-800 text-zinc-400 cursor-not-allowed">Prev</button>
+                <button class="px-3 py-1.5 rounded-lg bg-gym-brand text-white font-black">1</button>
+                <button class="px-3 py-1.5 rounded-lg border border-gym-lightBorder dark:border-gym-darkBorder bg-zinc-50 dark:bg-zinc-800 text-zinc-400 cursor-not-allowed">Next</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- NEW BOOKING MODAL -->
+          <div id="booking-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+            <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-5">
+              <div class="flex items-center justify-between border-b border-gym-lightBorder dark:border-gym-darkBorder pb-4">
+                <div class="flex items-center space-x-2.5 rtl:space-x-reverse text-gym-brand">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                  </svg>
+                  <h3 class="text-sm font-black uppercase tracking-wider text-zinc-950 dark:text-white">New Class Reservation</h3>
+                </div>
+                <button type="button" onclick="closeBookingModal()" class="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <form id="new-booking-form" onsubmit="addBooking(event)" class="space-y-4 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
+                <div class="space-y-1.5">
+                  <label for="new-booking-member">Member Full Name</label>
+                  <input type="text" id="new-booking-member" placeholder="e.g. Jordan Hayes" required class="w-full h-11 px-4 bg-zinc-50 dark:bg-zinc-900/60 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white" />
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="space-y-1.5">
+                    <label for="new-booking-plan">Membership Tier</label>
+                    <select id="new-booking-plan" class="w-full h-11 px-3 bg-zinc-50 dark:bg-zinc-900/60 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-700 dark:text-zinc-200">
+                      <option value="Gold Shield Tier">Gold Shield Tier</option>
+                      <option value="Standard Fit">Standard Fit</option>
+                      <option value="Basic Workout">Basic Workout</option>
+                      <option value="Guest Pass">Guest Pass</option>
+                    </select>
+                  </div>
+                  <div class="space-y-1.5">
+                    <label for="new-booking-class">Workout Class</label>
+                    <select id="new-booking-class" class="w-full h-11 px-3 bg-zinc-50 dark:bg-zinc-900/60 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-700 dark:text-zinc-200">
+                      <option value="HIIT Conditioning">HIIT Conditioning</option>
+                      <option value="Powerlifting Overload">Powerlifting Overload</option>
+                      <option value="Vinyasa Posture Flow">Vinyasa Posture Flow</option>
+                      <option value="Boxing Conditioning">Boxing Conditioning</option>
+                      <option value="Olympic Powerlifting">Olympic Powerlifting</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="space-y-1.5">
+                    <label for="new-booking-coach">Assigned Coach</label>
+                    <select id="new-booking-coach" class="w-full h-11 px-3 bg-zinc-50 dark:bg-zinc-900/60 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-700 dark:text-zinc-200">
+                      <option value="Coach Marcus">Coach Marcus</option>
+                      <option value="Coach Sarah">Coach Sarah</option>
+                      <option value="Coach Elena">Coach Elena</option>
+                      <option value="Coach Tyson">Coach Tyson</option>
+                    </select>
+                  </div>
+                  <div class="space-y-1.5">
+                    <label for="new-booking-seat">Seat / Station #</label>
+                    <input type="number" id="new-booking-seat" min="1" max="50" value="5" required class="w-full h-11 px-4 bg-zinc-50 dark:bg-zinc-900/60 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white" />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="space-y-1.5">
+                    <label for="new-booking-schedule">Date & Time</label>
+                    <input type="text" id="new-booking-schedule" placeholder="e.g. Tomorrow // 08:30 AM" required class="w-full h-11 px-4 bg-zinc-50 dark:bg-zinc-900/60 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white" />
+                  </div>
+                  <div class="space-y-1.5">
+                    <label for="new-booking-status">Initial Status</label>
+                    <select id="new-booking-status" class="w-full h-11 px-3 bg-zinc-50 dark:bg-zinc-900/60 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-700 dark:text-zinc-200">
+                      <option value="CONFIRMED">CONFIRMED</option>
+                      <option value="WAITLIST">WAITLIST</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-end space-x-3 rtl:space-x-reverse pt-3 border-t border-gym-lightBorder dark:border-gym-darkBorder">
+                  <button type="button" onclick="closeBookingModal()" class="px-5 py-2.5 rounded-xl border border-gym-lightBorder dark:border-gym-darkBorder bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-300 font-bold uppercase transition-colors">
+                    Cancel
+                  </button>
+                  <button type="submit" class="px-5 py-2.5 rounded-xl bg-gym-brand hover:bg-gym-brandHover text-white font-black uppercase tracking-wider transition-colors shadow-md">
+                    Confirm Reservation
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+<!-- OLD_BOOKINGS_SECTION_REMOVED
           </div>
 
           <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md overflow-x-auto">
@@ -868,6 +1911,7 @@
           </div>
         </div>
 
+-->
         <!-- TAB 7: ATTENDANCE MANAGEMENT -->
         <div id="content-attendance" class="hidden space-y-6">
           <div class="space-y-1">
@@ -1331,6 +2375,227 @@
         sidebar.classList.add('translate-x-0');
         backdrop.classList.remove('hidden');
       }
+    }
+    // --- Dynamic Booking Management Actions ---
+    function openBookingModal() {
+      const modal = document.getElementById('booking-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeBookingModal() {
+      const modal = document.getElementById('booking-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // Close booking modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeBookingModal();
+    });
+
+    function filterBookings() {
+      const searchVal = (document.getElementById('booking-search-input')?.value || '').toLowerCase().trim();
+      const classVal = (document.getElementById('booking-class-filter')?.value || '').toLowerCase().trim();
+      const statusVal = (document.getElementById('booking-status-filter')?.value || '').toUpperCase().trim();
+      const dateVal = document.getElementById('booking-date-filter')?.value || '';
+
+      const rows = document.querySelectorAll('#bookings-table-body tr.booking-data-row');
+      let visibleCount = 0;
+
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        const rowClass = (row.getAttribute('data-class') || '').toLowerCase();
+        const rowStatus = (row.getAttribute('data-status') || '').toUpperCase();
+        const rowDate = row.getAttribute('data-date') || '';
+
+        const matchesSearch = !searchVal || text.includes(searchVal);
+        const matchesClass = !classVal || rowClass.includes(classVal);
+        const matchesStatus = !statusVal || rowStatus === statusVal;
+        const matchesDate = !dateVal || rowDate.includes(dateVal);
+
+        if (matchesSearch && matchesClass && matchesStatus && matchesDate) {
+          row.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+
+      const countEl = document.getElementById('booking-results-count');
+      if (countEl) countEl.textContent = `Showing ${visibleCount} Bookings`;
+
+      const emptyEl = document.getElementById('booking-no-results');
+      if (emptyEl) {
+        if (visibleCount === 0) emptyEl.classList.remove('hidden');
+        else emptyEl.classList.add('hidden');
+      }
+    }
+
+    function resetBookingFilters() {
+      const searchInput = document.getElementById('booking-search-input');
+      const classFilter = document.getElementById('booking-class-filter');
+      const statusFilter = document.getElementById('booking-status-filter');
+      const dateFilter = document.getElementById('booking-date-filter');
+
+      if (searchInput) searchInput.value = '';
+      if (classFilter) classFilter.value = '';
+      if (statusFilter) statusFilter.value = '';
+      if (dateFilter) dateFilter.value = '';
+
+      filterBookings();
+    }
+
+    function updateBookingStatus(id) {
+      const row = document.getElementById('booking-row-' + id);
+      if (!row) return;
+      const statusBadge = row.querySelector('.booking-status-badge');
+      const currentStatus = (row.getAttribute('data-status') || '').toUpperCase();
+      
+      let nextStatus = 'CONFIRMED';
+      let nextHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">CONFIRMED</span>';
+
+      if (currentStatus === 'CONFIRMED') {
+        nextStatus = 'COMPLETED';
+        nextHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-zinc-500/15 text-zinc-400 border border-zinc-500/20">COMPLETED</span>';
+      } else if (currentStatus === 'COMPLETED') {
+        nextStatus = 'WAITLIST';
+        nextHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500/10 text-amber-500 border border-amber-500/20">WAITLIST</span>';
+      } else if (currentStatus === 'WAITLIST') {
+        nextStatus = 'CANCELLED';
+        nextHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-red-500/10 text-red-500 border border-red-500/20">CANCELLED</span>';
+      } else {
+        nextStatus = 'CONFIRMED';
+        nextHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">CONFIRMED</span>';
+      }
+
+      row.setAttribute('data-status', nextStatus);
+      if (statusBadge) statusBadge.innerHTML = nextHtml;
+      updateBookingStats();
+    }
+
+    function deleteBooking(id) {
+      const row = document.getElementById('booking-row-' + id);
+      if (row && confirm("Are you sure you want to cancel and remove this booking reservation?")) {
+        row.remove();
+        updateBookingStats();
+        filterBookings();
+      }
+    }
+
+    function updateBookingStats() {
+      const allRows = document.querySelectorAll('#bookings-table-body tr.booking-data-row');
+      let confirmed = 0;
+      let waitlist = 0;
+
+      allRows.forEach(r => {
+        const s = (r.getAttribute('data-status') || '').toUpperCase();
+        if (s === 'CONFIRMED') confirmed++;
+        if (s === 'WAITLIST') waitlist++;
+      });
+
+      const totalEl = document.getElementById('booking-stat-total');
+      const confEl = document.getElementById('booking-stat-confirmed');
+      const waitEl = document.getElementById('booking-stat-waitlist');
+
+      if (totalEl) totalEl.textContent = allRows.length;
+      if (confEl) confEl.textContent = confirmed;
+      if (waitEl) waitEl.textContent = waitlist;
+    }
+
+    function addBooking(e) {
+      e.preventDefault();
+      const member = document.getElementById('new-booking-member').value.trim();
+      const plan = document.getElementById('new-booking-plan').value;
+      const classCategory = document.getElementById('new-booking-class').value;
+      const coach = document.getElementById('new-booking-coach').value;
+      const schedule = document.getElementById('new-booking-schedule').value.trim();
+      const seat = document.getElementById('new-booking-seat').value.trim() || '1';
+      const status = document.getElementById('new-booking-status').value;
+
+      const newId = Date.now().toString().slice(-4);
+      const refId = `#BK-${newId}`;
+
+      let badgeHtml = '';
+      if (status === 'CONFIRMED') {
+        badgeHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">CONFIRMED</span>';
+      } else if (status === 'WAITLIST') {
+        badgeHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-amber-500/10 text-amber-500 border border-amber-500/20">WAITLIST</span>';
+      } else if (status === 'COMPLETED') {
+        badgeHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-zinc-500/15 text-zinc-400 border border-zinc-500/20">COMPLETED</span>';
+      } else {
+        badgeHtml = '<span class="px-2.5 py-1 rounded-full text-[10px] font-black bg-red-500/10 text-red-500 border border-red-500/20">CANCELLED</span>';
+      }
+
+      const initial = member.charAt(0).toUpperCase();
+
+      const newRow = `
+        <tr id="booking-row-${newId}" class="booking-data-row hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors" data-class="${classCategory}" data-status="${status}" data-date="">
+          <td class="p-3.5 text-gym-brand font-mono font-bold">${refId}</td>
+          <td class="p-3.5">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse">
+              <div class="w-8 h-8 rounded-full bg-gym-brand/10 text-gym-brand flex items-center justify-center font-black text-xs">${initial}</div>
+              <div>
+                <span class="block text-zinc-900 dark:text-white font-bold">${member}</span>
+                <span class="block text-[9px] text-zinc-400 font-semibold">${plan}</span>
+              </div>
+            </div>
+          </td>
+          <td class="p-3.5">
+            <span class="block text-zinc-900 dark:text-white font-bold">${classCategory}</span>
+            <span class="block text-[9px] text-zinc-400 font-semibold">${coach}</span>
+          </td>
+          <td class="p-3.5 text-zinc-700 dark:text-zinc-300 font-medium">${schedule}</td>
+          <td class="p-3.5 text-zinc-600 dark:text-zinc-400">Seat #${seat}</td>
+          <td class="p-3.5 booking-status-badge">
+            ${badgeHtml}
+          </td>
+          <td class="p-3.5 text-center">
+            <div class="inline-flex items-center space-x-2 rtl:space-x-reverse">
+              <button onclick="updateBookingStatus('${newId}')" title="Cycle Status" class="p-1.5 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
+              </button>
+              <button onclick="deleteBooking('${newId}')" title="Delete Booking" class="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-500 transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      `;
+
+      const tbody = document.getElementById('bookings-table-body');
+      if (tbody) tbody.insertAdjacentHTML('afterbegin', newRow);
+
+      closeBookingModal();
+      document.getElementById('new-booking-form').reset();
+      updateBookingStats();
+      filterBookings();
+      alert("New reservation successfully registered!");
+    }
+
+    function exportBookings() {
+      const rows = document.querySelectorAll('#bookings-table-body tr.booking-data-row');
+      let csv = "Booking ID,Member Name,Plan,Class Category,Coach,Schedule,Seat,Status\n";
+      
+      rows.forEach(r => {
+        const id = r.querySelector('td:nth-child(1)')?.innerText.trim() || '';
+        const member = r.querySelector('td:nth-child(2) span:nth-child(1)')?.innerText.trim() || '';
+        const plan = r.querySelector('td:nth-child(2) span:nth-child(2)')?.innerText.trim() || '';
+        const cls = r.querySelector('td:nth-child(3) span:nth-child(1)')?.innerText.trim() || '';
+        const coach = r.querySelector('td:nth-child(3) span:nth-child(2)')?.innerText.trim() || '';
+        const schedule = r.querySelector('td:nth-child(4)')?.innerText.trim() || '';
+        const seat = r.querySelector('td:nth-child(5)')?.innerText.trim() || '';
+        const status = r.getAttribute('data-status') || '';
+
+        csv += `"${id}","${member}","${plan}","${cls}","${coach}","${schedule}","${seat}","${status}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'gym-bookings-roster.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     }
   </script>
 </body>

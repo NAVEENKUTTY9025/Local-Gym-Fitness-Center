@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="images/favicon.png">
-  <title>Pulse Fit - Premium Gym & Fitness Center</title>
+  <title>Pulse Fit - Performance Matrix & Target Training</title>
   
   <!-- Google Fonts: Montserrat for athletic & modern styling -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -25,14 +25,16 @@
           },
           colors: {
             gym: {
-              brand: '#075e0a',       // Deep green
+              brand: '#075e0a',       // Deep athletic green
               brandHover: '#054b08',  // Hover deep green
-              darkBg: '#09090B',      // Zinc-950 dark background
-              darkCard: '#18181B',    // Zinc-900 card background
+              darkBg: '#000000',      // Pure black primary background
+              darkCard: '#121214',    // Dark grey card background
               darkBorder: '#27272A',  // Zinc-800 border
-              lightBg: '#FAFAFA',     // Neutral-50 light background
+              lightBg: '#FFFFFF',     // Pure white primary background
               lightCard: '#FFFFFF',   // Pure white card
               lightBorder: '#E5E5E5', // Light border
+              darkAlt: '#121214',     // Dark grey alternate section
+              lightAlt: '#F8F9FA',    // Light grey alternate section
             }
           }
         }
@@ -41,12 +43,10 @@
   </script>
 
   <style>
-    /* Prevent layout shift during theme loading */
     .theme-loading * {
       transition: none !important;
     }
 
-    /* Elegant custom scrollbar for mobile menu scroll area */
     .mobile-menu-scroll::-webkit-scrollbar {
       width: 6px;
     }
@@ -61,7 +61,6 @@
       background-color: rgba(75, 85, 99, 0.4);
     }
 
-    /* Global viewport layout reset to prevent horizontal scrolling */
     html, body {
       max-width: 100%;
       overflow-x: hidden;
@@ -74,106 +73,17 @@
       box-sizing: border-box;
     }
 
-    /* Responsive images */
     img {
       max-width: 100%;
       height: auto;
       display: block;
     }
 
-    /* Responsive Typography scaling for mobile-first design */
-    @media (min-width: 320px) {
-      .hero-title {
-        font-size: 1.875rem; /* 30px */
-        line-height: 2.25rem;
-      }
-      .hero-desc {
-        font-size: 0.875rem; /* 14px */
-        line-height: 1.375rem;
-      }
-    }
-    @media (min-width: 480px) {
-      .hero-title {
-        font-size: 2.25rem; /* 36px */
-        line-height: 2.5rem;
-      }
-      .hero-desc {
-        font-size: 1rem; /* 16px */
-        line-height: 1.5rem;
-      }
-    }
-    @media (min-width: 768px) {
-      .hero-title {
-        font-size: 3rem; /* 48px */
-        line-height: 3.25rem;
-      }
-      .hero-desc {
-        font-size: 1.125rem; /* 18px */
-        line-height: 1.75rem;
-      }
-    }
-    @media (min-width: 1024px) {
-      .hero-title {
-        font-size: 3.75rem; /* 60px */
-        line-height: 1.1;
-      }
-      .hero-desc {
-        font-size: 1.25rem; /* 20px */
-        line-height: 1.875rem;
-      }
-    }
-  
-    /* --- STRICT MOBILE RESPONSIVE SAFEGUARDS --- */
-    html {
-      font-size: 14px;
-    }
-    @media (min-width: 768px) {
-      html {
-        font-size: 15px;
-      }
-    }
-    @media (min-width: 1024px) {
-      html {
-        font-size: 16px;
-      }
-    }
-
-    /* Wrap long words to prevent overflow scrolling */
     p, span, h1, h2, h3, h4, h5, h6, a, button, label, input, select, textarea {
       overflow-wrap: break-word;
       word-break: break-word;
     }
 
-    /* Prevent horizontal scrolling on mobile */
-    html, body {
-      max-width: 100vw !important;
-      overflow-x: hidden !important;
-      box-sizing: border-box !important;
-    }
-
-    /* Mobile spacing optimizations */
-    @media (max-width: 480px) {
-      .py-20 {
-        padding-top: 3.5rem !important;
-        padding-bottom: 3.5rem !important;
-      }
-      .py-16 {
-        padding-top: 3rem !important;
-        padding-bottom: 3rem !important;
-      }
-      .py-12 {
-        padding-top: 2rem !important;
-        padding-bottom: 2rem !important;
-      }
-      .gap-12 {
-        gap: 1.75rem !important;
-      }
-      .gap-8 {
-        gap: 1.25rem !important;
-      }
-    }
-
-    /* Date input calendar picker icon contrast in dark theme */
     .dark input[type="date"] {
       color-scheme: dark;
     }
@@ -181,10 +91,153 @@
       filter: invert(1);
       cursor: pointer;
     }
+
+    /* --- DARK MODE PRIMARY COLOR CONTRAST ENHANCEMENTS (WCAG AAA) --- */
+    .dark .text-gym-brand {
+      color: #22c55e !important;
+    }
+    .dark .hover\:text-gym-brand:hover {
+      color: #4ade80 !important;
+    }
+    .dark .border-gym-brand {
+      border-color: #22c55e !important;
+    }
+    .dark .hover\:border-gym-brand:hover {
+      border-color: #4ade80 !important;
+    }
+    .dark .bg-gym-brand {
+      background-color: #16a34a !important;
+      color: #ffffff !important;
+    }
+    .dark .hover\:bg-gym-brand:hover,
+    .dark .hover\:bg-gym-brandHover:hover {
+      background-color: #15803d !important;
+    }
+    .dark .bg-gym-brand\/10 {
+      background-color: rgba(34, 197, 94, 0.12) !important;
+    }
+    .dark .bg-gym-brand\/15 {
+      background-color: rgba(34, 197, 94, 0.18) !important;
+    }
+    .dark .bg-gym-brand\/20 {
+      background-color: rgba(34, 197, 94, 0.22) !important;
+    }
+    .dark .border-gym-brand\/20 {
+      border-color: rgba(34, 197, 94, 0.25) !important;
+    }
+    .dark .border-gym-brand\/30 {
+      border-color: rgba(34, 197, 94, 0.35) !important;
+    }
+    .dark .border-gym-brand\/40 {
+      border-color: rgba(34, 197, 94, 0.45) !important;
+    }
+    .dark .shadow-gym-brand\/20,
+    .dark .shadow-gym-brand\/30 {
+      --tw-shadow-color: rgba(34, 197, 94, 0.35) !important;
+    }
+    .dark svg.text-gym-brand,
+    .dark .text-gym-brand svg {
+      color: #22c55e !important;
+    }
+    .dark .ring-gym-brand,
+    .dark .focus\:ring-gym-brand:focus {
+      --tw-ring-color: #22c55e !important;
+    }
+    .dark .focus\:border-gym-brand:focus {
+      border-color: #22c55e !important;
+    }
+
+    /* Fail-safe display rules for Theme Toggle Icons */
+    html.dark #theme-toggle-light-icon,
+    html.dark #mobile-theme-toggle-light-icon {
+      display: block !important;
+    }
+    html.dark #theme-toggle-dark-icon,
+    html.dark #mobile-theme-toggle-dark-icon {
+      display: none !important;
+    }
+    html:not(.dark) #theme-toggle-light-icon,
+    html:not(.dark) #mobile-theme-toggle-light-icon {
+      display: none !important;
+    }
+    html:not(.dark) #theme-toggle-dark-icon,
+    html:not(.dark) #mobile-theme-toggle-dark-icon {
+      display: block !important;
+    }
+
+    /* Bulletproof Dropdown Menu Styling */
+    .dropdown-parent {
+      position: relative;
+    }
+    .dropdown-menu {
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+      pointer-events: none;
+    }
+    /* Invisible hover bridge to eliminate the gap between button and menu */
+    .dropdown-menu::before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      left: 0;
+      right: 0;
+      height: 14px;
+      background: transparent;
+    }
+    /* When hovered, focused, or with .open class, show smoothly */
+    .dropdown-parent:hover .dropdown-menu,
+    .dropdown-parent.open .dropdown-menu,
+    .dropdown-parent:focus-within .dropdown-menu {
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      transform: scale(1) translateY(0) !important;
+    }
+    .dropdown-parent:hover .dropdown-arrow,
+    .dropdown-parent.open .dropdown-arrow,
+    .dropdown-parent:focus-within .dropdown-arrow {
+      transform: rotate(180deg) !important;
+    }
+
+    /* --- WCAG AAA PRIMARY, ALTERNATE & HIGHLIGHT PALETTES --- */
+    body {
+      background-color: #FFFFFF !important;
+    }
+    html.dark body {
+      background-color: #000000 !important;
+    }
+    .bg-gym-lightBg {
+      background-color: #FFFFFF !important;
+    }
+    html.dark .dark\:bg-gym-darkBg {
+      background-color: #000000 !important;
+    }
+    .bg-gym-lightCard {
+      background-color: #FFFFFF !important;
+    }
+    html.dark .dark\:bg-gym-darkCard {
+      background-color: #121214 !important;
+    }
+    .section-primary {
+      background-color: #FFFFFF !important;
+    }
+    html.dark .section-primary {
+      background-color: #000000 !important;
+    }
+    .section-alt {
+      background-color: #F8F9FA !important;
+    }
+    html.dark .section-alt {
+      background-color: #121214 !important;
+    }
+    .section-highlight {
+      background-color: rgba(7, 94, 10, 0.04) !important;
+    }
+    html.dark .section-highlight {
+      background-color: rgba(34, 197, 94, 0.08) !important;
+    }
   </style>
 
   <script>
-    // Inline blocking script to set theme & dir immediately to prevent page flash
     (function() {
       const savedTheme = localStorage.getItem('theme');
       const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -199,7 +252,6 @@
       document.documentElement.setAttribute('lang', savedDir === 'rtl' ? 'ar' : 'en');
     })();
   </script>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body class="bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 min-h-screen transition-colors duration-300 font-sans pt-20">
 
@@ -208,24 +260,17 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20 w-full">
         
-        <!-- COLUMN 1: LOGO (Left aligned in LTR, Right aligned in RTL) -->
+        <!-- COLUMN 1: LOGO -->
         <div class="flex-1 flex items-center justify-start">
           <a href="index.html" class="flex items-center space-x-2.5 rtl:space-x-reverse group">
-            <!-- Unique Barbell + ECG Pulse SVG Logo -->
             <div class="relative flex items-center justify-center text-gym-brand group-hover:scale-110 transition-transform duration-300">
               <svg class="w-9 h-9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Left Weight Plates -->
                 <rect x="2" y="9" width="1.5" height="6" rx="0.5" fill="currentColor" stroke="none"/>
                 <rect x="4.5" y="7" width="1.5" height="10" rx="0.5" fill="currentColor" stroke="none"/>
-                
-                <!-- Right Weight Plates -->
                 <rect x="18" y="7" width="1.5" height="10" rx="0.5" fill="currentColor" stroke="none"/>
                 <rect x="20.5" y="9" width="1.5" height="6" rx="0.5" fill="currentColor" stroke="none"/>
-                
-                <!-- Barbell Bar with ECG Heartbeat Pulse in the center -->
                 <path d="M6 12h3.5l1.5-4.5L12.5 17l1.5-11 1.5 7.5L18 12" />
               </svg>
-              <!-- Faint red glow behind the logo matching user's image style -->
               <span class="absolute w-6 h-6 rounded-full bg-gym-brand/20 blur-md opacity-70 group-hover:opacity-100 transition-opacity duration-300"></span>
             </div>
             <span class="text-xl font-extrabold tracking-tight text-zinc-950 dark:text-white transition-colors duration-300">
@@ -234,9 +279,8 @@
           </a>
         </div>
 
-        <!-- COLUMN 2: DESKTOP NAVIGATION MENU (Perfectly centered, reduced sizes) -->
+        <!-- COLUMN 2: DESKTOP NAVIGATION MENU -->
         <nav class="hidden xl:flex items-center justify-center space-x-0.5 xl:space-x-1.5 rtl:space-x-reverse flex-initial">
-          
           <!-- HOME DROPDOWN -->
           <div class="relative dropdown-parent">
             <button class="flex items-center space-x-1 rtl:space-x-reverse px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200 focus:outline-none" aria-haspopup="true">
@@ -247,26 +291,15 @@
             </button>
             <div class="absolute start-0 mt-2 w-44 rounded-xl shadow-xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder py-2 opacity-0 invisible scale-95 origin-top transition-all duration-200 z-50 dropdown-menu">
               <a href="./index.html" class="block px-4 py-2 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">Home 1</a>
-              <a href="./home 2.html" class="block px-4 py-2 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">Home 2</a>
+              <a href="./home 2.html" class="block px-4 py-2 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150 text-gym-brand font-black">Home 2</a>
             </div>
           </div>
 
-          <!-- ABOUT LINK -->
           <a href="./about.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">About</a>
-
-          <!-- CLASSES LINK -->
           <a href="./classes.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">Classes</a>
-
-          <!-- TRAINERS LINK -->
           <a href="./trainers.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">Trainers</a>
-
-          <!-- MEMBERSHIP PLANS LINK -->
           <a href="./membership.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">Membership Plans</a>
-
-          <!-- FACILITIES LINK -->
           <a href="./facilities.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">Facilities</a>
-
-          <!-- CONTACT LINK -->
           <a href="./contact.html" class="px-2.5 py-1.5 text-[13px] font-semibold rounded-lg hover:text-gym-brand dark:hover:text-gym-brand hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-200">Contact</a>
 
           <!-- DASHBOARD DROPDOWN -->
@@ -279,69 +312,54 @@
             </button>
             <div class="absolute start-0 mt-2 w-48 rounded-xl shadow-xl bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder py-2 opacity-0 invisible scale-95 origin-top transition-all duration-200 z-50 dropdown-menu">
               <a href="./admin.html" class="flex items-center px-4 py-2 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">
-                <svg class="w-3.5 h-3.5 me-2.5 text-gym-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                </svg>
+                <svg class="w-3.5 h-3.5 me-2.5 text-gym-brand" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                 Admin Dashboard
               </a>
               <a href="./user.html" class="flex items-center px-4 py-2 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors duration-150">
-                <svg class="w-3.5 h-3.5 me-2.5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                </svg>
+                <svg class="w-3.5 h-3.5 me-2.5 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                 User Dashboard
               </a>
             </div>
           </div>
-
         </nav>
 
-        <!-- COLUMN 3: UTILITIES & ACTIONS (Right aligned in LTR, Left aligned in RTL) -->
+        <!-- COLUMN 3: UTILITIES & ACTIONS -->
         <div class="flex-1 hidden xl:flex items-center justify-end space-x-2 rtl:space-x-reverse">
-          
-          <!-- Dark Mode Toggle Button (Desktop) -->
-          <button id="theme-toggle" class="p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-white transition-all duration-200 focus:outline-none" title="Toggle Dark/Light Mode" aria-label="Toggle dark mode">
-            <!-- Sun Icon (Show when dark) -->
-            <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+          <button id="theme-toggle" class="p-2.5 rounded-xl border border-gym-lightBorder dark:border-gym-darkBorder bg-zinc-100 dark:bg-zinc-800/80 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white transition-all duration-200 focus:outline-none flex items-center justify-center shadow-sm" title="Toggle Dark/Light Mode" aria-label="Toggle dark mode">
+            <svg id="theme-toggle-light-icon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
             </svg>
-            <!-- Moon Icon (Show when light) -->
-            <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <svg id="theme-toggle-dark-icon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
             </svg>
           </button>
 
-          <!-- RTL Direction Toggle Button (Icon Only) -->
-          <button id="rtl-toggle" class="p-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-white transition-all duration-200 focus:outline-none" title="Switch Page Direction (LTR/RTL)" aria-label="Toggle layout direction">
-            <!-- Split Arrow / Direction Switcher Icon -->
-            <svg class="w-5 h-5 text-zinc-500 dark:text-zinc-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <button id="rtl-toggle" class="p-2.5 rounded-xl border border-gym-lightBorder dark:border-gym-darkBorder bg-zinc-100 dark:bg-zinc-800/80 hover:bg-zinc-200 dark:hover:bg-zinc-700 text-zinc-700 dark:text-zinc-200 hover:text-zinc-950 dark:hover:text-white transition-all duration-200 focus:outline-none flex items-center justify-center shadow-sm" title="Switch Page Direction (LTR/RTL)" aria-label="Toggle layout direction">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
             </svg>
           </button>
 
-          <!-- Login CTA Button -->
           <a href="./login.html" class="relative inline-flex items-center justify-center px-5 py-2 text-sm font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-md hover:shadow-lg shadow-gym-brand/20 transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none overflow-hidden group">
             <span class="absolute right-0 w-8 h-32 -mt-12 transition-all duration-1000 transform translate-x-12 bg-white opacity-10 rotate-12 group-hover:-translate-x-40 ease"></span>
             <span>Login</span>
           </a>
         </div>
 
-        <!-- MOBILE CONTROLS & HAMBURGER (Visible on mobile/tablet/smaller viewports) -->
+        <!-- MOBILE CONTROLS -->
         <div class="flex items-center xl:hidden">
-          <!-- Mobile Hamburger Toggle -->
-          <button id="mobile-menu-toggle" class="p-2 rounded-lg text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-400 dark:focus:ring-zinc-500" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open primary navigation menu">
-            <!-- Icon Open -->
+          <button id="mobile-menu-toggle" class="p-2 rounded-lg text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 focus:outline-none" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open primary navigation menu">
             <svg id="hamburger-icon-open" class="w-6 h-6 block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
-            <!-- Icon Close -->
             <svg id="hamburger-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
@@ -351,27 +369,20 @@
       </div>
     </div>
 
-    <!-- MOBILE NAVIGATION MENU -->
-    <div id="mobile-menu" class="hidden xl:hidden absolute top-20 start-0 end-0 z-40 border-t border-gym-lightBorder dark:border-gym-darkBorder bg-gym-lightCard dark:bg-gym-darkCard transition-all duration-300 h-[calc(100dvh-80px)] flex flex-col animate-fade-in">
-      
-      <!-- Scrollable Links Container -->
+    <!-- MOBILE MENU DRAWER -->
+    <div id="mobile-menu" class="hidden xl:hidden absolute top-20 start-0 end-0 z-40 border-t border-gym-lightBorder dark:border-gym-darkBorder bg-gym-lightCard dark:bg-gym-darkCard transition-all duration-300 h-[calc(100dvh-80px)] flex flex-col">
       <div class="flex-1 overflow-y-auto mobile-menu-scroll px-4 pt-2 pb-4 space-y-2">
-        
-        <!-- Mobile Dropdown: Home -->
         <div>
           <button class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">
             <span>Home</span>
-            <svg class="w-4 h-4 transition-transform duration-200 mobile-dropdown-arrow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
-            </svg>
+            <svg class="w-4 h-4 transition-transform duration-200 mobile-dropdown-arrow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
           </button>
           <div class="mobile-dropdown-content hidden pl-6 rtl:pr-6 rtl:pl-0 mt-1 space-y-1 bg-zinc-50/50 dark:bg-zinc-900/50 rounded-lg">
             <a href="index.html" class="block px-4 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-gym-brand">Home 1</a>
-            <a href="home 2.html" class="block px-4 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-gym-brand">Home 2</a>
+            <a href="home 2.html" class="block px-4 py-2 text-sm font-medium text-gym-brand font-black">Home 2</a>
           </div>
         </div>
 
-        <!-- Other Static Mobile Links -->
         <a href="./about.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">About</a>
         <a href="./classes.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Classes</a>
         <a href="./trainers.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Trainers</a>
@@ -379,239 +390,475 @@
         <a href="./facilities.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Facilities</a>
         <a href="./contact.html" class="block px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">Contact</a>
 
-        <!-- Mobile Dropdown: Dashboard -->
         <div>
           <button class="mobile-dropdown-btn w-full flex items-center justify-between px-4 py-3 rounded-lg text-base font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-gym-brand transition-colors">
             <span>Dashboard</span>
-            <svg class="w-4 h-4 transition-transform duration-200 mobile-dropdown-arrow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
-            </svg>
+            <svg class="w-4 h-4 transition-transform duration-200 mobile-dropdown-arrow" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>
           </button>
           <div class="mobile-dropdown-content hidden pl-6 rtl:pr-6 rtl:pl-0 mt-1 space-y-1 bg-zinc-50/50 dark:bg-zinc-900/50 rounded-lg">
             <a href="./admin.html" class="block px-4 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-gym-brand">Admin Dashboard</a>
             <a href="./user.html" class="block px-4 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-gym-brand">User Dashboard</a>
           </div>
         </div>
-
       </div>
 
-      <!-- Fixed Bottom Action Controls (Theme, RTL, Login) -->
       <div class="border-t border-gym-lightBorder dark:border-gym-darkBorder bg-gym-lightCard dark:bg-gym-darkCard p-4 space-y-4">
         <div class="flex items-center justify-between gap-4">
-          <!-- Mobile Theme Toggle -->
-          <button id="mobile-theme-toggle" class="flex-1 flex items-center justify-center py-2.5 px-4 rounded-xl border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-white transition-all duration-200 focus:outline-none" aria-label="Toggle dark mode">
-            <!-- Sun Icon (Show when dark) -->
-            <svg id="mobile-theme-toggle-light-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-            <!-- Moon Icon (Show when light) -->
-            <svg id="mobile-theme-toggle-dark-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-            </svg>
+          <button id="mobile-theme-toggle" class="flex-1 flex items-center justify-center py-2.5 px-4 rounded-xl border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400" aria-label="Toggle dark mode">
+            <svg id="mobile-theme-toggle-light-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <svg id="mobile-theme-toggle-dark-icon" class="hidden w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
           </button>
-
-          <!-- Mobile RTL Direction Toggle (Icon Only) -->
-          <button id="mobile-rtl-toggle" class="flex-1 flex items-center justify-center py-2.5 px-4 rounded-xl border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-white transition-all duration-200 focus:outline-none" aria-label="Toggle layout direction">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
-            </svg>
+          <button id="mobile-rtl-toggle" class="flex-1 flex items-center justify-center py-2.5 px-4 rounded-xl border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400" aria-label="Toggle layout direction">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" /></svg>
           </button>
         </div>
-
-        <div class="flex flex-col">
-          <!-- Mobile Login -->
-          <a href="./login.html" class="w-full text-center py-3 text-base font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-md transition-all duration-300">
-            Login
-          </a>
-        </div>
+        <a href="./login.html" class="block w-full text-center py-3 text-base font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-md transition-all">Login</a>
       </div>
     </div>
   </header>
 
-  <!-- SECTION 1: GOAL TARGET SELECTION HERO (INTERACTIVE) -->
-  <section id="goal-hero" class="relative min-h-[90vh] flex items-center justify-center bg-zinc-950 text-white overflow-hidden py-20">
-    <img src="images/home2_hero.jpg" alt="Iron Ascension Gym Area" class="absolute inset-0 w-full h-full object-cover opacity-35" />
-    <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/25 to-transparent"></div>
+  <!-- SECTION 1: DYNAMIC COMMAND CENTER HERO (DISTINCT ASYMMETRICAL LAYOUT) -->
+  <section id="goal-hero" class="relative min-h-[80vh] flex items-center justify-center bg-zinc-950 text-white overflow-hidden py-16 lg:py-20 border-b border-zinc-800">
+    <div class="absolute inset-0 bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950"></div>
+    <div class="absolute top-1/4 start-10 w-96 h-96 bg-gym-brand/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 end-10 w-[500px] h-[500px] bg-emerald-950/20 rounded-full blur-[140px] pointer-events-none"></div>
     
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
-      <span class="inline-block bg-gym-brand text-xs font-black uppercase tracking-widest px-4 py-1.5 rounded-lg">Performance Matrix v2.0</span>
-      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight leading-none">
-        DEFINE YOUR <span class="text-gym-brand italic">TARGET</span>
-      </h1>
-      <p class="max-w-2xl mx-auto text-sm sm:text-base text-zinc-300 font-semibold leading-relaxed">
-        Select a primary track to customize your gym dashboard presentation. Toggle goals below.
-      </p>
-
-      <!-- Target Selection Buttons -->
-      <div class="flex flex-wrap justify-center gap-4 text-xs font-bold uppercase max-w-lg mx-auto">
-        <button onclick="selectGoal('strength')" id="btn-goal-strength" class="flex-1 min-w-[120px] py-3.5 px-6 rounded-xl border border-gym-brand bg-gym-brand/20 text-white hover:bg-gym-brand/35 transition-colors">
-          Strength Focus
-        </button>
-        <button onclick="selectGoal('cardio')" id="btn-goal-cardio" class="flex-1 min-w-[120px] py-3.5 px-6 rounded-xl border border-zinc-700 bg-zinc-900/60 text-zinc-400 hover:text-white transition-colors">
-          HIIT Cardio
-        </button>
-        <button onclick="selectGoal('movement')" id="btn-goal-movement" class="flex-1 min-w-[120px] py-3.5 px-6 rounded-xl border border-zinc-700 bg-zinc-900/60 text-zinc-400 hover:text-white transition-colors">
-          Yoga Movement
-        </button>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full space-y-12">
+      
+      <!-- TOP STATUS TICKER BAR -->
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-zinc-800/80 pb-6">
+        <div class="inline-flex items-center space-x-2.5 rtl:space-x-reverse px-4 py-2 bg-zinc-900/90 border border-zinc-800 rounded-full text-xs font-bold tracking-wider uppercase text-zinc-300 shadow-inner">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+          <span>LIVE MATRIX HUD: <span class="text-gym-brand font-black">74% CAPACITY</span> // OPTIMAL TRAINING WINDOW</span>
+        </div>
+        <div class="hidden sm:flex items-center space-x-6 rtl:space-x-reverse text-xs font-semibold text-zinc-400">
+          <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-gym-brand" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Eleiko Calibrated Decks</span>
+          <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-gym-brand" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> 38°F Chilled Hydro Plunge</span>
+          <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-gym-brand" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> CSCS Certified Mentors</span>
+        </div>
       </div>
 
-      <!-- Dynamic Goal Status Box -->
-      <div class="p-6 bg-zinc-900/80 border border-zinc-800 rounded-3xl max-w-xl mx-auto space-y-2">
-        <span id="goal-badge" class="inline-block px-3 py-1 bg-gym-brand/20 border border-gym-brand/40 text-[9px] font-black uppercase text-gym-brand rounded-md">Currently Selected: Strength Focus</span>
-        <p id="goal-desc" class="text-xs text-zinc-400 font-medium normal-case">
-          Accessing Eleiko powerlifting platforms, high-tonnage calibrated plates, custom squat stands, and individual loading records.
+      <!-- ASYMMETRIC SPLIT HERO GRID (COMMAND CENTER LAYOUT) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- COLUMN 1: EDITORIAL TYPOGRAPHY & INTERACTIVE TARGET DOCK (7 COLS) -->
+        <div class="lg:col-span-7 space-y-8">
+          
+          <div class="space-y-4">
+            <div class="inline-flex items-center space-x-2 rtl:space-x-reverse bg-gym-brand/20 border border-gym-brand/40 px-3.5 py-1.5 rounded-lg text-gym-brand font-black text-xs uppercase tracking-widest">
+              <span>Goal-Architected Training v2.5</span>
+            </div>
+            
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white leading-[1.05]">
+              ENGINEER YOUR <span class="text-gym-brand italic underline decoration-gym-brand/50 decoration-4 underline-offset-8">PHYSIQUE</span><br>
+              <span class="text-zinc-200">BY TARGET MODALITY</span>
+            </h1>
+            
+            <p class="text-sm sm:text-base text-zinc-300 font-medium leading-relaxed max-w-2xl">
+              Eliminate guesswork, random repetitions, and wasted effort. Select your kinetic objective to load calibrated barbell velocity tracking, reserved platform slots, and personalized biomechanical coach templates.
+            </p>
+          </div>
+
+          <!-- INTERACTIVE TARGET SELECTOR SWITCHER (PILL DOCK) -->
+          <div class="space-y-3">
+            <span class="text-xs font-black uppercase tracking-wider text-zinc-400 block">Select Your Active Performance Track:</span>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <!-- Track 1: Strength -->
+              <button onclick="selectGoal('strength')" id="btn-goal-strength" class="group p-4 rounded-2xl border-2 border-gym-brand bg-gym-brand/20 text-white text-start transition-all duration-300 hover:shadow-lg hover:shadow-gym-brand/20 space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-lg">🏋️</span>
+                  <span class="w-2 h-2 rounded-full bg-gym-brand"></span>
+                </div>
+                <span class="block text-xs font-black uppercase tracking-wide">Strength Track</span>
+                <span class="block text-[10px] text-zinc-300 font-medium">Eleiko Decks & Big 3</span>
+              </button>
+
+              <!-- Track 2: HIIT Cardio -->
+              <button onclick="selectGoal('cardio')" id="btn-goal-cardio" class="group p-4 rounded-2xl border border-zinc-700 bg-zinc-900/70 text-zinc-400 hover:text-white text-start transition-all duration-300 hover:border-amber-500/60 space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-lg">🔥</span>
+                  <span class="w-2 h-2 rounded-full bg-zinc-600 group-hover:bg-amber-400 transition-colors"></span>
+                </div>
+                <span class="block text-xs font-black uppercase tracking-wide">HIIT & Metabolic</span>
+                <span class="block text-[10px] text-zinc-400 font-medium">VO2 Max Sprints & Turf</span>
+              </button>
+
+              <!-- Track 3: Kinematics Flow -->
+              <button onclick="selectGoal('movement')" id="btn-goal-movement" class="group p-4 rounded-2xl border border-zinc-700 bg-zinc-900/70 text-zinc-400 hover:text-white text-start transition-all duration-300 hover:border-purple-500/60 space-y-1">
+                <div class="flex items-center justify-between">
+                  <span class="text-lg">🧘</span>
+                  <span class="w-2 h-2 rounded-full bg-zinc-600 group-hover:bg-purple-400 transition-colors"></span>
+                </div>
+                <span class="block text-xs font-black uppercase tracking-wide">Kinetic Flow</span>
+                <span class="block text-[10px] text-zinc-400 font-medium">Mobility & Yoga Studio</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- DUAL PROMINENT CALLS TO ACTION -->
+          <div class="pt-2 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center">
+            <a href="membership.html" class="inline-flex items-center justify-center space-x-2.5 rtl:space-x-reverse px-8 py-4 text-sm font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-xl shadow-gym-brand/30 transition-all duration-300 transform hover:-translate-y-0.5">
+              <span>Claim 7-Day All-Access Pass</span>
+              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+            </a>
+            <a href="#calorie-calculator-section" class="inline-flex items-center justify-center px-6 py-4 text-sm font-bold text-zinc-300 hover:text-white border border-zinc-700 hover:border-zinc-500 rounded-xl bg-zinc-900/70 hover:bg-zinc-800 transition-all">
+              <span>Calculate Daily Caloric Split</span>
+            </a>
+          </div>
+
+          <!-- MEMBER SOCIAL PROOF STRIP -->
+          <div class="pt-4 flex flex-wrap items-center gap-6 border-t border-zinc-800/60 text-xs font-medium text-zinc-400">
+            <div class="flex items-center -space-x-2 rtl:space-x-reverse">
+              <span class="inline-block w-8 h-8 rounded-full border-2 border-zinc-950 bg-emerald-700 text-white font-bold text-center leading-7 text-[10px]">AM</span>
+              <span class="inline-block w-8 h-8 rounded-full border-2 border-zinc-950 bg-blue-700 text-white font-bold text-center leading-7 text-[10px]">SJ</span>
+              <span class="inline-block w-8 h-8 rounded-full border-2 border-zinc-950 bg-amber-700 text-white font-bold text-center leading-7 text-[10px]">MV</span>
+              <span class="inline-block w-8 h-8 rounded-full border-2 border-zinc-950 bg-purple-700 text-white font-bold text-center leading-7 text-[10px]">+1.8k</span>
+            </div>
+            <div>
+              <div class="flex text-amber-400 text-xs">★★★★★</div>
+              <span class="text-[11px] font-bold text-zinc-300">4.9/5 Rating by 1,840+ Active Members</span>
+            </div>
+            <div class="hidden sm:block text-[11px] text-zinc-400 font-semibold border-s border-zinc-800 ps-4">
+              ✓ Zero Contract Locks • Free InBody 770 Scan Included
+            </div>
+          </div>
+
+        </div>
+
+        <!-- COLUMN 2: INTERACTIVE TARGET HUD CARD (5 COLS - DYNAMIC TERMINAL) -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative bg-zinc-900/90 border border-zinc-800 rounded-3xl p-6 sm:p-7 shadow-2xl space-y-6 overflow-hidden">
+            
+            <!-- Terminal Header -->
+            <div class="flex items-center justify-between border-b border-zinc-800 pb-4">
+              <div class="space-y-0.5">
+                <span class="text-[10px] font-black uppercase tracking-widest text-zinc-400">Target Telemetry Console</span>
+                <h3 id="goal-badge" class="text-lg font-black uppercase text-gym-brand">STRENGTH & POWERLIFTING</h3>
+              </div>
+              <span class="px-2.5 py-1 bg-gym-brand/20 border border-gym-brand/40 text-gym-brand text-[10px] font-black uppercase rounded-md tracking-wider">
+                ACTIVE TRACK
+              </span>
+            </div>
+
+            <!-- Dynamic Image Preview -->
+            <div class="relative h-56 rounded-2xl overflow-hidden border border-zinc-800 group">
+              <img id="goal-preview-img" src="images/activity_olympic.jpg" alt="Active Performance Track" class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105">
+              <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+              
+              <div class="absolute bottom-3 start-3 end-3 flex items-center justify-between text-white text-xs font-bold">
+                <span id="goal-preview-zone" class="bg-black/70 backdrop-blur-sm px-3 py-1 rounded-lg border border-zinc-700">
+                  Zone 01 // Eleiko Platform 04
+                </span>
+                <span class="text-emerald-400 text-[11px] flex items-center gap-1">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Deck Reserved
+                </span>
+              </div>
+            </div>
+
+            <!-- Dynamic Description -->
+            <p id="goal-desc" class="text-xs text-zinc-300 font-medium leading-relaxed">
+              Target progressive mechanical overload with IWF calibrated plates, specialized barbell collars, and velocity-transducer sensor feedback for maximal strength progression.
+            </p>
+
+            <!-- 4-Box Telemetry Gauges -->
+            <div class="grid grid-cols-2 gap-3 text-center">
+              <div class="p-3 bg-zinc-800/60 rounded-xl border border-zinc-700/50 space-y-0.5">
+                <span id="goal-metric-1-val" class="block text-base font-black text-gym-brand">ATP-CP</span>
+                <span id="goal-metric-1-lbl" class="block text-[9px] font-bold text-zinc-400 uppercase tracking-wider">Energy System</span>
+              </div>
+              <div class="p-3 bg-zinc-800/60 rounded-xl border border-zinc-700/50 space-y-0.5">
+                <span id="goal-metric-2-val" class="block text-base font-black text-white">Zone 4 (85-92%)</span>
+                <span id="goal-metric-2-lbl" class="block text-[9px] font-bold text-zinc-400 uppercase tracking-wider">Target Heart Rate</span>
+              </div>
+              <div class="p-3 bg-zinc-800/60 rounded-xl border border-zinc-700/50 space-y-0.5">
+                <span id="goal-metric-3-val" class="block text-base font-black text-white">650-800 kcal</span>
+                <span id="goal-metric-3-lbl" class="block text-[9px] font-bold text-zinc-400 uppercase tracking-wider">Burn / Session</span>
+              </div>
+              <div class="p-3 bg-zinc-800/60 rounded-xl border border-zinc-700/50 space-y-0.5">
+                <span id="goal-metric-4-val" class="block text-base font-black text-emerald-400">Coach Marcus</span>
+                <span id="goal-metric-4-lbl" class="block text-[9px] font-bold text-zinc-400 uppercase tracking-wider">Floor Specialist</span>
+              </div>
+            </div>
+
+            <!-- Fast Micro Action -->
+            <a href="membership.html#pricing-snippets" class="w-full py-3 bg-gym-brand hover:bg-gym-brandHover text-white rounded-xl text-xs font-black uppercase tracking-wider text-center flex items-center justify-center space-x-2 rtl:space-x-reverse transition-all shadow-md">
+              <span>Lock This Track With Free Day Pass</span>
+              <svg class="w-3.5 h-3.5 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- BOTTOM FLOATING EXPLORATION RIBBON (BRIDGING TO CORE SECTIONS) -->
+      <div class="pt-8 border-t border-zinc-800/80">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <a href="classes.html" class="p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-gym-brand hover:bg-zinc-900 transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-black uppercase text-gym-brand">01 // Programs</span>
+              <span class="text-zinc-500 group-hover:text-gym-brand transition-colors">&rarr;</span>
+            </div>
+            <h4 class="text-sm font-black uppercase text-white group-hover:text-gym-brand transition-colors">Class Timetable</h4>
+            <p class="text-[11px] text-zinc-400 font-medium">40+ weekly coach-guided workouts</p>
+          </a>
+
+          <a href="membership.html" class="p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-gym-brand hover:bg-zinc-900 transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-black uppercase text-gym-brand">02 // Pricing</span>
+              <span class="text-zinc-500 group-hover:text-gym-brand transition-colors">&rarr;</span>
+            </div>
+            <h4 class="text-sm font-black uppercase text-white group-hover:text-gym-brand transition-colors">Membership Tiers</h4>
+            <p class="text-[11px] text-zinc-400 font-medium">$39 to $99/mo transparent pricing</p>
+          </a>
+
+          <a href="facilities.html" class="p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-gym-brand hover:bg-zinc-900 transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-black uppercase text-gym-brand">03 // Spaces</span>
+              <span class="text-zinc-500 group-hover:text-gym-brand transition-colors">&rarr;</span>
+            </div>
+            <h4 class="text-sm font-black uppercase text-white group-hover:text-gym-brand transition-colors">Tour 6 Zones</h4>
+            <p class="text-[11px] text-zinc-400 font-medium">Eleiko decks, cryo saunas & turf</p>
+          </a>
+
+          <a href="#consult-booking" class="p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-gym-brand hover:bg-zinc-900 transition-all duration-300 group">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-black uppercase text-gym-brand">04 // Intake</span>
+              <span class="text-zinc-500 group-hover:text-gym-brand transition-colors">&rarr;</span>
+            </div>
+            <h4 class="text-sm font-black uppercase text-white group-hover:text-gym-brand transition-colors">Book Free Tour</h4>
+            <p class="text-[11px] text-zinc-400 font-medium">Complimentary InBody 770 scan</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 2: TOURNAMENT PODIUM SCOREBOARD -->
+  <section id="community-leaderboard" class="py-24 section-alt text-zinc-800 dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gym-lightBorder dark:border-gym-darkBorder pb-8">
+        <div class="space-y-2">
+          <div class="inline-flex items-center space-x-2 rtl:space-x-reverse text-gym-brand font-black text-xs uppercase tracking-widest">
+            <span class="w-2 h-2 rounded-full bg-gym-brand"></span>
+            <span>Real-Time Gym Telemetry</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase text-zinc-950 dark:text-white tracking-tight leading-none">
+            COMMUNITY <span class="text-gym-brand italic">PODIUM</span>
+          </h2>
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 max-w-xl font-medium">
+            Pulse Fit athletes push beyond personal limitations. Verified barbell velocity, metabolic output, and weekly consistency streaks.
+          </p>
+        </div>
+        
+        <div class="flex items-center gap-2">
+          <button onclick="switchBoardTab('tonnage')" id="board-tab-tonnage" class="px-4 py-2.5 text-xs font-black uppercase rounded-xl bg-gym-brand text-white shadow-sm transition-all">Big 3 Lifts</button>
+          <button onclick="switchBoardTab('burn')" id="board-tab-burn" class="px-4 py-2.5 text-xs font-bold uppercase rounded-xl bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:text-gym-brand transition-all">Metabolic Burn</button>
+          <button onclick="switchBoardTab('streaks')" id="board-tab-streaks" class="px-4 py-2.5 text-xs font-bold uppercase rounded-xl bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:text-gym-brand transition-all">Deck Streaks</button>
+        </div>
+      </div>
+
+      <!-- PODIUM DISPLAY -->
+      <div id="podium-container" class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+        <!-- 2nd Place Card (Silver) -->
+        <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 sm:p-8 space-y-4 shadow-md order-2 md:order-1 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 flex items-center justify-center font-black text-sm">#2</span>
+              <span class="text-xs font-bold text-zinc-400 uppercase tracking-widest">Silver Medal</span>
+            </div>
+            <div class="pt-2">
+              <h3 id="podium-2-name" class="text-xl font-black uppercase text-zinc-950 dark:text-white">Marcus Vance</h3>
+              <span id="podium-2-sub" class="text-xs text-zinc-400 font-medium">CSCS Coach // 12-Week Prep</span>
+            </div>
+          </div>
+          <div class="pt-4 border-t border-gym-lightBorder dark:border-gym-darkBorder flex items-center justify-between">
+            <span class="text-xs font-bold uppercase text-zinc-500">Recorded Metric:</span>
+            <span id="podium-2-val" class="text-2xl font-black text-zinc-900 dark:text-white">1,580 lbs</span>
+          </div>
+        </div>
+
+        <!-- 1st Place Card (Gold) -->
+        <div class="bg-gym-lightCard dark:bg-gym-darkCard border-2 border-gym-brand rounded-3xl p-8 sm:p-10 space-y-6 shadow-2xl relative order-1 md:order-2 md:-translate-y-4 flex flex-col justify-between overflow-hidden">
+          <div class="absolute top-0 end-0 bg-gym-brand text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-bl-2xl shadow">
+            Current Record
+          </div>
+          <div class="space-y-4">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse">
+              <span class="w-12 h-12 rounded-2xl bg-amber-400/20 border border-amber-400/40 text-amber-500 flex items-center justify-center font-black text-xl shadow-inner">🏆</span>
+              <div>
+                <span class="text-xs font-black uppercase text-gym-brand tracking-widest block">CHAMPION APEX</span>
+                <span class="text-xs text-zinc-400 font-bold uppercase">Weekly Hall of Fame</span>
+              </div>
+            </div>
+            <div>
+              <h3 id="podium-1-name" class="text-2xl sm:text-3xl font-black uppercase text-zinc-950 dark:text-white">Alex Mercer</h3>
+              <span id="podium-1-sub" class="text-xs text-zinc-400 font-medium">Software Architect // Eleiko Deck 04</span>
+            </div>
+          </div>
+          <div class="pt-6 border-t border-gym-lightBorder dark:border-gym-darkBorder flex items-center justify-between">
+            <span class="text-xs font-black uppercase text-gym-brand">Peak Score:</span>
+            <span id="podium-1-val" class="text-3xl sm:text-4xl font-black text-gym-brand">1,640 lbs</span>
+          </div>
+        </div>
+
+        <!-- 3rd Place Card (Bronze) -->
+        <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 sm:p-8 space-y-4 shadow-md order-3 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="w-8 h-8 rounded-full bg-amber-900/20 text-amber-600 flex items-center justify-center font-black text-sm">#3</span>
+              <span class="text-xs font-bold text-zinc-400 uppercase tracking-widest">Bronze Medal</span>
+            </div>
+            <div class="pt-2">
+              <h3 id="podium-3-name" class="text-xl font-black uppercase text-zinc-950 dark:text-white">Sarah Jenkins</h3>
+              <span id="podium-3-sub" class="text-xs text-zinc-400 font-medium">Powerlifting Track // Squat PR</span>
+            </div>
+          </div>
+          <div class="pt-4 border-t border-gym-lightBorder dark:border-gym-darkBorder flex items-center justify-between">
+            <span class="text-xs font-bold uppercase text-zinc-500">Recorded Metric:</span>
+            <span id="podium-3-val" class="text-2xl font-black text-zinc-900 dark:text-white">1,120 lbs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-6 sm:p-8 rounded-3xl bg-zinc-950 text-white border border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+        <div class="space-y-1 text-center sm:text-start">
+          <h4 class="text-lg font-black uppercase">Want your lifts or streaks on the live board?</h4>
+          <p class="text-xs text-zinc-400 font-medium">Download the Pulse Fit app and sync your bluetooth barbell bar or telemetry band during workout check-in.</p>
+        </div>
+        <a href="login.html" class="px-6 py-3.5 bg-gym-brand hover:bg-gym-brandHover text-white text-xs font-black uppercase tracking-wider rounded-xl transition-all whitespace-nowrap shadow-md">
+          Join Weekly Challenge
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 3: THE BIOMETRIC HUMAN PERFORMANCE LAB (BENTO GRID ARCHITECTURE) -->
+  <section id="biometric-vision" class="py-24 bg-zinc-950 text-white border-t border-zinc-800 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto space-y-4">
+        <div class="inline-flex items-center space-x-2 rtl:space-x-reverse bg-gym-brand/20 border border-gym-brand/40 px-3.5 py-1.5 rounded-lg text-gym-brand font-black text-xs uppercase tracking-widest">
+          <span>Cellular Respiration & Recovery</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight">
+          THE BIOMETRIC <span class="text-gym-brand italic">LABORATORY</span>
+        </h2>
+        <p class="text-sm text-zinc-400 font-medium leading-relaxed">
+          Fitness is not speculative art. We evaluate oxygen-carrying threshold capacities, motor unit recruitment, and lactate clearance to guarantee athletic longevity.
         </p>
       </div>
 
-      <div class="pt-4">
-        <a href="membership.html" class="inline-flex items-center justify-center px-8 py-4 text-sm font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-lg shadow-gym-brand/20 transition-all duration-300">
-          Unlock Membership Access
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 2: COMMUNITY ACHIEVEMENT LEADERBOARD -->
-  <section id="community-leaderboard" class="py-20 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-      <div class="text-center space-y-2">
-        <span class="text-xs font-bold text-gym-brand uppercase tracking-widest">Scoreboard</span>
-        <h2 class="text-3xl font-black text-zinc-950 dark:text-white uppercase leading-none">COMMUNITY CHALLENGES</h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Lead 1 -->
-        <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
-          <span class="text-[10px] font-black uppercase text-gym-brand tracking-widest">Strength (Squat/Bench/Dead)</span>
-          <h3 class="text-lg font-black uppercase text-zinc-900 dark:text-white">TOP TONNAGE LIFTS</h3>
-          <div class="space-y-3 text-xs font-semibold uppercase text-zinc-500">
-            <div class="flex justify-between border-b border-gym-lightBorder dark:border-gym-darkBorder pb-1.5">
-              <span class="text-zinc-900 dark:text-white font-bold">1. Alex Mercer</span>
-              <span>1,640 lbs</span>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        <!-- Large Console Card (7 cols) -->
+        <div class="lg:col-span-7 bg-zinc-900/90 border border-zinc-800 rounded-3xl p-8 sm:p-10 space-y-8 flex flex-col justify-between shadow-2xl">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-zinc-800 pb-4">
+              <span class="text-xs font-black uppercase text-gym-brand tracking-widest">Protocol Matrix</span>
+              <span class="text-xs font-bold text-zinc-400">Clinical Accuracy: 99.8%</span>
             </div>
-            <div class="flex justify-between border-b border-gym-lightBorder dark:border-gym-darkBorder pb-1.5">
-              <span class="text-zinc-900 dark:text-white font-bold">2. Marcus Vance</span>
-              <span>1,580 lbs</span>
+            <h3 class="text-2xl sm:text-3xl font-black uppercase">SCIENTIFIC PROGRESSION PROTOCOL</h3>
+            <p class="text-xs sm:text-sm text-zinc-300 font-medium leading-relaxed">
+              Every member receives an anatomical and kinetic evaluation. We measure joint degree angles, assess neuromuscular torque, and calculate metabolic recovery windows to eliminate injury risks.
+            </p>
+          </div>
+
+          <div class="p-6 bg-zinc-950 rounded-2xl border border-zinc-800 space-y-4">
+            <div class="flex items-center justify-between text-xs font-bold uppercase">
+              <span class="text-zinc-400">Anaerobic Threshold (VO2 Max vs Lactate Curve)</span>
+              <span class="text-emerald-400">Optimal Zone</span>
             </div>
-            <div class="flex justify-between">
-              <span class="text-zinc-900 dark:text-white font-bold">3. Sarah Jenkins</span>
-              <span>1,120 lbs</span>
+            
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-[11px] font-semibold text-zinc-400 mb-1">
+                  <span>Zone 2 Mitochondrial Density</span>
+                  <span class="text-white font-bold">132 - 144 BPM (70% Target)</span>
+                </div>
+                <div class="h-2.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-gym-brand rounded-full" style="width: 78%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-[11px] font-semibold text-zinc-400 mb-1">
+                  <span>Anaerobic Lactate Clearance</span>
+                  <span class="text-white font-bold">168 - 182 BPM (92% Redline)</span>
+                </div>
+                <div class="h-2.5 w-full bg-zinc-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-amber-500 rounded-full" style="width: 92%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-4 pt-4 border-t border-zinc-800 text-center">
+            <div>
+              <span class="block text-2xl font-black text-gym-brand">InBody 770</span>
+              <span class="text-[10px] font-bold text-zinc-400 uppercase">Body Composition</span>
+            </div>
+            <div>
+              <span class="block text-2xl font-black text-white">4K Optojump</span>
+              <span class="text-[10px] font-bold text-zinc-400 uppercase">Power Kinematics</span>
+            </div>
+            <div>
+              <span class="block text-2xl font-black text-cyan-400">38°F Plunge</span>
+              <span class="text-[10px] font-bold text-zinc-400 uppercase">Vascular Flush</span>
             </div>
           </div>
         </div>
 
-        <!-- Lead 2 -->
-        <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
-          <span class="text-[10px] font-black uppercase text-gym-brand tracking-widest">HIIT Cardio (Climb/Sprint)</span>
-          <h3 class="text-lg font-black uppercase text-zinc-900 dark:text-white">CALORIC METABOLIC BURN</h3>
-          <div class="space-y-3 text-xs font-semibold uppercase text-zinc-500">
-            <div class="flex justify-between border-b border-gym-lightBorder dark:border-gym-darkBorder pb-1.5">
-              <span class="text-zinc-900 dark:text-white font-bold">1. Elena Rostova</span>
-              <span>980 kcal / hr</span>
-            </div>
-            <div class="flex justify-between border-b border-gym-lightBorder dark:border-gym-darkBorder pb-1.5">
-              <span class="text-zinc-900 dark:text-white font-bold">2. John Sterling</span>
-              <span>940 kcal / hr</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-zinc-900 dark:text-white font-bold">3. Clara DuPont</span>
-              <span>890 kcal / hr</span>
-            </div>
+        <!-- 4-Stage Protocol Pipeline Card (5 cols) -->
+        <div class="lg:col-span-5 bg-zinc-900/90 border border-zinc-800 rounded-3xl p-8 sm:p-10 space-y-6 flex flex-col justify-between shadow-2xl">
+          <div class="space-y-2 border-b border-zinc-800 pb-4">
+            <span class="text-xs font-black uppercase text-gym-brand tracking-widest">4-Stage Pipeline</span>
+            <h3 class="text-xl font-black uppercase">THE ATHLETE PATHWAY</h3>
           </div>
-        </div>
 
-        <!-- Lead 3 -->
-        <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-6 shadow-md space-y-4">
-          <span class="text-[10px] font-black uppercase text-gym-brand tracking-widest">Zumba & Flow (Class Attendance)</span>
-          <h3 class="text-lg font-black uppercase text-zinc-900 dark:text-white">WEEKLY DECK STREAKS</h3>
-          <div class="space-y-3 text-xs font-semibold uppercase text-zinc-500">
-            <div class="flex justify-between border-b border-gym-lightBorder dark:border-gym-darkBorder pb-1.5">
-              <span class="text-zinc-900 dark:text-white font-bold">1. Clara DuPont</span>
-              <span>18 Classes</span>
+          <div class="space-y-4">
+            <div class="p-4 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-1">
+              <span class="text-gym-brand text-xs font-black block">01 // INTAKE & RESPIRATION SCREEN</span>
+              <p class="text-[11px] text-zinc-400 font-medium leading-relaxed">
+                Evaluation of anaerobic thresholds, resting heart rate, and mobility limitations.
+              </p>
             </div>
-            <div class="flex justify-between border-b border-gym-lightBorder dark:border-gym-darkBorder pb-1.5">
-              <span class="text-zinc-900 dark:text-white font-bold">2. John Sterling</span>
-              <span>15 Classes</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-zinc-900 dark:text-white font-bold">3. Alex Mercer</span>
-              <span>12 Classes</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- SECTION 3: FOUNDER'S VISION / BIOMETRIC LAB -->
-  <section id="biometric-vision" class="py-20 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <!-- Visual Left -->
-        <div class="lg:col-span-6 relative">
-          <div class="absolute inset-0 bg-gym-brand/5 rounded-3xl blur-3xl opacity-50"></div>
-          <div class="relative rounded-3xl overflow-hidden shadow-xl border border-gym-lightBorder dark:border-gym-darkBorder">
-            <img src="images/home2_vision.jpg" alt="Pulse Fit Coach at work" class="w-full h-[360px] object-cover">
+            <div class="p-4 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-1">
+              <span class="text-amber-400 text-xs font-black block">02 // KINETIC VECTORING & FORM</span>
+              <p class="text-[11px] text-zinc-400 font-medium leading-relaxed">
+                Computerized camera vector analysis on squat and deadlift platforms.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-1">
+              <span class="text-cyan-400 text-xs font-black block">03 // PROGRESSIVE OVERLOAD BLOCKS</span>
+              <p class="text-[11px] text-zinc-400 font-medium leading-relaxed">
+                App-synced compound tracking sheets with automated rep-in-reserve volume adjustments.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-1">
+              <span class="text-purple-400 text-xs font-black block">04 // CRYO-THERMAL RECOVERY</span>
+              <p class="text-[11px] text-zinc-400 font-medium leading-relaxed">
+                Alternating cold plunge and infrared dry sauna protocols to accelerate CNS recovery.
+              </p>
+            </div>
           </div>
-        </div>
-        <!-- Copy Right -->
-        <div class="lg:col-span-6 space-y-6">
-          <div class="space-y-2">
-            <span class="text-xs font-bold uppercase tracking-widest text-gym-brand">Lab telemetry</span>
-            <h2 class="text-3xl font-extrabold text-zinc-950 dark:text-white uppercase leading-none">THE SCIENTIFIC APPROACH</h2>
-            <p class="text-sm font-semibold text-zinc-400">Pacing Cellular Respiration & Heart rate limits</p>
-          </div>
-          <p class="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400 font-medium">
-            Pulse Fit was founded on a simple principle: fitness should be scientific, not speculative. We evaluate oxygen-carrying capacities, muscle fiber recruitment thresholds, and specific energy system pathways to optimize training volumes.
-          </p>
-          <ul class="text-xs font-bold uppercase space-y-2 text-zinc-700 dark:text-zinc-300">
-            <li class="flex items-center space-x-2 rtl:space-x-reverse">
-              <span class="w-1.5 h-1.5 rounded-full bg-gym-brand"></span>
-              <span>Zone 2 Mitochondrial Density Training</span>
-            </li>
-            <li class="flex items-center space-x-2 rtl:space-x-reverse">
-              <span class="w-1.5 h-1.5 rounded-full bg-gym-brand"></span>
-              <span>Anaerobic Lactate Clearance protocols</span>
-            </li>
-            <li class="flex items-center space-x-2 rtl:space-x-reverse">
-              <span class="w-1.5 h-1.5 rounded-full bg-gym-brand"></span>
-              <span>Dynamic Type IIa Fast-Twitch adaptations</span>
-            </li>
-          </ul>
+
+          <a href="#consult-booking" class="w-full py-3.5 bg-gym-brand hover:bg-gym-brandHover text-white rounded-xl text-xs font-black uppercase tracking-wider text-center transition-all shadow-md">
+            Schedule Lab Intake Assessment
+          </a>
         </div>
       </div>
 
-      <!-- Biometric Lab checkup roadmap -->
-      <div class="space-y-6">
-        <h3 class="text-lg font-black text-zinc-950 dark:text-white uppercase text-center sm:text-start">LAB PROTOCOL ROADMAP</h3>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
-          <div class="p-6 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-2xl shadow-sm space-y-2">
-            <span class="text-gym-brand text-xs block">01 // RESPIRATION SCREENING</span>
-            <p class="text-[10px] text-zinc-400 font-medium normal-case leading-relaxed">Evaluation of anaerobic thresholds and respiration metrics during initial fitness intake.</p>
-          </div>
-          <div class="p-6 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-2xl shadow-sm space-y-2">
-            <span class="text-gym-brand text-xs block">02 // INDIVIDUAL PROGRAMMING</span>
-            <p class="text-[10px] text-zinc-400 font-medium normal-case leading-relaxed">Establishment of specific progressive overload templates, sets, reps, and joint angle caps.</p>
-          </div>
-          <div class="p-6 bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-2xl shadow-sm space-y-2">
-            <span class="text-gym-brand text-xs block">03 // ACTIVE TELEMETRY</span>
-            <p class="text-[10px] text-zinc-400 font-medium normal-case leading-relaxed">Real-time syncing of heart rate bands, platform load variables, and recovery times inside the app.</p>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
   <!-- SECTION 4: INTERACTIVE CALORIE PACING CALCULATOR -->
-  <section id="calorie-calculator-section" class="py-20 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
+  <section id="calorie-calculator-section" class="py-20 section-highlight text-zinc-800 dark:text-zinc-200 transition-colors duration-300 border-t border-gym-brand/15 dark:border-gym-brand/20">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-8 sm:p-10 shadow-2xl space-y-6">
         <div class="text-center space-y-1">
@@ -620,15 +867,12 @@
           <p class="text-xs font-semibold text-zinc-400">Calculate estimated calories needed based on activity factors</p>
         </div>
 
-        <!-- Calculator Input Deck -->
         <div class="space-y-4 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <!-- Input 1: Weight -->
             <div class="space-y-2">
               <label>Weight (lbs)</label>
               <input type="number" id="calc-weight" value="160" class="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand" />
             </div>
-            <!-- Input 2: Activity Factor -->
             <div class="space-y-2">
               <label>Weekly Activity Factor</label>
               <select id="calc-activity" class="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-500">
@@ -639,20 +883,17 @@
             </div>
           </div>
 
-          <!-- Calculate Button -->
           <button onclick="calculateCalories()" class="w-full py-4 text-xs font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-md transition-all duration-300">
             Compute Caloric & Macronutrient Target
           </button>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
-            <!-- Result output -->
             <div class="p-5 bg-zinc-100 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-2xl text-center flex flex-col justify-center space-y-1">
               <span class="block text-[10px] text-zinc-400 tracking-wider">Estimated Maintenance Goal</span>
               <span id="calc-result" class="block text-2xl font-black text-gym-brand">2,400 kcal / day</span>
               <span class="block text-[9px] text-zinc-400 normal-case font-medium">This calculation is based on structural weight guidelines and base energy outputs.</span>
             </div>
 
-            <!-- Macronutrient breakdown targets -->
             <div class="p-5 bg-zinc-100 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-2xl space-y-3">
               <span class="block text-[10px] text-zinc-400 tracking-wider text-center">Suggested Macronutrient Breakdown</span>
               <div class="text-xs space-y-2">
@@ -676,8 +917,8 @@
     </div>
   </section>
 
-  <!-- SECTION 5: INTERACTIVE 360 FACILITIES EXPLORER (SPLIT INTERACTIVE TABS) -->
-  <section id="interactive-facilities" class="py-24 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
+  <!-- SECTION 5: INTERACTIVE 360 FACILITIES EXPLORER -->
+  <section id="interactive-facilities" class="py-24 section-alt text-zinc-800 dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-gym-lightBorder dark:border-gym-darkBorder pb-8">
@@ -699,9 +940,7 @@
         </a>
       </div>
 
-      <!-- Interactive Tab & Visual Layout -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-        
         <!-- Left Tab Buttons List -->
         <div class="lg:col-span-4 space-y-3 flex flex-col justify-between">
           <button onclick="switchFacilityTab('strength')" id="fac-tab-strength" class="w-full text-start p-5 rounded-2xl border-2 border-gym-brand bg-gym-brand/10 text-zinc-950 dark:text-white transition-all space-y-1">
@@ -789,12 +1028,11 @@
             </p>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- NEW SECTION: DATA-DRIVEN MEMBER TRANSFORMATIONS (CASE STUDIES) -->
+  <!-- SECTION 6: DATA-DRIVEN MEMBER TRANSFORMATIONS (CASE STUDIES) -->
   <section id="telemetry-transformations" class="py-24 bg-zinc-950 text-white relative overflow-hidden">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-16">
       
@@ -809,7 +1047,6 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
         <!-- Case 1 -->
         <div class="bg-zinc-900/90 border border-zinc-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl flex flex-col justify-between hover:border-gym-brand/40 transition-all">
           <div class="space-y-6">
@@ -824,7 +1061,6 @@
               <p class="text-xs font-medium text-zinc-400">Age 36 // Structural Overload Target</p>
             </div>
 
-            <!-- Telemetry Graph/Meters -->
             <div class="space-y-3 text-xs font-bold uppercase">
               <div>
                 <div class="flex justify-between text-[11px] mb-1">
@@ -872,7 +1108,6 @@
               <p class="text-xs font-medium text-zinc-400">Age 31 // Aerobic Threshold Target</p>
             </div>
 
-            <!-- Telemetry Graph/Meters -->
             <div class="space-y-3 text-xs font-bold uppercase">
               <div>
                 <div class="flex justify-between text-[11px] mb-1">
@@ -920,7 +1155,6 @@
               <p class="text-xs font-medium text-zinc-400">Age 45 // Kinetic Longevity Target</p>
             </div>
 
-            <!-- Telemetry Graph/Meters -->
             <div class="space-y-3 text-xs font-bold uppercase">
               <div>
                 <div class="flex justify-between text-[11px] mb-1">
@@ -953,12 +1187,12 @@
             <span class="text-gym-brand">Audited by Coach Alex</span>
           </div>
         </div>
-
       </div>
+
     </div>
   </section>
 
-  <!-- NEW SECTION: GOAL-ALIGNED EXERCISE & ACTIVITY MATRIX -->
+  <!-- SECTION 7: GOAL-ALIGNED EXERCISE & ACTIVITY MATRIX -->
   <section id="goal-activities" class="py-24 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       
@@ -981,7 +1215,6 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        
         <!-- Activity Card 1 -->
         <div class="activity-card strength bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl overflow-hidden shadow-md hover:border-gym-brand transition-all flex flex-col justify-between">
           <div class="relative h-48 overflow-hidden">
@@ -1069,12 +1302,12 @@
             <a href="classes.html" class="w-full py-2.5 text-center text-xs font-bold uppercase bg-zinc-100 dark:bg-zinc-800 hover:bg-gym-brand hover:text-white rounded-xl transition-all">Select Activity</a>
           </div>
         </div>
-
       </div>
+
     </div>
   </section>
 
-  <!-- SECTION 6: EXCLUSIVE ADD-ON OPTIONS PRICING -->
+  <!-- SECTION 8: EXCLUSIVE ADD-ON OPTIONS PRICING -->
   <section id="addon-pricing" class="py-20 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
       <div class="space-y-2">
@@ -1083,7 +1316,6 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-start">
-        <!-- Addon 1 -->
         <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4">
           <div class="space-y-2">
             <span class="text-xs font-bold uppercase text-zinc-400">Smoothie bar</span>
@@ -1091,7 +1323,6 @@
             <p class="text-[10px] text-zinc-400 leading-relaxed font-semibold">1 Daily recovery whey/vegan shake at the front desk counter.</p>
           </div>
         </div>
-        <!-- Addon 2 -->
         <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4">
           <div class="space-y-2">
             <span class="text-xs font-bold uppercase text-gym-brand">Platform reserve</span>
@@ -1099,7 +1330,6 @@
             <p class="text-[10px] text-zinc-400 leading-relaxed font-semibold">Lock squat platforms or bench decks ahead of peak hours.</p>
           </div>
         </div>
-        <!-- Addon 3 -->
         <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4">
           <div class="space-y-2">
             <span class="text-xs font-bold uppercase text-zinc-400">Massage voucher</span>
@@ -1107,7 +1337,6 @@
             <p class="text-[10px] text-zinc-400 leading-relaxed font-semibold">Single access pass to the high-pressure recovery hydro-beds.</p>
           </div>
         </div>
-        <!-- Addon 4 -->
         <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4">
           <div class="space-y-2">
             <span class="text-xs font-bold uppercase text-zinc-400">Coach spreadsheets</span>
@@ -1119,24 +1348,22 @@
     </div>
   </section>
 
-  <!-- SECTION 7: INSTANT CONSULT CALENDAR BOOKING -->
+  <!-- SECTION 9: INSTANT CONSULT CALENDAR BOOKING -->
   <section id="consult-booking" class="py-20 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl p-8 shadow-2xl space-y-6">
         <div class="text-center space-y-1">
           <span class="text-xs font-black text-gym-brand uppercase tracking-widest">Consult Calendar</span>
           <h2 class="text-2xl font-black text-zinc-950 dark:text-white uppercase">BOOK CONSULTATION TOUR</h2>
-          <p class="text-xs font-semibold text-zinc-400">Secure an administrative checkpoint to explore the spaces</p>
+          <p class="text-xs font-semibold text-zinc-400">Secure an administrative checkpoint to explore the spaces & InBody test</p>
         </div>
 
-        <form onsubmit="event.preventDefault(); alert('Consultation successfully scheduled! We will send you an email configuration.'); this.reset();" class="space-y-4 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
+        <form onsubmit="event.preventDefault(); alert('Consultation successfully scheduled! A team mentor will confirm your time slot.'); this.reset();" class="space-y-4 text-xs font-bold uppercase text-zinc-700 dark:text-zinc-300">
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <!-- Select 1: Date -->
             <div class="space-y-2">
               <label>Date Slot</label>
               <input type="date" required class="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-900 dark:text-white font-medium" />
             </div>
-            <!-- Select 2: Time -->
             <div class="space-y-2">
               <label>Hour Range</label>
               <select class="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-500">
@@ -1145,18 +1372,16 @@
                 <option>05:30 PM - 08:30 PM</option>
               </select>
             </div>
-            <!-- Select 3: Target Coach -->
             <div class="space-y-2">
               <label>Consult Lead</label>
               <select class="w-full px-4 py-3 bg-zinc-50 dark:bg-zinc-900/50 border border-gym-lightBorder dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand text-zinc-500">
-                <option>Admin Marcus</option>
-                <option>Coach Sarah</option>
-                <option>Support Staff</option>
+                <option>Admin Marcus (Strength)</option>
+                <option>Coach Sarah (HIIT & Cardio)</option>
+                <option>Coach Clara (Yoga & Recovery)</option>
               </select>
             </div>
           </div>
 
-          <!-- Submit -->
           <button type="submit" class="w-full py-4 text-xs font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-md transition-all duration-300">
             Confirm Consultation Reservation
           </button>
@@ -1165,7 +1390,7 @@
     </div>
   </section>
 
-  <!-- SECTION: REGIONAL CLUB NETWORK (BRANCHES & LOCATIONS) -->
+  <!-- SECTION 10: REGIONAL CLUB NETWORK -->
   <section id="locations-network" class="py-24 bg-gym-lightBg text-zinc-800 dark:bg-gym-darkBg dark:text-zinc-200 transition-colors duration-300 border-t border-gym-lightBorder dark:border-gym-darkBorder">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       
@@ -1189,7 +1414,6 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        
         <!-- Campus 1 -->
         <div class="bg-gym-lightCard dark:bg-gym-darkCard border border-gym-lightBorder dark:border-gym-darkBorder rounded-3xl overflow-hidden shadow-xl hover:border-gym-brand transition-all flex flex-col justify-between">
           <div>
@@ -1312,22 +1536,17 @@
             </a>
           </div>
         </div>
-
       </div>
+
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="bg-gym-lightCard dark:bg-gym-darkCard border-t border-gym-lightBorder dark:border-gym-darkBorder text-zinc-600 dark:text-zinc-400 transition-colors duration-300">
+  <footer class="bg-zinc-100/70 dark:bg-[#0A0A0A] border-t border-gym-lightBorder dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      
-      <!-- Top Grid: 4 Columns -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-        
-        <!-- Column 1: Brand & Socials -->
         <div class="space-y-6">
           <a href="./index.html" class="flex items-center space-x-2.5 rtl:space-x-reverse group">
-            <!-- Logo Icon (Mirroring Header) -->
             <div class="relative flex items-center justify-center text-gym-brand group-hover:scale-110 transition-transform duration-300">
               <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="2" y="9" width="1.5" height="6" rx="0.5" fill="currentColor" stroke="none"/>
@@ -1345,24 +1564,19 @@
           <p class="text-sm font-medium leading-relaxed text-zinc-500 dark:text-zinc-400">
             Premium strength training, cardio, and group fitness classes. Push your limits, track your progress, and join our elite fitness community today.
           </p>
-          <!-- Social Icons (Inline SVGs) -->
           <div class="flex items-center space-x-4 rtl:space-x-reverse">
-            <!-- Instagram -->
             <a href="#" class="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-gym-brand dark:text-zinc-400 dark:hover:text-gym-brand hover:scale-110 transition-all duration-200" aria-label="Instagram">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             </a>
-            <!-- Facebook -->
             <a href="#" class="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-gym-brand dark:text-zinc-400 dark:hover:text-gym-brand hover:scale-110 transition-all duration-200" aria-label="Facebook">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
             </a>
-            <!-- YouTube -->
             <a href="#" class="p-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-zinc-500 hover:text-gym-brand dark:text-zinc-400 dark:hover:text-gym-brand hover:scale-110 transition-all duration-200" aria-label="YouTube">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
             </a>
           </div>
         </div>
         
-        <!-- Column 2: Quick Links -->
         <div>
           <h3 class="text-sm font-bold tracking-wider text-zinc-900 dark:text-white uppercase mb-6">Explore</h3>
           <ul class="space-y-3.5">
@@ -1375,14 +1589,12 @@
           </ul>
         </div>
         
-        <!-- Column 3: Hours & Dashboards -->
         <div>
           <h3 class="text-sm font-bold tracking-wider text-zinc-900 dark:text-white uppercase mb-6">Information</h3>
           <div class="space-y-6">
             <ul class="space-y-3.5">
-              <li><a href="./admin-dashboard.html" class="text-sm font-medium hover:text-gym-brand transition-colors">Admin Dashboard</a></li>
-              <li><a href="./user-dashboard.html" class="text-sm font-medium hover:text-gym-brand transition-colors">User Dashboard</a></li>
-              <li><a href="./faq.html" class="text-sm font-medium hover:text-gym-brand transition-colors">FAQs</a></li>
+              <li><a href="./admin.html" class="text-sm font-medium hover:text-gym-brand transition-colors">Admin Dashboard</a></li>
+              <li><a href="./user.html" class="text-sm font-medium hover:text-gym-brand transition-colors">User Dashboard</a></li>
             </ul>
             <div class="space-y-2">
               <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white mb-2">Gym Hours</h4>
@@ -1392,7 +1604,6 @@
           </div>
         </div>
         
-        <!-- Column 4: Location & Newsletter -->
         <div class="space-y-6">
           <div>
             <h3 class="text-sm font-bold tracking-wider text-zinc-900 dark:text-white uppercase mb-6">Contact & Location</h3>
@@ -1404,88 +1615,153 @@
           </div>
           <div class="space-y-3">
             <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white mb-2">Newsletter</h4>
-            <form class="flex flex-col gap-2 w-full" onsubmit="event.preventDefault(); alert('Subscribed!');">
+            <form class="flex flex-col gap-2 w-full" onsubmit="event.preventDefault(); alert('Subscribed to Pulse Fit Matrix!');">
               <input type="email" placeholder="Your email" required class="w-full px-4 py-2.5 text-xs font-medium bg-zinc-100 dark:bg-zinc-800 border border-gym-brand/10 dark:border-gym-darkBorder rounded-xl focus:outline-none focus:ring-1 focus:ring-gym-brand transition-colors" />
               <button type="submit" class="w-full py-2.5 text-xs font-bold text-white bg-gym-brand hover:bg-gym-brandHover rounded-xl shadow-md transition-colors text-center">Subscribe</button>
             </form>
           </div>
         </div>
-
       </div>
 
-      <!-- Bottom Bar -->
       <div class="mt-16 pt-8 border-t border-gym-lightBorder dark:border-gym-darkBorder flex flex-col sm:flex-row items-center justify-between gap-4">
         <p class="text-xs font-medium text-zinc-500 dark:text-zinc-400 text-center sm:text-start">
           &copy; 2026 Pulse Fit. All rights reserved. Built with strength.
         </p>
         <div class="flex items-center space-x-6 rtl:space-x-reverse text-xs font-semibold">
-          <a href="./privacy.html" class="hover:text-gym-brand transition-colors">Privacy Policy</a>
-          <a href="./terms.html" class="hover:text-gym-brand transition-colors">Terms of Service</a>
+          <a href="./about.html" class="hover:text-gym-brand transition-colors">Privacy Policy</a>
+          <a href="./about.html" class="hover:text-gym-brand transition-colors">Terms of Service</a>
         </div>
       </div>
-
     </div>
   </footer>
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
-    // Goal target selector state manager
+    // Goal Target Interactive State Manager (Home 2 Hero Terminal)
+    const goalData = {
+      strength: {
+        badge: "STRENGTH & POWERLIFTING",
+        desc: "Target progressive mechanical overload with IWF calibrated plates, specialized barbell collars, and velocity-transducer sensor feedback for maximal strength progression.",
+        img: "images/activity_olympic.jpg",
+        zone: "Zone 01 // Eleiko Platform 04",
+        m1Val: "ATP-CP", m1Lbl: "Energy System",
+        m2Val: "Zone 4 (85-92%)", m2Lbl: "Target Heart Rate",
+        m3Val: "650-800 kcal", m3Lbl: "Burn / Session",
+        m4Val: "Coach Marcus", m4Lbl: "Floor Specialist"
+      },
+      cardio: {
+        badge: "HIIT & METABOLIC BURN",
+        desc: "Redline cardiorespiratory conditioning with Assault AirBikes, continuous sled drives, and explosive punch combinations for maximal post-exercise oxygen consumption.",
+        img: "images/class_hiit_cardio.jpg",
+        zone: "Zone 02 // 50m Athletic Turf",
+        m1Val: "Glycolytic", m1Lbl: "Energy System",
+        m2Val: "Zone 5 (90-100%)", m2Lbl: "Target Heart Rate",
+        m3Val: "850-1050 kcal", m3Lbl: "Burn / Session",
+        m4Val: "Coach Sarah", m4Lbl: "Conditioning Lead"
+      },
+      movement: {
+        badge: "KINETIC FLOW & MOBILITY",
+        desc: "Decompress spinal load, restore thoracic mobility, and activate parasympathetic tissue recovery on natural sprung oak decks under soft ambient architectural lighting.",
+        img: "images/class_yoga.jpg",
+        zone: "Zone 04 // Studio Oak Deck",
+        m1Val: "Oxidative", m1Lbl: "Energy System",
+        m2Val: "Zone 1 (<60%)", m2Lbl: "Target Heart Rate",
+        m3Val: "350-450 kcal", m3Lbl: "Burn / Session",
+        m4Val: "Coach Clara", m4Lbl: "Mobility Guide"
+      }
+    };
+
     function selectGoal(type) {
-      const badge = document.getElementById('goal-badge');
-      const desc = document.getElementById('goal-desc');
-      
+      const data = goalData[type];
+      if (!data) return;
+
+      document.getElementById('goal-badge').innerText = data.badge;
+      document.getElementById('goal-desc').innerText = data.desc;
+      document.getElementById('goal-preview-img').src = data.img;
+      document.getElementById('goal-preview-zone').innerText = data.zone;
+
+      document.getElementById('goal-metric-1-val').innerText = data.m1Val;
+      document.getElementById('goal-metric-1-lbl').innerText = data.m1Lbl;
+      document.getElementById('goal-metric-2-val').innerText = data.m2Val;
+      document.getElementById('goal-metric-2-lbl').innerText = data.m2Lbl;
+      document.getElementById('goal-metric-3-val').innerText = data.m3Val;
+      document.getElementById('goal-metric-3-lbl').innerText = data.m3Lbl;
+      document.getElementById('goal-metric-4-val').innerText = data.m4Val;
+      document.getElementById('goal-metric-4-lbl').innerText = data.m4Lbl;
+
       const btnStrength = document.getElementById('btn-goal-strength');
       const btnCardio = document.getElementById('btn-goal-cardio');
       const btnMovement = document.getElementById('btn-goal-movement');
-      
-      // Reset button styles
+
       [btnStrength, btnCardio, btnMovement].forEach(btn => {
-        btn.classList.remove('border-gym-brand', 'bg-gym-brand/20', 'text-white');
-        btn.classList.add('border-zinc-700', 'bg-zinc-900/60', 'text-zinc-400');
+        btn.className = "group p-4 rounded-2xl border border-zinc-700 bg-zinc-900/70 text-zinc-400 hover:text-white text-start transition-all duration-300 space-y-1";
       });
 
       if (type === 'strength') {
-        btnStrength.classList.add('border-gym-brand', 'bg-gym-brand/20', 'text-white');
-        btnStrength.classList.remove('border-zinc-700', 'bg-zinc-900/60', 'text-zinc-400');
-        badge.innerText = "Currently Selected: Strength Focus";
-        desc.innerText = "Accessing Eleiko powerlifting platforms, high-tonnage calibrated plates, custom squat stands, and individual loading records.";
+        btnStrength.className = "group p-4 rounded-2xl border-2 border-gym-brand bg-gym-brand/20 text-white text-start transition-all duration-300 hover:shadow-lg hover:shadow-gym-brand/20 space-y-1";
       } else if (type === 'cardio') {
-        btnCardio.classList.add('border-gym-brand', 'bg-gym-brand/20', 'text-white');
-        btnCardio.classList.remove('border-zinc-700', 'bg-zinc-900/60', 'text-zinc-400');
-        badge.innerText = "Currently Selected: HIIT Cardio";
-        desc.innerText = "Evaluate high-intensity circuit decks, metabolic climbers, air assault bikes, and real-time biometric telemetry tracking.";
+        btnCardio.className = "group p-4 rounded-2xl border-2 border-amber-500 bg-amber-500/20 text-white text-start transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/20 space-y-1";
       } else if (type === 'movement') {
-        btnMovement.classList.add('border-gym-brand', 'bg-gym-brand/20', 'text-white');
-        btnMovement.classList.remove('border-zinc-700', 'bg-zinc-900/60', 'text-zinc-400');
-        badge.innerText = "Currently Selected: Yoga Movement";
-        desc.innerText = "Access natural oak shock-absorbing floors, acoustic meditation controls, mobility bands, blocks, and posture coaches.";
+        btnMovement.className = "group p-4 rounded-2xl border-2 border-purple-500 bg-purple-500/20 text-white text-start transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 space-y-1";
       }
+    }
+
+    // Community Podium Switcher
+    const boardData = {
+      tonnage: {
+        c1Name: "Alex Mercer", c1Sub: "Software Architect // Eleiko Deck 04", c1Val: "1,640 lbs",
+        c2Name: "Marcus Vance", c2Sub: "CSCS Coach // 12-Week Prep", c2Val: "1,580 lbs",
+        c3Name: "Sarah Jenkins", c3Sub: "Powerlifting Track // Squat PR", c3Val: "1,120 lbs"
+      },
+      burn: {
+        c1Name: "Elena Rostova", c1Sub: "Hyrox Competitor // Sled Sprints", c1Val: "980 kcal/hr",
+        c2Name: "John Sterling", c2Sub: "HIIT Athlete // Assault Bike", c2Val: "940 kcal/hr",
+        c3Name: "Clara DuPont", c3Sub: "Cardio Mezzanine // Interval Run", c3Val: "890 kcal/hr"
+      },
+      streaks: {
+        c1Name: "Clara DuPont", c1Sub: "100% On-Time Check-Ins", c1Val: "18 Classes",
+        c2Name: "John Sterling", c2Sub: "Unbroken Workout Weeks", c2Val: "15 Classes",
+        c3Name: "Alex Mercer", c3Sub: "Recovery & Platform Consistency", c3Val: "12 Classes"
+      }
+    };
+
+    function switchBoardTab(tabKey) {
+      const data = boardData[tabKey];
+      if (!data) return;
+
+      document.getElementById('podium-1-name').innerText = data.c1Name;
+      document.getElementById('podium-1-sub').innerText = data.c1Sub;
+      document.getElementById('podium-1-val').innerText = data.c1Val;
+
+      document.getElementById('podium-2-name').innerText = data.c2Name;
+      document.getElementById('podium-2-sub').innerText = data.c2Sub;
+      document.getElementById('podium-2-val').innerText = data.c2Val;
+
+      document.getElementById('podium-3-name').innerText = data.c3Name;
+      document.getElementById('podium-3-sub').innerText = data.c3Sub;
+      document.getElementById('podium-3-val').innerText = data.c3Val;
+
+      ['tonnage', 'burn', 'streaks'].forEach(k => {
+        const btn = document.getElementById('board-tab-' + k);
+        if (k === tabKey) {
+          btn.className = "px-4 py-2.5 text-xs font-black uppercase rounded-xl bg-gym-brand text-white shadow-sm transition-all";
+        } else {
+          btn.className = "px-4 py-2.5 text-xs font-bold uppercase rounded-xl bg-zinc-200 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:text-gym-brand transition-all";
+        }
+      });
     }
 
     // Caloric Intake Calculator
     function calculateCalories() {
       const weight = parseFloat(document.getElementById('calc-weight').value) || 160;
       const activity = parseFloat(document.getElementById('calc-activity').value) || 15;
-      const resultText = document.getElementById('calc-result');
-      const carbsText = document.getElementById('macro-carbs');
-      const proteinsText = document.getElementById('macro-proteins');
-      const fatsText = document.getElementById('macro-fats');
-      
       const target = Math.round(weight * activity);
-      resultText.innerText = target.toLocaleString() + " kcal / day";
-      
-      // Compute macronutrients (Carbs: 45%, Protein: 30%, Fats: 25%)
-      const carbs = Math.round((target * 0.45) / 4);
-      const proteins = Math.round((target * 0.30) / 4);
-      const fats = Math.round((target * 0.25) / 9);
-      
-      carbsText.innerText = carbs + " g / day";
-      proteinsText.innerText = proteins + " g / day";
-      fatsText.innerText = fats + " g / day";
-    }
 
-    // Run script immediately since it is placed at the bottom of the body
-    
+      document.getElementById('calc-result').innerText = target.toLocaleString() + " kcal / day";
+      document.getElementById('macro-carbs').innerText = Math.round((target * 0.45) / 4) + " g / day";
+      document.getElementById('macro-proteins').innerText = Math.round((target * 0.30) / 4) + " g / day";
+      document.getElementById('macro-fats').innerText = Math.round((target * 0.25) / 9) + " g / day";
+    }
 
     // Interactive Facility 360 Tab Switcher
     const facilityData = {
@@ -1559,7 +1835,6 @@
       document.getElementById('fac-metric-4-lbl').innerText = data.m4Lbl;
       document.getElementById('fac-preview-desc').innerText = data.desc;
 
-      // Update button active styles
       ['strength', 'hydro', 'cardio', 'studio'].forEach(k => {
         const btn = document.getElementById('fac-tab-' + k);
         if (k === zoneKey) {
@@ -1593,194 +1868,121 @@
       });
     }
 
-    // Select main DOM elements
+    // Theme & RTL Toggles
     const themeToggleBtn = document.getElementById('theme-toggle');
     const mobileThemeToggleBtn = document.getElementById('mobile-theme-toggle');
-      
-      const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
-      const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
-      const mobileThemeLightIcon = document.getElementById('mobile-theme-toggle-light-icon');
-      const mobileThemeDarkIcon = document.getElementById('mobile-theme-toggle-dark-icon');
-      
-      const rtlToggleBtn = document.getElementById('rtl-toggle');
-      const mobileRtlToggleBtn = document.getElementById('mobile-rtl-toggle');
-      
-      const mobileMenuToggleBtn = document.getElementById('mobile-menu-toggle');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const hamburgerIconOpen = document.getElementById('hamburger-icon-open');
-      const hamburgerIconClose = document.getElementById('hamburger-icon-close');
+    const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+    const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+    const mobileThemeLightIcon = document.getElementById('mobile-theme-toggle-light-icon');
+    const mobileThemeDarkIcon = document.getElementById('mobile-theme-toggle-dark-icon');
+    
+    const rtlToggleBtn = document.getElementById('rtl-toggle');
+    const mobileRtlToggleBtn = document.getElementById('mobile-rtl-toggle');
+    
+    const mobileMenuToggleBtn = document.getElementById('mobile-menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerIconOpen = document.getElementById('hamburger-icon-open');
+    const hamburgerIconClose = document.getElementById('hamburger-icon-close');
 
-      // Helper function to update theme UI state
-      const updateThemeUI = (isDark) => {
-        if (isDark) {
-          themeToggleLightIcon.classList.remove('hidden');
-          themeToggleDarkIcon.classList.add('hidden');
-          mobileThemeLightIcon.classList.remove('hidden');
-          mobileThemeDarkIcon.classList.add('hidden');
+    const updateThemeUI = (isDark) => {
+      if (isDark) {
+        themeToggleLightIcon.classList.remove('hidden');
+        themeToggleDarkIcon.classList.add('hidden');
+        mobileThemeLightIcon.classList.remove('hidden');
+        mobileThemeDarkIcon.classList.add('hidden');
+      } else {
+        themeToggleLightIcon.classList.add('hidden');
+        themeToggleDarkIcon.classList.remove('hidden');
+        mobileThemeLightIcon.classList.add('hidden');
+        mobileThemeDarkIcon.classList.remove('hidden');
+      }
+    };
+
+    updateThemeUI(document.documentElement.classList.contains('dark'));
+
+    const toggleDarkMode = () => {
+      document.body.classList.add('theme-loading');
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      updateThemeUI(isDark);
+      setTimeout(() => document.body.classList.remove('theme-loading'), 100);
+    };
+
+    themeToggleBtn.addEventListener('click', toggleDarkMode);
+    mobileThemeToggleBtn.addEventListener('click', toggleDarkMode);
+
+    const toggleRTL = () => {
+      const currentDir = document.documentElement.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl';
+      document.documentElement.setAttribute('dir', currentDir);
+      document.documentElement.setAttribute('lang', currentDir === 'rtl' ? 'ar' : 'en');
+      localStorage.setItem('dir', currentDir);
+    };
+
+    rtlToggleBtn.addEventListener('click', toggleRTL);
+    mobileRtlToggleBtn.addEventListener('click', toggleRTL);
+
+    // Desktop Dropdowns
+    const dropdownParents = document.querySelectorAll('.dropdown-parent');
+    dropdownParents.forEach(parent => {
+      const btn = parent.querySelector('button');
+      if (!btn) return;
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = parent.classList.contains('open');
+        dropdownParents.forEach(other => {
+          if (other !== parent) other.classList.remove('open');
+        });
+        if (isOpen) {
+          parent.classList.remove('open');
         } else {
-          themeToggleLightIcon.classList.add('hidden');
-          themeToggleDarkIcon.classList.remove('hidden');
-          mobileThemeLightIcon.classList.add('hidden');
-          mobileThemeDarkIcon.classList.remove('hidden');
+          parent.classList.add('open');
         }
-      };
-
-      // Initial page state initialization
-      const isCurrentlyDark = document.documentElement.classList.contains('dark');
-      updateThemeUI(isCurrentlyDark);
-
-      // --- DARK MODE LOGIC ---
-      const toggleDarkMode = () => {
-        // Class-based theme transition
-        document.body.classList.add('theme-loading');
-        
-        const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        updateThemeUI(isDark);
-
-        setTimeout(() => {
-          document.body.classList.remove('theme-loading');
-        }, 100);
-      };
-
-      themeToggleBtn.addEventListener('click', toggleDarkMode);
-      mobileThemeToggleBtn.addEventListener('click', toggleDarkMode);
-
-      // --- RTL TOGGLE LOGIC ---
-      const toggleRTL = () => {
-        const currentDir = document.documentElement.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl';
-        document.documentElement.setAttribute('dir', currentDir);
-        document.documentElement.setAttribute('lang', currentDir === 'rtl' ? 'ar' : 'en');
-        localStorage.setItem('dir', currentDir);
-      };
-
-      rtlToggleBtn.addEventListener('click', toggleRTL);
-      mobileRtlToggleBtn.addEventListener('click', toggleRTL);
-
-      // --- DESKTOP DROPDOWN HANDLING ---
-      const dropdowns = document.querySelectorAll('.dropdown-parent');
-      
-      dropdowns.forEach(parent => {
-        const btn = parent.querySelector('button');
-        const menu = parent.querySelector('.dropdown-menu');
-        const arrow = parent.querySelector('.dropdown-arrow');
-
-        // Toggle on click
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          
-          // Close other open desktop menus
-          dropdowns.forEach(otherParent => {
-            if (otherParent !== parent) {
-              const otherMenu = otherParent.querySelector('.dropdown-menu');
-              const otherArrow = otherParent.querySelector('.dropdown-arrow');
-              otherMenu.classList.add('opacity-0', 'invisible', 'scale-95');
-              otherArrow.classList.remove('rotate-180');
-            }
-          });
-
-          // Toggle current menu
-          const isClosed = menu.classList.contains('invisible');
-          if (isClosed) {
-            menu.classList.remove('opacity-0', 'invisible', 'scale-95');
-            arrow.classList.add('rotate-180');
-          } else {
-            menu.classList.add('opacity-0', 'invisible', 'scale-95');
-            arrow.classList.remove('rotate-180');
-          }
-        });
-
-        // Optional hover interaction for desktop comfort
-        parent.addEventListener('mouseenter', () => {
-          menu.classList.remove('opacity-0', 'invisible', 'scale-95');
-          arrow.classList.add('rotate-180');
-        });
-
-        parent.addEventListener('mouseleave', () => {
-          menu.classList.add('opacity-0', 'invisible', 'scale-95');
-          arrow.classList.remove('rotate-180');
-        });
       });
+    });
 
-      // Close all dropdowns when clicking outside
-      document.addEventListener('click', () => {
-        dropdowns.forEach(parent => {
-          const menu = parent.querySelector('.dropdown-menu');
-          const arrow = parent.querySelector('.dropdown-arrow');
-          menu.classList.add('opacity-0', 'invisible', 'scale-95');
-          arrow.classList.remove('rotate-180');
-        });
-      });
+    document.addEventListener('click', () => {
+      dropdownParents.forEach(parent => parent.classList.remove('open'));
+    });
 
-      // --- MOBILE RESPONSIVE HAMBURGER MENU TOGGLE ---
-      mobileMenuToggleBtn.addEventListener('click', () => {
-        const isExpanded = mobileMenuToggleBtn.getAttribute('aria-expanded') === 'true';
-        mobileMenuToggleBtn.setAttribute('aria-expanded', !isExpanded);
-        
-        if (isExpanded) {
-          mobileMenu.classList.add('hidden');
-          hamburgerIconOpen.classList.remove('hidden');
-          hamburgerIconClose.classList.add('hidden');
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        dropdownParents.forEach(parent => parent.classList.remove('open'));
+      }
+    });
+
+    // Mobile Hamburger Toggle
+    mobileMenuToggleBtn.addEventListener('click', () => {
+      const isExpanded = mobileMenuToggleBtn.getAttribute('aria-expanded') === 'true';
+      mobileMenuToggleBtn.setAttribute('aria-expanded', !isExpanded);
+      if (isExpanded) {
+        mobileMenu.classList.add('hidden');
+        hamburgerIconOpen.classList.remove('hidden');
+        hamburgerIconClose.classList.add('hidden');
+      } else {
+        mobileMenu.classList.remove('hidden');
+        hamburgerIconOpen.classList.add('hidden');
+        hamburgerIconClose.classList.remove('hidden');
+      }
+    });
+
+    // Mobile Submenus
+    document.querySelectorAll('.mobile-dropdown-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const arrow = btn.querySelector('.mobile-dropdown-arrow');
+        const content = btn.nextElementSibling;
+        if (!content) return;
+        const isHidden = content.classList.contains('hidden');
+        if (isHidden) {
+          content.classList.remove('hidden');
+          if (arrow) arrow.classList.add('rotate-180');
         } else {
-          mobileMenu.classList.remove('hidden');
-          hamburgerIconOpen.classList.add('hidden');
-          hamburgerIconClose.classList.remove('hidden');
+          content.classList.add('hidden');
+          if (arrow) arrow.classList.remove('rotate-180');
         }
       });
-
-      // --- MOBILE SUB-MENU DROPDOWN INTERACTION ---
-      const mobileDropdownBtns = document.querySelectorAll('.mobile-dropdown-btn');
-      
-      mobileDropdownBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const arrow = btn.querySelector('.mobile-dropdown-arrow');
-          const content = btn.nextElementSibling;
-          
-          const isHidden = content.classList.contains('hidden');
-          
-          if (isHidden) {
-            content.classList.remove('hidden');
-            arrow.classList.add('rotate-180');
-          } else {
-            content.classList.add('hidden');
-            arrow.classList.remove('rotate-180');
-          }
-        });
-      });
-
-      // --- DYNAMIC ACTIVE PAGE NAVBAR HIGHLIGHT ---
-      (function() {
-        const activePath = decodeURIComponent(window.location.pathname.split('/').pop()) || 'index.html';
-        const navLinks = document.querySelectorAll('header nav a, #mobile-menu a');
-        let homeActive = false;
-        
-        navLinks.forEach(link => {
-          const href = link.getAttribute('href');
-          if (!href) return;
-          
-          const cleanHref = href.replace(/^\.\//, '').split('?')[0];
-          
-          if (cleanHref === activePath) {
-            link.classList.add('text-gym-brand', 'font-black');
-            link.classList.remove('hover:text-gym-brand');
-            
-            if (cleanHref === 'index.html' || cleanHref === 'home 2.html') {
-              homeActive = true;
-            }
-          }
-        });
-        
-        if (homeActive) {
-          const desktopHomeBtn = document.querySelector('.dropdown-parent button');
-          if (desktopHomeBtn) {
-            desktopHomeBtn.classList.add('text-gym-brand', 'font-black');
-          }
-          const mobileHomeBtn = document.querySelector('.mobile-dropdown-btn');
-          if (mobileHomeBtn) {
-            mobileHomeBtn.classList.add('text-gym-brand', 'font-black');
-          }
-        }
-      })();
+    });
   </script>
 </body>
 </html>
